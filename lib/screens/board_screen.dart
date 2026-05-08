@@ -4,8 +4,10 @@ import '../models/arrow.dart';
 import '../models/opening_status.dart';
 import '../providers/board_provider.dart';
 import '../providers/opening_provider.dart';
+import '../providers/engine_provider.dart';
 import '../widgets/board/chess_board_widget.dart';
 import '../widgets/banner_overlay.dart';
+import '../widgets/eval_bar.dart';
 
 final _explanationsOpenProvider = StateProvider<bool>((ref) => false);
 
@@ -54,9 +56,40 @@ class BoardScreen extends ConsumerWidget {
             status: boardState.status,
             openingName: opening?.name ?? '',
           ),
-          const Expanded(
-            child: Center(
-              child: ChessBoardWidget(),
+          Expanded(
+            child: Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: ref.watch(engineEvaluationProvider).when(
+                    data: (_) {
+                      final eval = ref.watch(engineStateProvider);
+                      return EvalBar(eval: eval);
+                    },
+                    loading: () => const SizedBox(
+                      width: 24,
+                      child: Center(
+                        child: SizedBox(
+                          width: 16,
+                          height: 16,
+                          child: CircularProgressIndicator(strokeWidth: 2),
+                        ),
+                      ),
+                    ),
+                    error: (_, __) => SizedBox(
+                      width: 24,
+                      child: Container(
+                        color: Colors.grey.shade200,
+                      ),
+                    ),
+                  ),
+                ),
+                const Expanded(
+                  child: Center(
+                    child: ChessBoardWidget(),
+                  ),
+                ),
+              ],
             ),
           ),
           if (panelOpen)
