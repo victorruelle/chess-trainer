@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
 
-// Stockfish is not available on web, only on native platforms
-import 'package:stockfish/stockfish.dart' show Stockfish;
+// Deferred import for Stockfish (native platforms only)
+import 'package:stockfish/stockfish.dart' deferred as stockfish_lib;
 
 class EngineEval {
   final double score; // pawns, positive = White advantage
@@ -31,7 +31,7 @@ class EngineEval {
 /// Fires onEval callbacks as info lines arrive so the UI updates in real-time.
 /// On web platform, the engine is not available and init() will return early.
 class StockfishService {
-  late Stockfish? _engine;
+  dynamic _engine; // Stockfish type on native, null on web
   StreamSubscription<String>? _sub;
   void Function(EngineEval)? _onUpdate;
   int _searchDepth = 0;
@@ -47,7 +47,9 @@ class StockfishService {
       return;
     }
     try {
-      _engine = Stockfish();
+      // Load the deferred stockfish library on native platforms
+      await stockfish_lib.loadLibrary();
+      _engine = stockfish_lib.Stockfish();
       // Wait until engine signals readyok
       await _engine!.stdout
           .firstWhere((l) => l.contains('readyok'))
