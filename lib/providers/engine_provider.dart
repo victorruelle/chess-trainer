@@ -2,31 +2,74 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../services/stockfish_service.dart';
 import 'board_provider.dart';
 
-final stockfishServiceProvider = Provider<StockfishService>((ref) {
-  return StockfishService();
-});
+// ── Engine state ──────────────────────────────────────────────────────────────
 
-final engineStateProvider = StateProvider<EngineEval?>((ref) => null);
-final engineDepthProvider = StateProvider<int>((ref) => 0);
+class EngineState {
+  final EngineEval? eval;
+  final bool isReady;
+  final bool isSearching;
 
-// Initialize Stockfish on app startup
-final engineInitProvider = FutureProvider<void>((ref) async {
-  final service = ref.watch(stockfishServiceProvider);
-  await service.init();
-});
+  const EngineState({
+    this.eval,
+    this.isReady = false,
+    this.isSearching = false,
+  });
 
-// Trigger engine evaluation when board FEN changes
-final engineEvaluationProvider = FutureProvider<void>((ref) async {
-  await ref.watch(engineInitProvider.future);
+  EngineState copyWith({EngineEval? eval, bool? isReady, bool? isSearching}) =>
+      EngineState(
+        eval: eval ?? this.eval,
+        isReady: isReady ?? this.isReady,
+        isSearching: isSearching ?? this.isSearching,
+      );
+}
 
-  final boardState = ref.watch(boardProvider);
-  final service = ref.watch(stockfishServiceProvider);
+// ── Notifier ──────────────────────────────────────────────────────────────────
 
-  // Evaluate position with depth 18 (adjust as needed for performance)
-  final eval = await service.evaluatePosition(boardState.fen, depth: 18);
+class EngineNotifier extends Notifier<EngineState> {
+  late final StockfishService _service;
 
-  if (eval != null) {
-    ref.read(engineStateProvider.notifier).state = eval;
-    ref.read(engineDepthProvider.notifier).state = eval.depth;
+  @override
+  EngineState build() {
+    _service = StockfishService();
+
+    // Kick off init asynchronously; state will update when ready
+    _initAndListen();
+
+    ref.onDispose(_service.dispose);
+
+    return const EngineState();
   }
-});
+
+  Future<void> _initAndListen() async {
+    await _service.init();
+    if (!_service.isReady) return;
+
+    state = state.copyWith(isReady: true);
+
+    // Watch board FEN — re-evaluate every time a move is played
+    ref.listen(boardProvider.select((s) => s.fen), (prev, next) {
+      if (prev != next) _evaluate(next);
+    });
+
+    // Evaluate the starting position immediately
+    _evaluate(ref.read(boardProvider).fen);
+  }
+
+  void _evaluate(String fen) {
+    state = state.copyWith(isSearching: true);
+    _service.evaluate(
+      fen,
+      depth: 20,
+      onUpdate: (eval) {
+        state = state.copyWith(eval: eval, isSearching: true);
+      },
+    );
+  }
+
+  void stop() => _service.stop();
+}
+
+// ── Provider ──────────────────────────────────────────────────────────────────
+
+final engineProvider =
+    NotifierProvider<EngineNotifier, EngineState>(EngineNotifier.new);

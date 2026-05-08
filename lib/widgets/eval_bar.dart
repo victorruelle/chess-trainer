@@ -1,91 +1,121 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import '../services/stockfish_service.dart';
 
 class EvalBar extends StatelessWidget {
   final EngineEval? eval;
-  final double height;
+  final bool isReady;
 
-  const EvalBar({
-    super.key,
-    this.eval,
-    this.height = 300,
-  });
+  const EvalBar({super.key, this.eval, this.isReady = false});
+
+  /// Maps engine score (pawns) to a 0–1 fraction for the white portion.
+  /// Uses tanh so +5 ≈ 87%, -5 ≈ 13%, 0 = 50%.  Mirrors Lichess's bar scale.
+  double _whiteFraction(double score) {
+    final s = score.clamp(-15.0, 15.0);
+    return 0.5 + 0.5 * (2 / pi) * atan(s / 3.0);
+  }
 
   @override
   Widget build(BuildContext context) {
-    if (eval == null) {
+    return LayoutBuilder(builder: (context, constraints) {
+      final height = constraints.maxHeight;
+
       return SizedBox(
-        width: 24,
+        width: 22,
         height: height,
-        child: Container(
-          color: Colors.grey.shade200,
-          child: const Center(
-            child: SizedBox(
-              width: 20,
-              height: 20,
-              child: CircularProgressIndicator(strokeWidth: 2),
+        child: Column(
+          children: [
+            // Score label at very top
+            _ScoreLabel(eval: eval),
+            // The bar itself
+            Expanded(
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(3),
+                child: _buildBar(height - 24),
+              ),
             ),
+            // Depth label at bottom
+            _DepthLabel(eval: eval, isReady: isReady),
+          ],
+        ),
+      );
+    });
+  }
+
+  Widget _buildBar(double height) {
+    if (!isReady || eval == null) {
+      return Container(
+        color: Colors.grey.shade300,
+        child: const Center(
+          child: SizedBox(
+            width: 12,
+            height: 12,
+            child: CircularProgressIndicator(strokeWidth: 1.5),
           ),
         ),
       );
     }
 
-    // Calculate proportions: eval > 0 = White winning, eval < 0 = Black winning
-    // Clamp to -10 to +10 for visual purposes
-    final clampedEval = eval!.score.clamp(-10.0, 10.0);
-    final midpoint = (10 + clampedEval) / 20; // 0 to 1, where 0.5 is equal
+    final whiteFrac = _whiteFraction(eval!.score);
 
+    return Stack(
+      children: [
+        // Black fills everything
+        Container(color: const Color(0xFF2C2C2C)),
+        // White fills from the top
+        FractionallySizedBox(
+          alignment: Alignment.topCenter,
+          heightFactor: whiteFrac,
+          child: Container(color: Colors.white),
+        ),
+        // Centre line
+        Align(
+          alignment: const Alignment(0, 0),
+          child: Container(height: 1, color: Colors.grey.shade500),
+        ),
+      ],
+    );
+  }
+}
+
+class _ScoreLabel extends StatelessWidget {
+  final EngineEval? eval;
+  const _ScoreLabel({this.eval});
+
+  @override
+  Widget build(BuildContext context) {
+    final text = eval?.display ?? '…';
     return SizedBox(
-      width: 24,
-      height: height,
-      child: Stack(
-        children: [
-          // White section (top)
-          Container(
-            height: height * midpoint,
-            color: Colors.white,
-            child: const SizedBox.expand(),
+      height: 18,
+      child: FittedBox(
+        child: Text(
+          text,
+          style: const TextStyle(
+            fontSize: 10,
+            fontWeight: FontWeight.w700,
+            color: Colors.black87,
           ),
-          // Black section (bottom)
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            height: height * (1 - midpoint),
-            child: Container(
-              color: Colors.grey.shade800,
-            ),
-          ),
-          // Border
-          Container(
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey.shade400, width: 1),
-            ),
-          ),
-          // Score and depth text
-          Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  eval.toString(),
-                  style: const TextStyle(
-                    fontSize: 11,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black54,
-                  ),
-                ),
-                Text(
-                  'd${eval!.depth}',
-                  style: const TextStyle(
-                    fontSize: 9,
-                    color: Colors.black45,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
+        ),
+      ),
+    );
+  }
+}
+
+class _DepthLabel extends StatelessWidget {
+  final EngineEval? eval;
+  final bool isReady;
+  const _DepthLabel({this.eval, required this.isReady});
+
+  @override
+  Widget build(BuildContext context) {
+    final text = eval != null ? 'd${eval!.depth}' : (isReady ? 'd—' : '…');
+    return SizedBox(
+      height: 16,
+      child: FittedBox(
+        child: Text(
+          text,
+          style: TextStyle(fontSize: 9, color: Colors.grey.shade600),
+        ),
       ),
     );
   }

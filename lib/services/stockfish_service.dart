@@ -1,136 +1,113 @@
+import 'dart:async';
 import 'package:stockfish/stockfish.dart';
 
 class EngineEval {
-  final double score; // in pawns, positive = White advantage
+  final double score; // pawns, positive = White advantage
   final int depth;
-  final String? bestMove;
-  final List<String> pv; // principal variation
+  final String? bestMove; // UCI format e.g. "e2e4"
 
   const EngineEval({
     required this.score,
     required this.depth,
     this.bestMove,
-    this.pv = const [],
   });
 
-  bool get isMate => score.abs() > 10; // Mate detected (>10 pawns)
+  bool get isMate => score.abs() > 100;
 
-  @override
-  String toString() {
+  String get display {
     if (isMate) {
-      final mateIn = ((20 - score.abs()) / 2).ceil();
-      return score > 0 ? 'M$mateIn' : '-M$mateIn';
+      final m = ((200 - score.abs()) / 2).ceil();
+      return score > 0 ? 'M$m' : '-M$m';
     }
-    return score.toStringAsFixed(1);
+    final sign = score > 0 ? '+' : '';
+    return '$sign${score.toStringAsFixed(1)}';
   }
 }
 
+/// Singleton-pattern wrapper around the Stockfish UCI engine.
+/// Fires onEval callbacks as info lines arrive so the UI updates in real-time.
 class StockfishService {
-  static Stockfish? _instance;
-  late Stream<String> _output;
-  EngineEval? _lastEval;
+  Stockfish? _engine;
+  StreamSubscription<String>? _sub;
+  void Function(EngineEval)? _onUpdate;
+  int _searchDepth = 0;
+  bool _ready = false;
+
+  bool get isReady => _ready;
 
   Future<void> init() async {
+    if (_ready) return;
     try {
-      _instance = Stockfish();
-      _output = _instance!.stdout;
-      await Future.delayed(const Duration(milliseconds: 500));
-      await _isReady();
+      _engine = Stockfish();
+      // Wait until engine signals readyok
+      await _engine!.stdout
+          .firstWhere((l) => l.contains('readyok'))
+          .timeout(const Duration(seconds: 8), onTimeout: () => '');
+      _sub = _engine!.stdout.listen(_onLine);
+      _ready = true;
     } catch (e) {
-      print('Stockfish init error: $e');
+      _ready = false;
     }
   }
 
-  Future<void> _isReady() async {
-    if (_instance == null) return;
-    _instance!.stdin = 'isready';
-    // Wait for readyok response
-    await _output.firstWhere((line) => line.contains('readyok')).timeout(
-      const Duration(seconds: 5),
-      onTimeout: () => 'readyok',
-    );
-  }
-
-  Future<EngineEval?> evaluatePosition(String fen, {int depth = 18}) async {
-    if (_instance == null) return null;
-
-    final completer = <EngineEval?>{};
-    var bestDepth = 0;
-    EngineEval? bestEval;
-
-    final subscription = _output.listen((line) {
-      if (line.startsWith('info')) {
-        final eval = _parseInfo(line);
-        if (eval.depth >= bestDepth) {
-          bestDepth = eval.depth;
-          bestEval = eval;
-        }
-      }
-    });
-
-    try {
-      _instance!.stdin = 'position fen $fen';
-      _instance!.stdin = 'go depth $depth';
-
-      // Wait for bestmove line (signals search completion)
-      await _output
-          .firstWhere((line) => line.startsWith('bestmove'))
-          .timeout(const Duration(seconds: 30));
-
-      _lastEval = bestEval;
-      return bestEval;
-    } finally {
-      subscription.cancel();
+  void _onLine(String line) {
+    if (!line.startsWith('info')) return;
+    final eval = _parseLine(line);
+    if (eval == null) return;
+    if (eval.depth >= _searchDepth) {
+      _searchDepth = eval.depth;
+      _onUpdate?.call(eval);
     }
   }
 
-  EngineEval _parseInfo(String line) {
-    // Example: info depth 20 seldepth 25 multipv 1 score cp 52 nodes 1234567 nps 617284 tbhits 0 time 2000 pv e2e4 c7c5
+  /// Start evaluating a new position. Calls [onUpdate] progressively as
+  /// Stockfish searches deeper. Stops any ongoing search first.
+  void evaluate(String fen, {required void Function(EngineEval) onUpdate, int depth = 20}) {
+    if (!_ready || _engine == null) return;
+    _onUpdate = onUpdate;
+    _searchDepth = 0;
+    _engine!.stdin = 'stop';
+    _engine!.stdin = 'position fen $fen';
+    _engine!.stdin = 'go depth $depth';
+  }
+
+  void stop() {
+    _engine?.stdin = 'stop';
+    _onUpdate = null;
+  }
+
+  EngineEval? _parseLine(String line) {
     final parts = line.split(' ');
     var depth = 0;
     var scoreCP = 0;
-    var bestMove = '';
-    final pv = <String>[];
+    String? bestMove;
 
     for (int i = 0; i < parts.length; i++) {
-      if (parts[i] == 'depth' && i + 1 < parts.length) {
-        depth = int.tryParse(parts[i + 1]) ?? 0;
-      } else if (parts[i] == 'score') {
-        if (i + 2 < parts.length) {
-          if (parts[i + 1] == 'cp') {
-            scoreCP = int.tryParse(parts[i + 2]) ?? 0;
-          } else if (parts[i + 1] == 'mate') {
-            // Mate score: convert to large eval
-            final mateIn = int.tryParse(parts[i + 2]) ?? 0;
-            scoreCP = mateIn > 0 ? 20000 - (mateIn * 10) : -20000 + (mateIn.abs() * 10);
+      switch (parts[i]) {
+        case 'depth':
+          if (i + 1 < parts.length) depth = int.tryParse(parts[i + 1]) ?? 0;
+        case 'score':
+          if (i + 2 < parts.length) {
+            if (parts[i + 1] == 'cp') {
+              scoreCP = int.tryParse(parts[i + 2]) ?? 0;
+            } else if (parts[i + 1] == 'mate') {
+              final m = int.tryParse(parts[i + 2]) ?? 0;
+              scoreCP = m > 0 ? (200 - m) * 100 : (-200 - m) * 100;
+            }
           }
-        }
-      } else if (parts[i] == 'pv') {
-        // Rest of the line is the PV
-        pv.addAll(parts.sublist(i + 1));
-        break;
+        case 'pv':
+          if (i + 1 < parts.length) bestMove = parts[i + 1];
       }
     }
 
-    if (pv.isNotEmpty) {
-      bestMove = pv[0];
-    }
-
-    return EngineEval(
-      score: scoreCP / 100.0,
-      depth: depth,
-      bestMove: bestMove.isEmpty ? null : bestMove,
-      pv: pv,
-    );
+    if (depth == 0) return null;
+    return EngineEval(score: scoreCP / 100.0, depth: depth, bestMove: bestMove);
   }
 
-  EngineEval? get lastEval => _lastEval;
-
-  Future<void> dispose() async {
-    if (_instance != null) {
-      _instance!.stdin = 'quit';
-      await Future.delayed(const Duration(milliseconds: 100));
-      _instance = null;
-    }
+  void dispose() {
+    _engine?.stdin = 'quit';
+    _sub?.cancel();
+    _engine = null;
+    _ready = false;
   }
 }

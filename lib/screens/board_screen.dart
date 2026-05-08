@@ -16,6 +16,9 @@ class BoardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // Touch the engine provider on first build so it initialises immediately.
+    ref.watch(engineProvider.select((s) => s.isReady));
+
     final boardState = ref.watch(boardProvider);
     final opening = ref.watch(selectedOpeningProvider);
     final panelOpen = ref.watch(_explanationsOpenProvider);
@@ -60,29 +63,14 @@ class BoardScreen extends ConsumerWidget {
             child: Row(
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: ref.watch(engineEvaluationProvider).when(
-                    data: (_) {
-                      final eval = ref.watch(engineStateProvider);
-                      return EvalBar(eval: eval);
-                    },
-                    loading: () => const SizedBox(
-                      width: 24,
-                      child: Center(
-                        child: SizedBox(
-                          width: 16,
-                          height: 16,
-                          child: CircularProgressIndicator(strokeWidth: 2),
-                        ),
-                      ),
-                    ),
-                    error: (_, __) => SizedBox(
-                      width: 24,
-                      child: Container(
-                        color: Colors.grey.shade200,
-                      ),
-                    ),
-                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
+                  child: Builder(builder: (context) {
+                    final engine = ref.watch(engineProvider);
+                    return EvalBar(
+                      eval: engine.eval,
+                      isReady: engine.isReady,
+                    );
+                  }),
                 ),
                 const Expanded(
                   child: Center(

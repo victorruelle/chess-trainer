@@ -9826,7 +9826,7 @@
             "explanation": "Flexible Caro-Kann setup, Black supports the d5 advance"
           }
         ],
-        "explanation": "Controls the center, opens lines for the queen and light-squared bishop"
+        "explanation": "Occupies the center, opens diagonals for queen and light-squared bishop"
       }
     ]
   },
