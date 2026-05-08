@@ -7505,101 +7505,711 @@
       {
         "san": "e4",
         "weight": 1000,
-        "explanation": "White stakes center.",
         "children": [
           {
             "san": "c6",
             "weight": 1000,
             "variation": "Caro-Kann",
-            "explanation": "Solid pawn structure; prepares d5.",
             "children": [
               {
                 "san": "d4",
                 "weight": 900,
-                "explanation": "White reinforces center.",
                 "children": [
                   {
                     "san": "d5",
                     "weight": 1000,
-                    "explanation": "Black challenges center.",
                     "children": [
                       {
-                        "san": "Nc3",
+                        "san": "e5",
                         "weight": 800,
+                        "variation": "Advance Variation",
+                        "children": [
+                          {
+                            "san": "Bf5",
+                            "weight": 900,
+                            "children": [
+                              {
+                                "san": "Nf3",
+                                "weight": 800,
+                                "children": [
+                                  {
+                                    "san": "e6",
+                                    "weight": 800,
+                                    "children": [
+                                      {
+                                        "san": "Be2",
+                                        "weight": 700,
+                                        "children": [
+                                          {
+                                            "san": "Ne7",
+                                            "weight": 800,
+                                            "children": [
+                                              {
+                                                "san": "O-O",
+                                                "weight": 800,
+                                                "children": [
+                                                  {
+                                                    "san": "Ng6",
+                                                    "weight": 700,
+                                                    "children": [
+                                                      {
+                                                        "san": "Nbd2",
+                                                        "weight": 700,
+                                                        "children": [
+                                                          {
+                                                            "san": "c5",
+                                                            "weight": 700,
+                                                            "children": [
+                                                              {
+                                                                "san": "c3",
+                                                                "weight": 700,
+                                                                "children": [
+                                                                  {
+                                                                    "san": "Nc6",
+                                                                    "weight": 700,
+                                                                    "children": [
+                                                                      {
+                                                                        "san": "Nb3",
+                                                                        "weight": 600,
+                                                                        "children": []
+                                                                      }
+                                                                    ]
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      },
+                                                      {
+                                                        "san": "Be3",
+                                                        "weight": 600,
+                                                        "children": [
+                                                          {
+                                                            "san": "c5",
+                                                            "weight": 700,
+                                                            "children": [
+                                                              {
+                                                                "san": "c3",
+                                                                "weight": 600,
+                                                                "children": []
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "san": "c5",
+                                                    "weight": 600,
+                                                    "children": [
+                                                      {
+                                                        "san": "c3",
+                                                        "weight": 700,
+                                                        "children": [
+                                                          {
+                                                            "san": "Nc6",
+                                                            "weight": 700,
+                                                            "children": [
+                                                              {
+                                                                "san": "Nbd2",
+                                                                "weight": 600,
+                                                                "children": []
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      },
+                                                      {
+                                                        "san": "dxc5",
+                                                        "weight": 600,
+                                                        "children": [
+                                                          {
+                                                            "san": "Nbc6",
+                                                            "weight": 600,
+                                                            "children": [
+                                                              {
+                                                                "san": "Nb3",
+                                                                "weight": 600,
+                                                                "children": []
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "san": "Nc3",
+                                        "weight": 700,
+                                        "children": [
+                                          {
+                                            "san": "Ne7",
+                                            "weight": 700,
+                                            "children": [
+                                              {
+                                                "san": "h4",
+                                                "weight": 700,
+                                                "children": [
+                                                  {
+                                                    "san": "h6",
+                                                    "weight": 700,
+                                                    "children": [
+                                                      {
+                                                        "san": "g4",
+                                                        "weight": 700,
+                                                        "children": [
+                                                          {
+                                                            "san": "Bg6",
+                                                            "weight": 700,
+                                                            "children": [
+                                                              {
+                                                                "san": "h5",
+                                                                "weight": 700,
+                                                                "children": [
+                                                                  {
+                                                                    "san": "Bh7",
+                                                                    "weight": 700,
+                                                                    "children": [
+                                                                      {
+                                                                        "san": "Bd3",
+                                                                        "weight": 700,
+                                                                        "children": []
+                                                                      }
+                                                                    ]
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      },
+                                                      {
+                                                        "san": "Nf3",
+                                                        "weight": 600,
+                                                        "children": [
+                                                          {
+                                                            "san": "Nbc6",
+                                                            "weight": 600,
+                                                            "children": [
+                                                              {
+                                                                "san": "g4",
+                                                                "weight": 700,
+                                                                "children": [
+                                                                  {
+                                                                    "san": "Bg6",
+                                                                    "weight": 700,
+                                                                    "children": [
+                                                                      {
+                                                                        "san": "h5",
+                                                                        "weight": 700,
+                                                                        "children": []
+                                                                      }
+                                                                    ]
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "san": "g4",
+                                                "weight": 600,
+                                                "children": [
+                                                  {
+                                                    "san": "Bg6",
+                                                    "weight": 700,
+                                                    "children": [
+                                                      {
+                                                        "san": "Nge2",
+                                                        "weight": 700,
+                                                        "children": [
+                                                          {
+                                                            "san": "c5",
+                                                            "weight": 700,
+                                                            "children": [
+                                                              {
+                                                                "san": "h4",
+                                                                "weight": 700,
+                                                                "children": [
+                                                                  {
+                                                                    "san": "h5",
+                                                                    "weight": 600,
+                                                                    "children": []
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "san": "c4",
+                                "weight": 700,
+                                "variation": "Short Variation",
+                                "children": [
+                                  {
+                                    "san": "dxc4",
+                                    "weight": 700,
+                                    "children": [
+                                      {
+                                        "san": "Nc3",
+                                        "weight": 700,
+                                        "children": [
+                                          {
+                                            "san": "e6",
+                                            "weight": 700,
+                                            "children": [
+                                              {
+                                                "san": "Bxc4",
+                                                "weight": 700,
+                                                "children": [
+                                                  {
+                                                    "san": "Ne7",
+                                                    "weight": 700,
+                                                    "children": [
+                                                      {
+                                                        "san": "Nf3",
+                                                        "weight": 700,
+                                                        "children": [
+                                                          {
+                                                            "san": "Nf5",
+                                                            "weight": 600,
+                                                            "children": [
+                                                              {
+                                                                "san": "Bg5",
+                                                                "weight": 700,
+                                                                "children": [
+                                                                  {
+                                                                    "san": "Be7",
+                                                                    "weight": 600,
+                                                                    "children": []
+                                                                  }
+                                                                ]
+                                                              },
+                                                              {
+                                                                "san": "O-O",
+                                                                "weight": 600,
+                                                                "children": [
+                                                                  {
+                                                                    "san": "Be7",
+                                                                    "weight": 600,
+                                                                    "children": []
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ]
+                                                          },
+                                                          {
+                                                            "san": "Nd7",
+                                                            "weight": 600,
+                                                            "children": [
+                                                              {
+                                                                "san": "O-O",
+                                                                "weight": 700,
+                                                                "children": [
+                                                                  {
+                                                                    "san": "Nf5",
+                                                                    "weight": 600,
+                                                                    "children": []
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "san": "Nc3",
+                                "weight": 600,
+                                "variation": "Nimzovich Advance",
+                                "children": [
+                                  {
+                                    "san": "e6",
+                                    "weight": 700,
+                                    "children": [
+                                      {
+                                        "san": "g4",
+                                        "weight": 700,
+                                        "children": [
+                                          {
+                                            "san": "Bg6",
+                                            "weight": 700,
+                                            "children": [
+                                              {
+                                                "san": "Nge2",
+                                                "weight": 700,
+                                                "children": [
+                                                  {
+                                                    "san": "c5",
+                                                    "weight": 700,
+                                                    "children": [
+                                                      {
+                                                        "san": "h4",
+                                                        "weight": 700,
+                                                        "children": [
+                                                          {
+                                                            "san": "h5",
+                                                            "weight": 600,
+                                                            "children": []
+                                                          }
+                                                        ]
+                                                      },
+                                                      {
+                                                        "san": "Be3",
+                                                        "weight": 600,
+                                                        "children": [
+                                                          {
+                                                            "san": "Nc6",
+                                                            "weight": 700,
+                                                            "children": []
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "san": "f4",
+                                        "weight": 600,
+                                        "children": [
+                                          {
+                                            "san": "c5",
+                                            "weight": 700,
+                                            "children": [
+                                              {
+                                                "san": "Nf3",
+                                                "weight": 700,
+                                                "children": [
+                                                  {
+                                                    "san": "Nc6",
+                                                    "weight": 700,
+                                                    "children": []
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "san": "h4",
+                                "weight": 500,
+                                "variation": "Aggressive h4",
+                                "children": [
+                                  {
+                                    "san": "h5",
+                                    "weight": 700,
+                                    "children": [
+                                      {
+                                        "san": "c4",
+                                        "weight": 700,
+                                        "children": [
+                                          {
+                                            "san": "e6",
+                                            "weight": 700,
+                                            "children": [
+                                              {
+                                                "san": "Nc3",
+                                                "weight": 700,
+                                                "children": [
+                                                  {
+                                                    "san": "Ne7",
+                                                    "weight": 700,
+                                                    "children": [
+                                                      {
+                                                        "san": "Nf3",
+                                                        "weight": 700,
+                                                        "children": []
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "san": "h6",
+                                    "weight": 600,
+                                    "children": [
+                                      {
+                                        "san": "Nf3",
+                                        "weight": 700,
+                                        "children": [
+                                          {
+                                            "san": "e6",
+                                            "weight": 700,
+                                            "children": [
+                                              {
+                                                "san": "Be2",
+                                                "weight": 700,
+                                                "children": []
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "san": "c5",
+                            "weight": 700,
+                            "variation": "Advance Counterattack",
+                            "children": [
+                              {
+                                "san": "dxc5",
+                                "weight": 700,
+                                "children": [
+                                  {
+                                    "san": "Nc6",
+                                    "weight": 700,
+                                    "children": [
+                                      {
+                                        "san": "Nf3",
+                                        "weight": 700,
+                                        "children": [
+                                          {
+                                            "san": "e6",
+                                            "weight": 700,
+                                            "children": [
+                                              {
+                                                "san": "a3",
+                                                "weight": 700,
+                                                "children": [
+                                                  {
+                                                    "san": "Bxc5",
+                                                    "weight": 700,
+                                                    "children": [
+                                                      {
+                                                        "san": "b4",
+                                                        "weight": 600,
+                                                        "children": [
+                                                          {
+                                                            "san": "Bd4",
+                                                            "weight": 600,
+                                                            "children": []
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "san": "Bf4",
+                                                "weight": 600,
+                                                "children": [
+                                                  {
+                                                    "san": "Bxc5",
+                                                    "weight": 700,
+                                                    "children": [
+                                                      {
+                                                        "san": "Bd3",
+                                                        "weight": 600,
+                                                        "children": []
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "san": "c3",
+                                "weight": 700,
+                                "variation": "Tal Variation",
+                                "children": [
+                                  {
+                                    "san": "Nc6",
+                                    "weight": 700,
+                                    "children": [
+                                      {
+                                        "san": "Nf3",
+                                        "weight": 700,
+                                        "children": [
+                                          {
+                                            "san": "Bg4",
+                                            "weight": 600,
+                                            "children": [
+                                              {
+                                                "san": "Be2",
+                                                "weight": 700,
+                                                "children": [
+                                                  {
+                                                    "san": "e6",
+                                                    "weight": 700,
+                                                    "children": [
+                                                      {
+                                                        "san": "O-O",
+                                                        "weight": 700,
+                                                        "children": []
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "san": "Qb6",
+                                            "weight": 600,
+                                            "children": [
+                                              {
+                                                "san": "Qb3",
+                                                "weight": 700,
+                                                "children": [
+                                                  {
+                                                    "san": "Qxb3",
+                                                    "weight": 700,
+                                                    "children": []
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "san": "Nc3",
+                        "weight": 750,
                         "variation": "Classical Variation",
-                        "explanation": "White develops; Black can choose defensive plan.",
                         "children": [
                           {
                             "san": "dxe4",
                             "weight": 700,
-                            "explanation": "Exchanges pawn; relieves tension.",
                             "children": [
                               {
                                 "san": "Nxe4",
                                 "weight": 900,
-                                "explanation": "Recaptures.",
                                 "children": [
                                   {
                                     "san": "Bf5",
                                     "weight": 900,
                                     "variation": "Classical Main Line",
-                                    "explanation": "Develops bishop before ...e6; key move.",
                                     "children": [
                                       {
                                         "san": "Ng3",
                                         "weight": 900,
-                                        "explanation": "Attacks bishop.",
                                         "children": [
                                           {
                                             "san": "Bg6",
                                             "weight": 900,
-                                            "explanation": "Retreats safely.",
                                             "children": [
                                               {
                                                 "san": "h4",
                                                 "weight": 800,
-                                                "explanation": "Attacks bishop on g6.",
                                                 "children": [
                                                   {
                                                     "san": "h6",
                                                     "weight": 700,
-                                                    "explanation": "Prevents h5; keeps bishop.",
                                                     "children": [
                                                       {
                                                         "san": "Nf3",
                                                         "weight": 800,
-                                                        "explanation": "Develops.",
                                                         "children": [
                                                           {
                                                             "san": "Nd7",
                                                             "weight": 700,
-                                                            "explanation": "Develops; prepares Ngf6.",
                                                             "children": [
                                                               {
                                                                 "san": "h5",
                                                                 "weight": 700,
-                                                                "explanation": "Attacks bishop.",
                                                                 "children": [
                                                                   {
                                                                     "san": "Bh7",
                                                                     "weight": 700,
-                                                                    "explanation": "Retreats.",
                                                                     "children": [
                                                                       {
                                                                         "san": "Bd3",
                                                                         "weight": 800,
-                                                                        "explanation": "Attacks h7 bishop.",
                                                                         "children": [
                                                                           {
                                                                             "san": "Bxd3",
                                                                             "weight": 700,
-                                                                            "explanation": "Trades.",
                                                                             "children": [
                                                                               {
                                                                                 "san": "Qxd3",
                                                                                 "weight": 800,
-                                                                                "explanation": "Recaptures.",
-                                                                                "children": []
+                                                                                "children": [
+                                                                                  {
+                                                                                    "san": "e6",
+                                                                                    "weight": 700,
+                                                                                    "children": [
+                                                                                      {
+                                                                                        "san": "O-O-O",
+                                                                                        "weight": 700,
+                                                                                        "children": []
+                                                                                      }
+                                                                                    ]
+                                                                                  }
+                                                                                ]
                                                                               }
                                                                             ]
                                                                           }
@@ -7611,28 +8221,64 @@
                                                               },
                                                               {
                                                                 "san": "Bd3",
-                                                                "weight": 700,
-                                                                "explanation": "Develops bishop.",
+                                                                "weight": 600,
                                                                 "children": [
                                                                   {
                                                                     "san": "Bxd3",
                                                                     "weight": 700,
-                                                                    "explanation": "Trades.",
                                                                     "children": [
                                                                       {
                                                                         "san": "Qxd3",
                                                                         "weight": 700,
-                                                                        "explanation": "Recaptures.",
                                                                         "children": [
                                                                           {
                                                                             "san": "Ngf6",
                                                                             "weight": 700,
-                                                                            "explanation": "Develops.",
                                                                             "children": [
                                                                               {
                                                                                 "san": "O-O-O",
                                                                                 "weight": 700,
-                                                                                "explanation": "Castles queenside.",
+                                                                                "children": []
+                                                                              }
+                                                                            ]
+                                                                          }
+                                                                        ]
+                                                                      }
+                                                                    ]
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      },
+                                                      {
+                                                        "san": "h5",
+                                                        "weight": 600,
+                                                        "children": [
+                                                          {
+                                                            "san": "Bh7",
+                                                            "weight": 700,
+                                                            "children": [
+                                                              {
+                                                                "san": "Nf3",
+                                                                "weight": 700,
+                                                                "children": [
+                                                                  {
+                                                                    "san": "Nd7",
+                                                                    "weight": 700,
+                                                                    "children": [
+                                                                      {
+                                                                        "san": "Bd3",
+                                                                        "weight": 700,
+                                                                        "children": [
+                                                                          {
+                                                                            "san": "Bxd3",
+                                                                            "weight": 700,
+                                                                            "children": [
+                                                                              {
+                                                                                "san": "Qxd3",
+                                                                                "weight": 700,
                                                                                 "children": []
                                                                               }
                                                                             ]
@@ -7650,44 +8296,89 @@
                                                     ]
                                                   },
                                                   {
-                                                    "san": "Nf3",
-                                                    "weight": 700,
-                                                    "explanation": "Develops quickly.",
+                                                    "san": "Nf6",
+                                                    "weight": 600,
                                                     "children": [
                                                       {
-                                                        "san": "Nd7",
+                                                        "san": "h5",
                                                         "weight": 700,
-                                                        "explanation": "Develops.",
                                                         "children": [
                                                           {
-                                                            "san": "Bd3",
+                                                            "san": "Bh7",
                                                             "weight": 700,
-                                                            "explanation": "Develops.",
                                                             "children": [
                                                               {
-                                                                "san": "Bxd3",
+                                                                "san": "Nf3",
                                                                 "weight": 700,
-                                                                "explanation": "Trades.",
                                                                 "children": [
                                                                   {
-                                                                    "san": "Qxd3",
+                                                                    "san": "e6",
                                                                     "weight": 700,
-                                                                    "explanation": "Recaptures.",
+                                                                    "children": []
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "san": "Nf3",
+                                                "weight": 700,
+                                                "children": [
+                                                  {
+                                                    "san": "Nd7",
+                                                    "weight": 700,
+                                                    "children": [
+                                                      {
+                                                        "san": "Bd3",
+                                                        "weight": 700,
+                                                        "children": [
+                                                          {
+                                                            "san": "Bxd3",
+                                                            "weight": 700,
+                                                            "children": [
+                                                              {
+                                                                "san": "Qxd3",
+                                                                "weight": 700,
+                                                                "children": [
+                                                                  {
+                                                                    "san": "Ngf6",
+                                                                    "weight": 700,
                                                                     "children": [
                                                                       {
-                                                                        "san": "Ngf6",
+                                                                        "san": "O-O",
                                                                         "weight": 700,
-                                                                        "explanation": "Develops.",
-                                                                        "children": [
-                                                                          {
-                                                                            "san": "O-O",
-                                                                            "weight": 700,
-                                                                            "explanation": "Castles.",
-                                                                            "children": []
-                                                                          }
-                                                                        ]
+                                                                        "children": []
                                                                       }
                                                                     ]
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      },
+                                                      {
+                                                        "san": "h4",
+                                                        "weight": 600,
+                                                        "children": [
+                                                          {
+                                                            "san": "h6",
+                                                            "weight": 700,
+                                                            "children": [
+                                                              {
+                                                                "san": "h5",
+                                                                "weight": 700,
+                                                                "children": [
+                                                                  {
+                                                                    "san": "Bh7",
+                                                                    "weight": 700,
+                                                                    "children": []
                                                                   }
                                                                 ]
                                                               }
@@ -7704,60 +8395,61 @@
                                         ]
                                       },
                                       {
-                                        "san": "Nd6",
-                                        "weight": 600,
-                                        "variation": "Karpov Variation",
-                                        "explanation": "Keeps tension; aims for queenside play.",
+                                        "san": "Bd3",
+                                        "weight": 700,
+                                        "variation": "Tartakower Variation",
                                         "children": [
                                           {
-                                            "san": "Nf3",
+                                            "san": "Bxd3",
                                             "weight": 700,
-                                            "explanation": "Develops.",
                                             "children": [
                                               {
-                                                "san": "Nf6",
+                                                "san": "Qxd3",
                                                 "weight": 700,
-                                                "explanation": "Develops.",
                                                 "children": [
                                                   {
-                                                    "san": "Ne5",
+                                                    "san": "e6",
                                                     "weight": 700,
-                                                    "explanation": "Centralizes.",
                                                     "children": [
                                                       {
-                                                        "san": "Be7",
-                                                        "weight": 600,
-                                                        "explanation": "Develops.",
+                                                        "san": "Nf3",
+                                                        "weight": 700,
                                                         "children": [
                                                           {
-                                                            "san": "Bd3",
+                                                            "san": "Nd7",
                                                             "weight": 700,
-                                                            "explanation": "Develops.",
                                                             "children": [
                                                               {
                                                                 "san": "O-O",
                                                                 "weight": 700,
-                                                                "explanation": "Castles.",
                                                                 "children": [
                                                                   {
-                                                                    "san": "O-O",
+                                                                    "san": "Ngf6",
                                                                     "weight": 700,
-                                                                    "explanation": "Castles.",
                                                                     "children": [
                                                                       {
-                                                                        "san": "Nxd7",
+                                                                        "san": "Re1",
                                                                         "weight": 700,
-                                                                        "explanation": "Trades.",
-                                                                        "children": [
-                                                                          {
-                                                                            "san": "Bxd7",
-                                                                            "weight": 700,
-                                                                            "explanation": "Recaptures.",
-                                                                            "children": []
-                                                                          }
-                                                                        ]
+                                                                        "children": []
                                                                       }
                                                                     ]
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ]
+                                                          },
+                                                          {
+                                                            "san": "Nf6",
+                                                            "weight": 600,
+                                                            "children": [
+                                                              {
+                                                                "san": "O-O",
+                                                                "weight": 700,
+                                                                "children": [
+                                                                  {
+                                                                    "san": "Bd6",
+                                                                    "weight": 700,
+                                                                    "children": []
                                                                   }
                                                                 ]
                                                               }
@@ -7772,56 +8464,241 @@
                                             ]
                                           }
                                         ]
+                                      },
+                                      {
+                                        "san": "Ne2",
+                                        "weight": 600,
+                                        "variation": "Euwe Variation",
+                                        "children": [
+                                          {
+                                            "san": "Bg6",
+                                            "weight": 700,
+                                            "children": [
+                                              {
+                                                "san": "Nf4",
+                                                "weight": 700,
+                                                "children": [
+                                                  {
+                                                    "san": "Bh7",
+                                                    "weight": 700,
+                                                    "children": [
+                                                      {
+                                                        "san": "c3",
+                                                        "weight": 700,
+                                                        "children": [
+                                                          {
+                                                            "san": "Nd7",
+                                                            "weight": 700,
+                                                            "children": [
+                                                              {
+                                                                "san": "Bd3",
+                                                                "weight": 700,
+                                                                "children": []
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
                                       }
                                     ]
-                                  }
-                                ]
-                              },
-                              {
-                                "san": "Nf6",
-                                "weight": 600,
-                                "variation": "Two Knights",
-                                "explanation": "Develops; plays for equality.",
-                                "children": [
+                                  },
                                   {
-                                    "san": "e5",
-                                    "weight": 700,
-                                    "explanation": "Attacks f6 knight.",
+                                    "san": "Nd7",
+                                    "weight": 600,
+                                    "variation": "Smyslov Variation",
                                     "children": [
                                       {
-                                        "san": "d5",
-                                        "weight": 600,
-                                        "explanation": "Counterattacks.",
+                                        "san": "Nf3",
+                                        "weight": 700,
+                                        "children": [
+                                          {
+                                            "san": "Ngf6",
+                                            "weight": 700,
+                                            "children": [
+                                              {
+                                                "san": "Nxf6+",
+                                                "weight": 700,
+                                                "children": [
+                                                  {
+                                                    "san": "Nxf6",
+                                                    "weight": 700,
+                                                    "children": [
+                                                      {
+                                                        "san": "Bc4",
+                                                        "weight": 700,
+                                                        "children": [
+                                                          {
+                                                            "san": "Bf5",
+                                                            "weight": 700,
+                                                            "children": [
+                                                              {
+                                                                "san": "O-O",
+                                                                "weight": 700,
+                                                                "children": [
+                                                                  {
+                                                                    "san": "e6",
+                                                                    "weight": 700,
+                                                                    "children": []
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ]
+                                                          },
+                                                          {
+                                                            "san": "e6",
+                                                            "weight": 600,
+                                                            "children": [
+                                                              {
+                                                                "san": "O-O",
+                                                                "weight": 700,
+                                                                "children": [
+                                                                  {
+                                                                    "san": "Bd6",
+                                                                    "weight": 700,
+                                                                    "children": []
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      },
+                                                      {
+                                                        "san": "Ne5",
+                                                        "weight": 600,
+                                                        "children": [
+                                                          {
+                                                            "san": "e6",
+                                                            "weight": 700,
+                                                            "children": [
+                                                              {
+                                                                "san": "Bd3",
+                                                                "weight": 700,
+                                                                "children": []
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "san": "Nf6",
+                                            "weight": 600,
+                                            "children": [
+                                              {
+                                                "san": "Nxf6+",
+                                                "weight": 700,
+                                                "children": [
+                                                  {
+                                                    "san": "exf6",
+                                                    "weight": 700,
+                                                    "children": [
+                                                      {
+                                                        "san": "Bd3",
+                                                        "weight": 700,
+                                                        "children": [
+                                                          {
+                                                            "san": "Bd6",
+                                                            "weight": 700,
+                                                            "children": [
+                                                              {
+                                                                "san": "Bxd6",
+                                                                "weight": 700,
+                                                                "children": []
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "san": "Nf6",
+                                    "weight": 500,
+                                    "variation": "Gurgenidze Counter",
+                                    "children": [
+                                      {
+                                        "san": "Nxf6+",
+                                        "weight": 700,
                                         "children": [
                                           {
                                             "san": "exf6",
-                                            "weight": 600,
-                                            "explanation": "Captures; gets pawn.",
+                                            "weight": 700,
                                             "children": [
                                               {
-                                                "san": "dxc4",
-                                                "weight": 600,
-                                                "explanation": "Takes d4.",
+                                                "san": "Bc4",
+                                                "weight": 700,
                                                 "children": [
                                                   {
-                                                    "san": "fxg7",
-                                                    "weight": 600,
-                                                    "explanation": "Captures.",
+                                                    "san": "Bd6",
+                                                    "weight": 700,
                                                     "children": [
                                                       {
-                                                        "san": "Bxg7",
+                                                        "san": "Qe2+",
                                                         "weight": 600,
-                                                        "explanation": "Develops bishop.",
                                                         "children": [
                                                           {
-                                                            "san": "Bxc4",
-                                                            "weight": 600,
-                                                            "explanation": "Recaptures.",
+                                                            "san": "Be7",
+                                                            "weight": 700,
                                                             "children": []
                                                           }
                                                         ]
                                                       }
                                                     ]
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "san": "Nf3",
+                                                "weight": 600,
+                                                "children": [
+                                                  {
+                                                    "san": "Bd6",
+                                                    "weight": 700,
+                                                    "children": [
+                                                      {
+                                                        "san": "Bd3",
+                                                        "weight": 700,
+                                                        "children": []
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "san": "gxf6",
+                                            "weight": 500,
+                                            "children": [
+                                              {
+                                                "san": "Nf3",
+                                                "weight": 700,
+                                                "children": [
+                                                  {
+                                                    "san": "h5",
+                                                    "weight": 600,
+                                                    "children": []
                                                   }
                                                 ]
                                               }
@@ -7836,77 +8713,268 @@
                             ]
                           },
                           {
-                            "san": "Nd2",
-                            "weight": 700,
-                            "variation": "Shirov-Anand Variation",
-                            "explanation": "Avoids pin; supports e5.",
+                            "san": "e6",
+                            "weight": 600,
+                            "variation": "Classical Closed",
                             "children": [
                               {
-                                "san": "dxe4",
+                                "san": "Nf3",
                                 "weight": 700,
-                                "explanation": "Exchanges.",
                                 "children": [
                                   {
-                                    "san": "Nxe4",
+                                    "san": "dxe4",
                                     "weight": 700,
-                                    "explanation": "Recaptures.",
                                     "children": [
                                       {
-                                        "san": "Bf5",
-                                        "weight": 800,
-                                        "explanation": "Classical development.",
+                                        "san": "Nxe4",
+                                        "weight": 700,
                                         "children": [
                                           {
-                                            "san": "Ng3",
-                                            "weight": 800,
-                                            "explanation": "Attacks bishop.",
+                                            "san": "Nf6",
+                                            "weight": 700,
                                             "children": [
                                               {
-                                                "san": "Bg6",
-                                                "weight": 800,
-                                                "explanation": "Retreats.",
+                                                "san": "Nxf6+",
+                                                "weight": 700,
                                                 "children": [
                                                   {
-                                                    "san": "Ngf3",
+                                                    "san": "gxf6",
                                                     "weight": 700,
-                                                    "explanation": "Develops.",
                                                     "children": [
                                                       {
-                                                        "san": "Nd7",
+                                                        "san": "Bc4",
                                                         "weight": 700,
-                                                        "explanation": "Develops.",
                                                         "children": [
                                                           {
-                                                            "san": "h4",
+                                                            "san": "b5",
+                                                            "weight": 600,
+                                                            "children": []
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "san": "exf6",
+                                                    "weight": 600,
+                                                    "children": [
+                                                      {
+                                                        "san": "d5",
+                                                        "weight": 700,
+                                                        "children": [
+                                                          {
+                                                            "san": "Bd3",
                                                             "weight": 700,
-                                                            "explanation": "Attacks bishop.",
+                                                            "children": []
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "san": "Nd7",
+                                            "weight": 600,
+                                            "children": [
+                                              {
+                                                "san": "Bc4",
+                                                "weight": 700,
+                                                "children": [
+                                                  {
+                                                    "san": "Ngf6",
+                                                    "weight": 700,
+                                                    "children": [
+                                                      {
+                                                        "san": "O-O",
+                                                        "weight": 700,
+                                                        "children": []
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "san": "Nf6",
+                                    "weight": 500,
+                                    "children": [
+                                      {
+                                        "san": "e5",
+                                        "weight": 700,
+                                        "children": [
+                                          {
+                                            "san": "Nfd7",
+                                            "weight": 700,
+                                            "children": [
+                                              {
+                                                "san": "f4",
+                                                "weight": 700,
+                                                "children": [
+                                                  {
+                                                    "san": "c5",
+                                                    "weight": 700,
+                                                    "children": []
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "san": "Nd2",
+                        "weight": 700,
+                        "variation": "Shirov-Anand Variation",
+                        "children": [
+                          {
+                            "san": "dxe4",
+                            "weight": 700,
+                            "children": [
+                              {
+                                "san": "Nxe4",
+                                "weight": 700,
+                                "children": [
+                                  {
+                                    "san": "Bf5",
+                                    "weight": 800,
+                                    "children": [
+                                      {
+                                        "san": "Ng3",
+                                        "weight": 800,
+                                        "children": [
+                                          {
+                                            "san": "Bg6",
+                                            "weight": 800,
+                                            "children": [
+                                              {
+                                                "san": "h4",
+                                                "weight": 700,
+                                                "children": [
+                                                  {
+                                                    "san": "h6",
+                                                    "weight": 700,
+                                                    "children": [
+                                                      {
+                                                        "san": "Ngf3",
+                                                        "weight": 700,
+                                                        "children": [
+                                                          {
+                                                            "san": "Nd7",
+                                                            "weight": 700,
                                                             "children": [
                                                               {
-                                                                "san": "h6",
+                                                                "san": "h5",
                                                                 "weight": 700,
-                                                                "explanation": "Prevents h5.",
                                                                 "children": [
                                                                   {
-                                                                    "san": "Bd3",
+                                                                    "san": "Bh7",
                                                                     "weight": 700,
-                                                                    "explanation": "Develops.",
                                                                     "children": [
                                                                       {
-                                                                        "san": "Bxd3",
+                                                                        "san": "Bd3",
                                                                         "weight": 700,
-                                                                        "explanation": "Trades.",
                                                                         "children": [
                                                                           {
-                                                                            "san": "Qxd3",
+                                                                            "san": "Bxd3",
                                                                             "weight": 700,
-                                                                            "explanation": "Recaptures.",
-                                                                            "children": []
+                                                                            "children": [
+                                                                              {
+                                                                                "san": "Qxd3",
+                                                                                "weight": 700,
+                                                                                "children": []
+                                                                              }
+                                                                            ]
                                                                           }
                                                                         ]
                                                                       }
                                                                     ]
                                                                   }
                                                                 ]
+                                                              },
+                                                              {
+                                                                "san": "Bd3",
+                                                                "weight": 600,
+                                                                "children": [
+                                                                  {
+                                                                    "san": "Bxd3",
+                                                                    "weight": 700,
+                                                                    "children": [
+                                                                      {
+                                                                        "san": "Qxd3",
+                                                                        "weight": 700,
+                                                                        "children": []
+                                                                      }
+                                                                    ]
+                                                                  }
+                                                                ]
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "san": "Nf3",
+                                                    "weight": 600,
+                                                    "children": [
+                                                      {
+                                                        "san": "e6",
+                                                        "weight": 700,
+                                                        "children": [
+                                                          {
+                                                            "san": "Be2",
+                                                            "weight": 700,
+                                                            "children": [
+                                                              {
+                                                                "san": "Ne7",
+                                                                "weight": 700,
+                                                                "children": []
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "san": "Nf3",
+                                                "weight": 600,
+                                                "children": [
+                                                  {
+                                                    "san": "e6",
+                                                    "weight": 700,
+                                                    "children": [
+                                                      {
+                                                        "san": "Be2",
+                                                        "weight": 700,
+                                                        "children": [
+                                                          {
+                                                            "san": "Ne7",
+                                                            "weight": 700,
+                                                            "children": [
+                                                              {
+                                                                "san": "O-O",
+                                                                "weight": 700,
+                                                                "children": []
                                                               }
                                                             ]
                                                           }
@@ -7921,39 +8989,132 @@
                                         ]
                                       },
                                       {
-                                        "san": "Nf6",
+                                        "san": "Bd3",
                                         "weight": 600,
-                                        "explanation": "Develops.",
                                         "children": [
                                           {
-                                            "san": "Nxf6+",
+                                            "san": "Bxd3",
                                             "weight": 700,
-                                            "explanation": "Trades.",
                                             "children": [
                                               {
-                                                "san": "exf6",
+                                                "san": "Qxd3",
                                                 "weight": 700,
-                                                "explanation": "Recaptures.",
                                                 "children": [
                                                   {
-                                                    "san": "c3",
+                                                    "san": "e6",
                                                     "weight": 700,
-                                                    "explanation": "Prepares Bd3.",
                                                     "children": [
                                                       {
-                                                        "san": "Bd6",
+                                                        "san": "Nf3",
                                                         "weight": 700,
-                                                        "explanation": "Develops.",
                                                         "children": [
                                                           {
-                                                            "san": "Bd3",
+                                                            "san": "Nd7",
                                                             "weight": 700,
-                                                            "explanation": "Develops.",
+                                                            "children": []
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "san": "Nf6",
+                                    "weight": 600,
+                                    "children": [
+                                      {
+                                        "san": "Nxf6+",
+                                        "weight": 700,
+                                        "children": [
+                                          {
+                                            "san": "exf6",
+                                            "weight": 700,
+                                            "children": [
+                                              {
+                                                "san": "c3",
+                                                "weight": 700,
+                                                "children": [
+                                                  {
+                                                    "san": "Bd6",
+                                                    "weight": 700,
+                                                    "children": [
+                                                      {
+                                                        "san": "Bd3",
+                                                        "weight": 700,
+                                                        "children": [
+                                                          {
+                                                            "san": "O-O",
+                                                            "weight": 700,
+                                                            "children": []
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "san": "gxf6",
+                                            "weight": 600,
+                                            "children": [
+                                              {
+                                                "san": "Nf3",
+                                                "weight": 700,
+                                                "children": [
+                                                  {
+                                                    "san": "h5",
+                                                    "weight": 600,
+                                                    "children": []
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "san": "Nd7",
+                                    "weight": 500,
+                                    "variation": "Karpov Variation",
+                                    "children": [
+                                      {
+                                        "san": "Nf3",
+                                        "weight": 700,
+                                        "children": [
+                                          {
+                                            "san": "Ngf6",
+                                            "weight": 700,
+                                            "children": [
+                                              {
+                                                "san": "Nxf6+",
+                                                "weight": 700,
+                                                "children": [
+                                                  {
+                                                    "san": "Nxf6",
+                                                    "weight": 700,
+                                                    "children": [
+                                                      {
+                                                        "san": "c3",
+                                                        "weight": 700,
+                                                        "children": [
+                                                          {
+                                                            "san": "e6",
+                                                            "weight": 700,
                                                             "children": [
                                                               {
-                                                                "san": "O-O",
+                                                                "san": "Bd3",
                                                                 "weight": 700,
-                                                                "explanation": "Castles.",
                                                                 "children": []
                                                               }
                                                             ]
@@ -7971,64 +9132,42 @@
                                     ]
                                   }
                                 ]
-                              },
+                              }
+                            ]
+                          },
+                          {
+                            "san": "c5",
+                            "weight": 600,
+                            "variation": "Gurgenidze System",
+                            "children": [
                               {
-                                "san": "c5",
-                                "weight": 600,
-                                "variation": "Gurgenidze System",
-                                "explanation": "Immediate queenside counterplay.",
+                                "san": "dxc5",
+                                "weight": 700,
                                 "children": [
                                   {
-                                    "san": "exd5",
+                                    "san": "e6",
                                     "weight": 700,
-                                    "explanation": "Takes.",
                                     "children": [
                                       {
-                                        "san": "cxd4",
+                                        "san": "Ngf3",
                                         "weight": 700,
-                                        "explanation": "Takes d4.",
                                         "children": [
                                           {
-                                            "san": "Bb5+",
+                                            "san": "Bxc5",
                                             "weight": 700,
-                                            "explanation": "Check; disrupts.",
                                             "children": [
                                               {
-                                                "san": "Nd7",
+                                                "san": "Bd3",
                                                 "weight": 700,
-                                                "explanation": "Blocks.",
                                                 "children": [
                                                   {
-                                                    "san": "dxc6",
+                                                    "san": "Nf6",
                                                     "weight": 700,
-                                                    "explanation": "Takes.",
                                                     "children": [
                                                       {
-                                                        "san": "Nxc6",
+                                                        "san": "O-O",
                                                         "weight": 700,
-                                                        "explanation": "Recaptures.",
-                                                        "children": [
-                                                          {
-                                                            "san": "Nf3",
-                                                            "weight": 700,
-                                                            "explanation": "Develops.",
-                                                            "children": [
-                                                              {
-                                                                "san": "e5",
-                                                                "weight": 700,
-                                                                "explanation": "Counterattacks.",
-                                                                "children": [
-                                                                  {
-                                                                    "san": "O-O",
-                                                                    "weight": 700,
-                                                                    "explanation": "Castles.",
-                                                                    "children": []
-                                                                  }
-                                                                ]
-                                                              }
-                                                            ]
-                                                          }
-                                                        ]
+                                                        "children": []
                                                       }
                                                     ]
                                                   }
@@ -8041,106 +9180,89 @@
                                     ]
                                   }
                                 ]
-                              }
-                            ]
-                          },
-                          {
-                            "san": "e5",
-                            "weight": 700,
-                            "variation": "Advance Variation",
-                            "explanation": "Gains space; restricts Black's bishops.",
-                            "children": [
+                              },
                               {
-                                "san": "Bf5",
-                                "weight": 900,
-                                "explanation": "Develops bishop before e6 closes it.",
+                                "san": "exd5",
+                                "weight": 600,
                                 "children": [
                                   {
-                                    "san": "Nf3",
-                                    "weight": 800,
-                                    "explanation": "Develops.",
+                                    "san": "cxd5",
+                                    "weight": 700,
                                     "children": [
                                       {
-                                        "san": "e6",
+                                        "san": "Ngf3",
                                         "weight": 700,
-                                        "explanation": "Solidifies pawn chain.",
                                         "children": [
                                           {
-                                            "san": "Be2",
-                                            "weight": 800,
-                                            "explanation": "Solid; prepares O-O.",
+                                            "san": "Nc6",
+                                            "weight": 700,
                                             "children": [
                                               {
-                                                "san": "Ne7",
+                                                "san": "Bb5",
                                                 "weight": 700,
-                                                "explanation": "Develops; plans Nf5.",
+                                                "children": []
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "san": "exd5",
+                        "weight": 600,
+                        "variation": "Exchange Variation",
+                        "children": [
+                          {
+                            "san": "cxd5",
+                            "weight": 900,
+                            "children": [
+                              {
+                                "san": "Nf3",
+                                "weight": 800,
+                                "children": [
+                                  {
+                                    "san": "Nc6",
+                                    "weight": 700,
+                                    "children": [
+                                      {
+                                        "san": "Bf4",
+                                        "weight": 700,
+                                        "children": [
+                                          {
+                                            "san": "Bg4",
+                                            "weight": 700,
+                                            "children": [
+                                              {
+                                                "san": "Be2",
+                                                "weight": 700,
                                                 "children": [
                                                   {
-                                                    "san": "O-O",
-                                                    "weight": 800,
-                                                    "explanation": "Castles.",
+                                                    "san": "e6",
+                                                    "weight": 700,
                                                     "children": [
                                                       {
-                                                        "san": "Nf5",
+                                                        "san": "O-O",
                                                         "weight": 700,
-                                                        "explanation": "Attacks bishop on f5.",
                                                         "children": [
                                                           {
-                                                            "san": "Bg6",
+                                                            "san": "Bd6",
                                                             "weight": 700,
-                                                            "explanation": "Retreats.",
                                                             "children": [
                                                               {
-                                                                "san": "Na3",
-                                                                "weight": 600,
-                                                                "explanation": "Prepares Nc2-d4.",
-                                                                "children": [
-                                                                  {
-                                                                    "san": "c5",
-                                                                    "weight": 700,
-                                                                    "explanation": "Counterattacks.",
-                                                                    "children": [
-                                                                      {
-                                                                        "san": "c3",
-                                                                        "weight": 700,
-                                                                        "explanation": "Supports d4.",
-                                                                        "children": []
-                                                                      }
-                                                                    ]
-                                                                  }
-                                                                ]
-                                                              }
-                                                            ]
-                                                          }
-                                                        ]
-                                                      },
-                                                      {
-                                                        "san": "a4",
-                                                        "weight": 600,
-                                                        "explanation": "Prevents b5.",
-                                                        "children": [
-                                                          {
-                                                            "san": "c5",
-                                                            "weight": 700,
-                                                            "explanation": "Counterattacks.",
-                                                            "children": [
-                                                              {
-                                                                "san": "c3",
+                                                                "san": "Bxd6",
                                                                 "weight": 700,
-                                                                "explanation": "Supports d4.",
                                                                 "children": [
                                                                   {
-                                                                    "san": "Nc6",
+                                                                    "san": "Qxd6",
                                                                     "weight": 700,
-                                                                    "explanation": "Develops.",
-                                                                    "children": [
-                                                                      {
-                                                                        "san": "Na3",
-                                                                        "weight": 600,
-                                                                        "explanation": "Plans Nc2.",
-                                                                        "children": []
-                                                                      }
-                                                                    ]
+                                                                    "children": []
                                                                   }
                                                                 ]
                                                               }
@@ -8155,52 +9277,37 @@
                                             ]
                                           },
                                           {
-                                            "san": "Nc3",
+                                            "san": "Nf6",
                                             "weight": 700,
-                                            "explanation": "Develops.",
                                             "children": [
                                               {
-                                                "san": "Ne7",
+                                                "san": "c3",
                                                 "weight": 700,
-                                                "explanation": "Develops.",
                                                 "children": [
                                                   {
-                                                    "san": "h4",
+                                                    "san": "e6",
                                                     "weight": 700,
-                                                    "explanation": "Attacks bishop.",
                                                     "children": [
                                                       {
-                                                        "san": "h6",
+                                                        "san": "Bd3",
                                                         "weight": 700,
-                                                        "explanation": "Prevents h5.",
                                                         "children": [
                                                           {
-                                                            "san": "g4",
+                                                            "san": "Bd6",
                                                             "weight": 700,
-                                                            "explanation": "Aggressive; attacks h6.",
                                                             "children": [
                                                               {
-                                                                "san": "Bg6",
+                                                                "san": "Bxd6",
                                                                 "weight": 700,
-                                                                "explanation": "Retreats.",
                                                                 "children": [
                                                                   {
-                                                                    "san": "h5",
+                                                                    "san": "Qxd6",
                                                                     "weight": 700,
-                                                                    "explanation": "Attacks bishop.",
                                                                     "children": [
                                                                       {
-                                                                        "san": "Bh7",
+                                                                        "san": "O-O",
                                                                         "weight": 700,
-                                                                        "explanation": "Retreats.",
-                                                                        "children": [
-                                                                          {
-                                                                            "san": "Bd3",
-                                                                            "weight": 600,
-                                                                            "explanation": "Attacks h7.",
-                                                                            "children": []
-                                                                          }
-                                                                        ]
+                                                                        "children": []
                                                                       }
                                                                     ]
                                                                   }
@@ -8217,75 +9324,133 @@
                                             ]
                                           }
                                         ]
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "san": "c4",
-                                    "weight": 800,
-                                    "variation": "Short Variation",
-                                    "explanation": "Attacks d5 immediately; sharp play.",
-                                    "children": [
+                                      },
                                       {
-                                        "san": "dxc4",
+                                        "san": "Bb5",
                                         "weight": 700,
-                                        "explanation": "Takes pawn.",
+                                        "variation": "Exchange with Bb5",
                                         "children": [
                                           {
-                                            "san": "Nc3",
+                                            "san": "Bg4",
                                             "weight": 700,
-                                            "explanation": "Develops.",
                                             "children": [
                                               {
-                                                "san": "e6",
+                                                "san": "h3",
                                                 "weight": 700,
-                                                "explanation": "Solidifies.",
                                                 "children": [
                                                   {
-                                                    "san": "Bxc4",
+                                                    "san": "Bxf3",
                                                     "weight": 700,
-                                                    "explanation": "Recaptures.",
                                                     "children": [
                                                       {
-                                                        "san": "Ne7",
+                                                        "san": "Qxf3",
                                                         "weight": 700,
-                                                        "explanation": "Develops.",
                                                         "children": [
                                                           {
-                                                            "san": "Nf3",
+                                                            "san": "e6",
                                                             "weight": 700,
-                                                            "explanation": "Develops.",
                                                             "children": [
                                                               {
-                                                                "san": "Nf5",
-                                                                "weight": 600,
-                                                                "explanation": "Attacks bishop.",
-                                                                "children": [
-                                                                  {
-                                                                    "san": "Bg6",
-                                                                    "weight": 700,
-                                                                    "explanation": "Retreats.",
-                                                                    "children": [
-                                                                      {
-                                                                        "san": "h4",
-                                                                        "weight": 700,
-                                                                        "explanation": "Attacks.",
-                                                                        "children": [
-                                                                          {
-                                                                            "san": "h5",
-                                                                            "weight": 600,
-                                                                            "explanation": "Stops h5.",
-                                                                            "children": []
-                                                                          }
-                                                                        ]
-                                                                      }
-                                                                    ]
-                                                                  }
-                                                                ]
+                                                                "san": "O-O",
+                                                                "weight": 700,
+                                                                "children": []
                                                               }
                                                             ]
                                                           }
                                                         ]
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "san": "Nf6",
+                                            "weight": 600,
+                                            "children": [
+                                              {
+                                                "san": "O-O",
+                                                "weight": 700,
+                                                "children": [
+                                                  {
+                                                    "san": "e6",
+                                                    "weight": 700,
+                                                    "children": [
+                                                      {
+                                                        "san": "Re1",
+                                                        "weight": 700,
+                                                        "children": []
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "san": "Nf6",
+                                    "weight": 600,
+                                    "children": [
+                                      {
+                                        "san": "Bf4",
+                                        "weight": 700,
+                                        "children": [
+                                          {
+                                            "san": "Nc6",
+                                            "weight": 700,
+                                            "children": [
+                                              {
+                                                "san": "c3",
+                                                "weight": 700,
+                                                "children": [
+                                                  {
+                                                    "san": "e6",
+                                                    "weight": 700,
+                                                    "children": [
+                                                      {
+                                                        "san": "Bd3",
+                                                        "weight": 700,
+                                                        "children": [
+                                                          {
+                                                            "san": "Bd6",
+                                                            "weight": 700,
+                                                            "children": [
+                                                              {
+                                                                "san": "Bxd6",
+                                                                "weight": 700,
+                                                                "children": []
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "san": "e6",
+                                            "weight": 600,
+                                            "children": [
+                                              {
+                                                "san": "c3",
+                                                "weight": 700,
+                                                "children": [
+                                                  {
+                                                    "san": "Nc6",
+                                                    "weight": 700,
+                                                    "children": [
+                                                      {
+                                                        "san": "Bd3",
+                                                        "weight": 700,
+                                                        "children": []
                                                       }
                                                     ]
                                                   }
@@ -8300,62 +9465,44 @@
                                 ]
                               },
                               {
-                                "san": "c5",
+                                "san": "Bd3",
                                 "weight": 700,
-                                "variation": "Advance vs c5",
-                                "explanation": "Counterattacks d4.",
                                 "children": [
                                   {
-                                    "san": "dxc5",
+                                    "san": "Nc6",
                                     "weight": 700,
-                                    "explanation": "Takes.",
                                     "children": [
                                       {
-                                        "san": "Nc6",
+                                        "san": "c3",
                                         "weight": 700,
-                                        "explanation": "Develops.",
                                         "children": [
                                           {
-                                            "san": "Nf3",
+                                            "san": "Nf6",
                                             "weight": 700,
-                                            "explanation": "Develops.",
                                             "children": [
                                               {
-                                                "san": "e6",
+                                                "san": "Nf3",
                                                 "weight": 700,
-                                                "explanation": "Solidifies.",
                                                 "children": [
                                                   {
-                                                    "san": "a3",
-                                                    "weight": 700,
-                                                    "explanation": "Prevents Bb4.",
+                                                    "san": "Bg4",
+                                                    "weight": 600,
                                                     "children": [
                                                       {
-                                                        "san": "Bxc5",
+                                                        "san": "O-O",
                                                         "weight": 700,
-                                                        "explanation": "Recaptures.",
-                                                        "children": [
-                                                          {
-                                                            "san": "b4",
-                                                            "weight": 600,
-                                                            "explanation": "Attacks bishop.",
-                                                            "children": [
-                                                              {
-                                                                "san": "Bd6",
-                                                                "weight": 600,
-                                                                "explanation": "Retreats.",
-                                                                "children": [
-                                                                  {
-                                                                    "san": "Bb2",
-                                                                    "weight": 600,
-                                                                    "explanation": "Develops.",
-                                                                    "children": []
-                                                                  }
-                                                                ]
-                                                              }
-                                                            ]
-                                                          }
-                                                        ]
+                                                        "children": []
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "san": "e6",
+                                                    "weight": 600,
+                                                    "children": [
+                                                      {
+                                                        "san": "O-O",
+                                                        "weight": 700,
+                                                        "children": []
                                                       }
                                                     ]
                                                   }
@@ -8366,130 +9513,27 @@
                                         ]
                                       }
                                     ]
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          {
-                            "san": "exd5",
-                            "weight": 600,
-                            "variation": "Exchange Variation",
-                            "explanation": "Symmetrical pawns; equal but slightly dry.",
-                            "children": [
-                              {
-                                "san": "cxd5",
-                                "weight": 800,
-                                "explanation": "Recaptures; maintains structure.",
-                                "children": [
+                                  },
                                   {
-                                    "san": "Nf3",
-                                    "weight": 800,
-                                    "explanation": "Develops.",
+                                    "san": "Nf6",
+                                    "weight": 600,
                                     "children": [
                                       {
-                                        "san": "Nc6",
+                                        "san": "Nf3",
                                         "weight": 700,
-                                        "explanation": "Develops.",
                                         "children": [
                                           {
-                                            "san": "Bf4",
+                                            "san": "e6",
                                             "weight": 700,
-                                            "explanation": "Develops; pins potential.",
                                             "children": [
                                               {
-                                                "san": "Bg4",
+                                                "san": "O-O",
                                                 "weight": 700,
-                                                "explanation": "Pins knight.",
                                                 "children": [
                                                   {
-                                                    "san": "Be2",
+                                                    "san": "Bd6",
                                                     "weight": 700,
-                                                    "explanation": "Breaks pin; solid.",
-                                                    "children": [
-                                                      {
-                                                        "san": "e6",
-                                                        "weight": 700,
-                                                        "explanation": "Solidifies.",
-                                                        "children": [
-                                                          {
-                                                            "san": "O-O",
-                                                            "weight": 700,
-                                                            "explanation": "Castles.",
-                                                            "children": [
-                                                              {
-                                                                "san": "Bd6",
-                                                                "weight": 700,
-                                                                "explanation": "Develops.",
-                                                                "children": [
-                                                                  {
-                                                                    "san": "Bxd6",
-                                                                    "weight": 700,
-                                                                    "explanation": "Trades.",
-                                                                    "children": [
-                                                                      {
-                                                                        "san": "Qxd6",
-                                                                        "weight": 700,
-                                                                        "explanation": "Recaptures.",
-                                                                        "children": []
-                                                                      }
-                                                                    ]
-                                                                  }
-                                                                ]
-                                                              }
-                                                            ]
-                                                          }
-                                                        ]
-                                                      }
-                                                    ]
-                                                  }
-                                                ]
-                                              },
-                                              {
-                                                "san": "Nf6",
-                                                "weight": 700,
-                                                "explanation": "Develops.",
-                                                "children": [
-                                                  {
-                                                    "san": "Be2",
-                                                    "weight": 700,
-                                                    "explanation": "Develops.",
-                                                    "children": [
-                                                      {
-                                                        "san": "e6",
-                                                        "weight": 700,
-                                                        "explanation": "Solidifies.",
-                                                        "children": [
-                                                          {
-                                                            "san": "O-O",
-                                                            "weight": 700,
-                                                            "explanation": "Castles.",
-                                                            "children": [
-                                                              {
-                                                                "san": "Bd6",
-                                                                "weight": 700,
-                                                                "explanation": "Develops.",
-                                                                "children": [
-                                                                  {
-                                                                    "san": "Bxd6",
-                                                                    "weight": 700,
-                                                                    "explanation": "Trades.",
-                                                                    "children": [
-                                                                      {
-                                                                        "san": "Qxd6",
-                                                                        "weight": 700,
-                                                                        "explanation": "Recaptures.",
-                                                                        "children": []
-                                                                      }
-                                                                    ]
-                                                                  }
-                                                                ]
-                                                              }
-                                                            ]
-                                                          }
-                                                        ]
-                                                      }
-                                                    ]
+                                                    "children": []
                                                   }
                                                 ]
                                               }
