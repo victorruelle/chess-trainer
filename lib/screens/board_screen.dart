@@ -7,6 +7,8 @@ import '../providers/opening_provider.dart';
 import '../widgets/board/chess_board_widget.dart';
 import '../widgets/banner_overlay.dart';
 
+final _explanationsOpenProvider = StateProvider<bool>((ref) => false);
+
 class BoardScreen extends ConsumerWidget {
   const BoardScreen({super.key});
 
@@ -14,6 +16,7 @@ class BoardScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final boardState = ref.watch(boardProvider);
     final opening = ref.watch(selectedOpeningProvider);
+    final panelOpen = ref.watch(_explanationsOpenProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -23,13 +26,6 @@ class BoardScreen extends ConsumerWidget {
           icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        actions: [
-          _LightbulbButton(
-            arrows: boardState.arrows,
-            status: boardState.status,
-            openingName: opening?.name ?? '',
-          ),
-        ],
       ),
       body: Column(
         children: [
@@ -42,6 +38,11 @@ class BoardScreen extends ConsumerWidget {
               child: ChessBoardWidget(),
             ),
           ),
+          if (panelOpen)
+            _ExplanationsPanel(
+              arrows: boardState.arrows,
+              status: boardState.status,
+            ),
           _BottomControls(),
         ],
       ),
@@ -49,108 +50,52 @@ class BoardScreen extends ConsumerWidget {
   }
 }
 
-class _LightbulbButton extends StatelessWidget {
+class _ExplanationsPanel extends StatelessWidget {
   final List<Arrow> arrows;
   final OpeningStatus status;
-  final String openingName;
 
-  const _LightbulbButton({
-    required this.arrows,
-    required this.status,
-    required this.openingName,
-  });
+  const _ExplanationsPanel({required this.arrows, required this.status});
 
   @override
   Widget build(BuildContext context) {
-    final hasExplanations =
-        status == OpeningStatus.inBook && arrows.isNotEmpty;
-
-    return IconButton(
-      icon: Icon(
-        hasExplanations ? Icons.lightbulb : Icons.lightbulb_outline,
-        color: hasExplanations
-            ? const Color(0xFFFFD700)
-            : Colors.grey.shade400,
+    return Container(
+      constraints: const BoxConstraints(maxHeight: 200),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surface,
+        border: Border(
+          top: BorderSide(color: Colors.grey.shade300),
+          bottom: BorderSide(color: Colors.grey.shade300),
+        ),
       ),
-      tooltip: 'Move explanations',
-      onPressed: () => _showExplanations(context),
-    );
-  }
-
-  void _showExplanations(BuildContext context) {
-    showModalBottomSheet<void>(
-      context: context,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-      ),
-      builder: (ctx) => _ExplanationsSheet(
-        arrows: arrows,
-        status: status,
-        openingName: openingName,
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        child: _panelContent(),
       ),
     );
   }
-}
 
-class _ExplanationsSheet extends StatelessWidget {
-  final List<Arrow> arrows;
-  final OpeningStatus status;
-  final String openingName;
-
-  const _ExplanationsSheet({
-    required this.arrows,
-    required this.status,
-    required this.openingName,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 16, 20, 32),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Center(
-            child: Container(
-              width: 40,
-              height: 4,
-              decoration: BoxDecoration(
-                color: Colors.grey.shade400,
-                borderRadius: BorderRadius.circular(2),
-              ),
-            ),
-          ),
-          const SizedBox(height: 16),
-          const Text(
-            'Move Ideas',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            openingName,
-            style: TextStyle(fontSize: 13, color: Colors.grey.shade600),
-          ),
-          const SizedBox(height: 16),
-          if (status == OpeningStatus.offBook)
-            const _EmptyState(
-              icon: Icons.route_outlined,
-              message: "You're off-book — no opening guidance available.",
-            )
-          else if (status == OpeningStatus.complete)
-            const _EmptyState(
-              icon: Icons.check_circle_outline,
-              message: 'Opening complete. Play freely from here.',
-            )
-          else if (arrows.isEmpty)
-            const _EmptyState(
-              icon: Icons.hourglass_empty,
-              message: 'No suggestions for this position.',
-            )
-          else
-            ...arrows.map((arrow) => _ExplanationRow(arrow: arrow)),
-        ],
-      ),
+  Widget _panelContent() {
+    if (status == OpeningStatus.offBook) {
+      return const _EmptyState(
+        icon: Icons.route_outlined,
+        message: "You're off-book — no opening guidance available.",
+      );
+    }
+    if (status == OpeningStatus.complete) {
+      return const _EmptyState(
+        icon: Icons.check_circle_outline,
+        message: 'Opening complete. Play freely from here.',
+      );
+    }
+    if (arrows.isEmpty) {
+      return const _EmptyState(
+        icon: Icons.hourglass_empty,
+        message: 'No suggestions for this position.',
+      );
+    }
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: arrows.map((arrow) => _ExplanationRow(arrow: arrow)).toList(),
     );
   }
 }
@@ -169,14 +114,14 @@ class _ExplanationRow extends StatelessWidget {
     };
 
     return Padding(
-      padding: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.only(bottom: 10),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             width: 10,
             height: 10,
-            margin: const EdgeInsets.only(top: 5, right: 12),
+            margin: const EdgeInsets.only(top: 4, right: 10),
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: arrow.rank.color,
@@ -192,15 +137,15 @@ class _ExplanationRow extends StatelessWidget {
                       arrow.san,
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 15,
+                        fontSize: 14,
                         fontFamily: 'monospace',
                       ),
                     ),
-                    const SizedBox(width: 8),
+                    const SizedBox(width: 6),
                     Text(
                       rankLabel,
                       style: TextStyle(
-                        fontSize: 12,
+                        fontSize: 11,
                         color: arrow.rank.color,
                         fontWeight: FontWeight.w600,
                       ),
@@ -208,11 +153,11 @@ class _ExplanationRow extends StatelessWidget {
                   ],
                 ),
                 if (arrow.explanation != null) ...[
-                  const SizedBox(height: 4),
+                  const SizedBox(height: 2),
                   Text(
                     arrow.explanation!,
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 13,
                       color: Colors.grey.shade700,
                       height: 1.4,
                     ),
@@ -236,15 +181,15 @@ class _EmptyState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
+      padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(
         children: [
-          Icon(icon, color: Colors.grey.shade400, size: 20),
+          Icon(icon, color: Colors.grey.shade400, size: 18),
           const SizedBox(width: 10),
           Expanded(
             child: Text(
               message,
-              style: TextStyle(color: Colors.grey.shade600, fontSize: 14),
+              style: TextStyle(color: Colors.grey.shade600, fontSize: 13),
             ),
           ),
         ],
@@ -259,6 +204,10 @@ class _BottomControls extends ConsumerWidget {
     final canUndo = ref.watch(
       boardProvider.select((s) => s.moveHistory.isNotEmpty),
     );
+    final panelOpen = ref.watch(_explanationsOpenProvider);
+    final boardState = ref.watch(boardProvider);
+    final hasExplanations =
+        boardState.status == OpeningStatus.inBook && boardState.arrows.isNotEmpty;
 
     return SafeArea(
       child: Container(
@@ -283,6 +232,20 @@ class _BottomControls extends ConsumerWidget {
               icon: const Icon(Icons.refresh),
               tooltip: 'Reset',
               onPressed: () => ref.read(boardProvider.notifier).reset(),
+            ),
+            IconButton(
+              icon: Icon(
+                panelOpen ? Icons.lightbulb : Icons.lightbulb_outline,
+                color: panelOpen
+                    ? const Color(0xFFFFD700)
+                    : hasExplanations
+                        ? Colors.grey.shade700
+                        : Colors.grey.shade400,
+              ),
+              tooltip: 'Move ideas',
+              onPressed: () => ref
+                  .read(_explanationsOpenProvider.notifier)
+                  .state = !panelOpen,
             ),
             IconButton(
               icon: const Icon(Icons.format_list_numbered),
