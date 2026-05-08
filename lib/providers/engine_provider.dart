@@ -6,21 +6,27 @@ import 'board_provider.dart';
 
 class EngineState {
   final EngineEval? eval;
+  /// Snapshot of eval at the position *before* the most recent move.
+  /// Used to compute the cost of off-book deviations.
+  final EngineEval? prevEval;
   final bool isReady;
-  final bool isSearching;
 
   const EngineState({
     this.eval,
+    this.prevEval,
     this.isReady = false,
-    this.isSearching = false,
   });
 
-  EngineState copyWith({EngineEval? eval, bool? isReady, bool? isSearching}) =>
-      EngineState(
-        eval: eval ?? this.eval,
-        isReady: isReady ?? this.isReady,
-        isSearching: isSearching ?? this.isSearching,
-      );
+  EngineState copyWith({
+    EngineEval? eval,
+    EngineEval? prevEval,
+    bool? isReady,
+    bool clearPrev = false,
+  }) => EngineState(
+    eval: eval ?? this.eval,
+    prevEval: clearPrev ? null : (prevEval ?? this.prevEval),
+    isReady: isReady ?? this.isReady,
+  );
 }
 
 // ── Notifier ──────────────────────────────────────────────────────────────────
@@ -31,12 +37,8 @@ class EngineNotifier extends Notifier<EngineState> {
   @override
   EngineState build() {
     _service = StockfishService();
-
-    // Kick off init asynchronously; state will update when ready
-    _initAndListen();
-
     ref.onDispose(_service.dispose);
-
+    _initAndListen();
     return const EngineState();
   }
 
@@ -46,22 +48,24 @@ class EngineNotifier extends Notifier<EngineState> {
 
     state = state.copyWith(isReady: true);
 
-    // Watch board FEN — re-evaluate every time a move is played
+    // Every time the board FEN changes, snapshot the current eval as prevEval
+    // then kick off a new search.
     ref.listen(boardProvider.select((s) => s.fen), (prev, next) {
-      if (prev != next) _evaluate(next);
+      if (prev != next) {
+        state = state.copyWith(prevEval: state.eval);
+        _evaluate(next);
+      }
     });
 
-    // Evaluate the starting position immediately
     _evaluate(ref.read(boardProvider).fen);
   }
 
   void _evaluate(String fen) {
-    state = state.copyWith(isSearching: true);
     _service.evaluate(
       fen,
       depth: 20,
       onUpdate: (eval) {
-        state = state.copyWith(eval: eval, isSearching: true);
+        state = state.copyWith(eval: eval);
       },
     );
   }

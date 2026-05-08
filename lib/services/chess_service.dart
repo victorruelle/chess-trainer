@@ -52,4 +52,15 @@ class ChessService {
     final moves = game.generate_moves({'square': from});
     return moves.any((m) => m.toAlgebraic == to);
   }
+
+  /// Converts a UCI move string (e.g. "e2e4", "g1f3") to SAN notation.
+  static String? uciToSan(String fen, String uci) {
+    if (uci.length < 4) return null;
+    final from = uci.substring(0, 2);
+    final to = uci.substring(2, 4);
+    return moveToSan(fen, from, to);
+  }
+
+  /// True if it is White's turn in the given FEN.
+  static bool isWhiteTurn(String fen) => fen.split(' ')[1] == 'w';
 }
