@@ -1,0 +1,1806 @@
+[
+  {
+    "id": "ruy_lopez",
+    "name": "Ruy Lopez",
+    "eco": "C60",
+    "color": "white",
+    "moves": [
+      {
+        "san": "e4", "weight": 1000,
+        "children": [
+          {
+            "san": "e5", "weight": 1000,
+            "children": [
+              {
+                "san": "Nf3", "weight": 1000,
+                "children": [
+                  {
+                    "san": "Nc6", "weight": 1000,
+                    "children": [
+                      {
+                        "san": "Bb5", "weight": 1000,
+                        "children": [
+                          {
+                            "san": "a6", "weight": 700,
+                            "children": [
+                              {
+                                "san": "Ba4", "weight": 1000,
+                                "children": [
+                                  {
+                                    "san": "Nf6", "weight": 700,
+                                    "children": [
+                                      {
+                                        "san": "O-O", "weight": 1000,
+                                        "children": [
+                                          { "san": "Be7", "weight": 600, "children": [] },
+                                          { "san": "b5", "weight": 300, "children": [] },
+                                          { "san": "Nxe4", "weight": 100, "children": [] }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "san": "d6", "weight": 200,
+                                    "children": [
+                                      { "san": "c3", "weight": 1000, "children": [] }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "san": "Nf6", "weight": 200,
+                            "children": [
+                              {
+                                "san": "O-O", "weight": 1000,
+                                "children": [
+                                  { "san": "Nxe4", "weight": 1000, "children": [] }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "san": "d6", "weight": 80,
+                            "children": [
+                              {
+                                "san": "c3", "weight": 1000,
+                                "children": [
+                                  { "san": "Nf6", "weight": 1000, "children": [] }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "italian_game",
+    "name": "Italian Game",
+    "eco": "C50",
+    "color": "white",
+    "moves": [
+      {
+        "san": "e4", "weight": 1000,
+        "children": [
+          {
+            "san": "e5", "weight": 1000,
+            "children": [
+              {
+                "san": "Nf3", "weight": 1000,
+                "children": [
+                  {
+                    "san": "Nc6", "weight": 1000,
+                    "children": [
+                      {
+                        "san": "Bc4", "weight": 1000,
+                        "children": [
+                          {
+                            "san": "Bc5", "weight": 600,
+                            "children": [
+                              {
+                                "san": "c3", "weight": 600,
+                                "children": [
+                                  { "san": "Nf6", "weight": 700, "children": [] },
+                                  { "san": "d6", "weight": 200, "children": [] }
+                                ]
+                              },
+                              {
+                                "san": "O-O", "weight": 300,
+                                "children": [
+                                  { "san": "Nf6", "weight": 1000, "children": [] }
+                                ]
+                              },
+                              {
+                                "san": "d3", "weight": 100,
+                                "children": [
+                                  { "san": "Nf6", "weight": 1000, "children": [] }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "san": "Nf6", "weight": 350,
+                            "children": [
+                              {
+                                "san": "Ng5", "weight": 500,
+                                "children": [
+                                  { "san": "d5", "weight": 1000, "children": [] }
+                                ]
+                              },
+                              {
+                                "san": "d3", "weight": 500,
+                                "children": [
+                                  { "san": "Bc5", "weight": 1000, "children": [] }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "san": "d6", "weight": 50,
+                            "children": [
+                              { "san": "c3", "weight": 1000, "children": [] }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "kings_gambit",
+    "name": "King's Gambit",
+    "eco": "C30",
+    "color": "white",
+    "moves": [
+      {
+        "san": "e4", "weight": 1000,
+        "children": [
+          {
+            "san": "e5", "weight": 1000,
+            "children": [
+              {
+                "san": "f4", "weight": 1000,
+                "children": [
+                  {
+                    "san": "exf4", "weight": 700,
+                    "children": [
+                      {
+                        "san": "Nf3", "weight": 600,
+                        "children": [
+                          { "san": "g5", "weight": 500, "children": [] },
+                          { "san": "d6", "weight": 300, "children": [] },
+                          { "san": "Nf6", "weight": 200, "children": [] }
+                        ]
+                      },
+                      {
+                        "san": "Bc4", "weight": 400,
+                        "children": [
+                          { "san": "g5", "weight": 600, "children": [] },
+                          { "san": "Nf6", "weight": 400, "children": [] }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "san": "Bc5", "weight": 200,
+                    "children": [
+                      {
+                        "san": "Nf3", "weight": 700,
+                        "children": [
+                          { "san": "d6", "weight": 600, "children": [] },
+                          { "san": "Nc6", "weight": 400, "children": [] }
+                        ]
+                      },
+                      {
+                        "san": "fxe5", "weight": 300,
+                        "children": [
+                          { "san": "Bxe5", "weight": 1000, "children": [] }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "san": "d5", "weight": 100,
+                    "children": [
+                      { "san": "exd5", "weight": 1000, "children": [] }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "london_system",
+    "name": "London System",
+    "eco": "D02",
+    "color": "white",
+    "moves": [
+      {
+        "san": "d4", "weight": 1000,
+        "children": [
+          {
+            "san": "d5", "weight": 700,
+            "children": [
+              {
+                "san": "Nf3", "weight": 1000,
+                "children": [
+                  {
+                    "san": "Nf6", "weight": 700,
+                    "children": [
+                      {
+                        "san": "Bf4", "weight": 1000,
+                        "children": [
+                          {
+                            "san": "e6", "weight": 500,
+                            "children": [
+                              {
+                                "san": "e3", "weight": 700,
+                                "children": [
+                                  { "san": "Bd6", "weight": 500, "children": [] },
+                                  { "san": "Be7", "weight": 500, "children": [] }
+                                ]
+                              },
+                              { "san": "c3", "weight": 300, "children": [] }
+                            ]
+                          },
+                          {
+                            "san": "c5", "weight": 300,
+                            "children": [
+                              {
+                                "san": "e3", "weight": 1000,
+                                "children": [
+                                  { "san": "Nc6", "weight": 600, "children": [] },
+                                  { "san": "e6", "weight": 400, "children": [] }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "san": "c6", "weight": 200,
+                            "children": [
+                              { "san": "e3", "weight": 1000, "children": [] }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "san": "Bf5", "weight": 200,
+                    "children": [
+                      { "san": "Bf4", "weight": 1000, "children": [] }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "san": "Nf6", "weight": 300,
+            "children": [
+              {
+                "san": "Nf3", "weight": 1000,
+                "children": [
+                  {
+                    "san": "g6", "weight": 500,
+                    "children": [
+                      { "san": "Bf4", "weight": 1000, "children": [] }
+                    ]
+                  },
+                  {
+                    "san": "e6", "weight": 500,
+                    "children": [
+                      { "san": "Bf4", "weight": 1000, "children": [] }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "queens_gambit_declined",
+    "name": "Queen's Gambit Declined",
+    "eco": "D30",
+    "color": "white",
+    "moves": [
+      {
+        "san": "d4", "weight": 1000,
+        "children": [
+          {
+            "san": "d5", "weight": 1000,
+            "children": [
+              {
+                "san": "c4", "weight": 1000,
+                "children": [
+                  {
+                    "san": "e6", "weight": 1000,
+                    "children": [
+                      {
+                        "san": "Nc3", "weight": 600,
+                        "children": [
+                          {
+                            "san": "Nf6", "weight": 1000,
+                            "children": [
+                              {
+                                "san": "Bg5", "weight": 600,
+                                "children": [
+                                  {
+                                    "san": "Be7", "weight": 600,
+                                    "children": [
+                                      { "san": "e3", "weight": 1000, "children": [] }
+                                    ]
+                                  },
+                                  {
+                                    "san": "Nbd7", "weight": 300,
+                                    "children": [
+                                      { "san": "cxd5", "weight": 1000, "children": [] }
+                                    ]
+                                  },
+                                  {
+                                    "san": "h6", "weight": 100,
+                                    "children": [
+                                      { "san": "Bxf6", "weight": 1000, "children": [] }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "san": "Nf3", "weight": 400,
+                                "children": [
+                                  {
+                                    "san": "Be7", "weight": 1000,
+                                    "children": [
+                                      { "san": "Bf4", "weight": 1000, "children": [] }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "san": "Nf3", "weight": 400,
+                        "children": [
+                          {
+                            "san": "Nf6", "weight": 1000,
+                            "children": [
+                              { "san": "Nc3", "weight": 1000, "children": [] }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "queens_gambit_accepted",
+    "name": "Queen's Gambit Accepted",
+    "eco": "D20",
+    "color": "white",
+    "moves": [
+      {
+        "san": "d4", "weight": 1000,
+        "children": [
+          {
+            "san": "d5", "weight": 1000,
+            "children": [
+              {
+                "san": "c4", "weight": 1000,
+                "children": [
+                  {
+                    "san": "dxc4", "weight": 1000,
+                    "children": [
+                      {
+                        "san": "e4", "weight": 500,
+                        "children": [
+                          {
+                            "san": "e5", "weight": 500,
+                            "children": [
+                              { "san": "Nf3", "weight": 700, "children": [] },
+                              { "san": "d5", "weight": 300, "children": [] }
+                            ]
+                          },
+                          {
+                            "san": "Nc6", "weight": 300,
+                            "children": [
+                              { "san": "Nf3", "weight": 1000, "children": [] }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "san": "Nf3", "weight": 500,
+                        "children": [
+                          {
+                            "san": "Nf6", "weight": 700,
+                            "children": [
+                              { "san": "e3", "weight": 600, "children": [] },
+                              { "san": "Nc3", "weight": 400, "children": [] }
+                            ]
+                          },
+                          {
+                            "san": "a6", "weight": 300,
+                            "children": [
+                              { "san": "e3", "weight": 1000, "children": [] }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "catalan",
+    "name": "Catalan",
+    "eco": "E00",
+    "color": "white",
+    "moves": [
+      {
+        "san": "d4", "weight": 1000,
+        "children": [
+          {
+            "san": "Nf6", "weight": 1000,
+            "children": [
+              {
+                "san": "c4", "weight": 1000,
+                "children": [
+                  {
+                    "san": "e6", "weight": 700,
+                    "children": [
+                      {
+                        "san": "g3", "weight": 1000,
+                        "children": [
+                          {
+                            "san": "d5", "weight": 600,
+                            "children": [
+                              {
+                                "san": "Bg2", "weight": 1000,
+                                "children": [
+                                  { "san": "Be7", "weight": 500, "children": [] },
+                                  { "san": "dxc4", "weight": 400, "children": [] },
+                                  { "san": "Bb4+", "weight": 100, "children": [] }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "san": "c5", "weight": 300,
+                            "children": [
+                              {
+                                "san": "Bg2", "weight": 1000,
+                                "children": [
+                                  { "san": "cxd4", "weight": 1000, "children": [] }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "english_opening",
+    "name": "English Opening",
+    "eco": "A10",
+    "color": "white",
+    "moves": [
+      {
+        "san": "c4", "weight": 1000,
+        "children": [
+          {
+            "san": "e5", "weight": 500,
+            "children": [
+              {
+                "san": "Nc3", "weight": 1000,
+                "children": [
+                  {
+                    "san": "Nf6", "weight": 600,
+                    "children": [
+                      { "san": "Nf3", "weight": 500, "children": [] },
+                      { "san": "g3", "weight": 400, "children": [] },
+                      { "san": "e4", "weight": 100, "children": [] }
+                    ]
+                  },
+                  {
+                    "san": "Nc6", "weight": 400,
+                    "children": [
+                      { "san": "g3", "weight": 600, "children": [] },
+                      { "san": "Nf3", "weight": 400, "children": [] }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "san": "Nf6", "weight": 300,
+            "children": [
+              {
+                "san": "Nc3", "weight": 800,
+                "children": [
+                  { "san": "d5", "weight": 500, "children": [] },
+                  { "san": "e6", "weight": 300, "children": [] },
+                  { "san": "g6", "weight": 200, "children": [] }
+                ]
+              },
+              {
+                "san": "Nf3", "weight": 200,
+                "children": [
+                  { "san": "e6", "weight": 500, "children": [] },
+                  { "san": "g6", "weight": 300, "children": [] }
+                ]
+              }
+            ]
+          },
+          {
+            "san": "c5", "weight": 200,
+            "children": [
+              {
+                "san": "Nc3", "weight": 1000,
+                "children": [
+                  { "san": "Nc6", "weight": 600, "children": [] },
+                  { "san": "Nf6", "weight": 400, "children": [] }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "scotch_game",
+    "name": "Scotch Game",
+    "eco": "C44",
+    "color": "white",
+    "moves": [
+      {
+        "san": "e4", "weight": 1000,
+        "children": [
+          {
+            "san": "e5", "weight": 1000,
+            "children": [
+              {
+                "san": "Nf3", "weight": 1000,
+                "children": [
+                  {
+                    "san": "Nc6", "weight": 1000,
+                    "children": [
+                      {
+                        "san": "d4", "weight": 1000,
+                        "children": [
+                          {
+                            "san": "exd4", "weight": 1000,
+                            "children": [
+                              {
+                                "san": "Nxd4", "weight": 1000,
+                                "children": [
+                                  {
+                                    "san": "Nf6", "weight": 500,
+                                    "children": [
+                                      { "san": "Nxc6", "weight": 600, "children": [] },
+                                      { "san": "Nc3", "weight": 400, "children": [] }
+                                    ]
+                                  },
+                                  {
+                                    "san": "Bc5", "weight": 400,
+                                    "children": [
+                                      { "san": "Be3", "weight": 600, "children": [] },
+                                      { "san": "Nb3", "weight": 400, "children": [] }
+                                    ]
+                                  },
+                                  {
+                                    "san": "Qh4", "weight": 100,
+                                    "children": [
+                                      { "san": "Nb5", "weight": 1000, "children": [] }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "four_knights",
+    "name": "Four Knights Game",
+    "eco": "C46",
+    "color": "white",
+    "moves": [
+      {
+        "san": "e4", "weight": 1000,
+        "children": [
+          {
+            "san": "e5", "weight": 1000,
+            "children": [
+              {
+                "san": "Nf3", "weight": 1000,
+                "children": [
+                  {
+                    "san": "Nc6", "weight": 1000,
+                    "children": [
+                      {
+                        "san": "Nc3", "weight": 1000,
+                        "children": [
+                          {
+                            "san": "Nf6", "weight": 1000,
+                            "children": [
+                              {
+                                "san": "Bb5", "weight": 700,
+                                "children": [
+                                  {
+                                    "san": "Bb4", "weight": 600,
+                                    "children": [
+                                      { "san": "O-O", "weight": 600, "children": [] },
+                                      { "san": "Nd5", "weight": 400, "children": [] }
+                                    ]
+                                  },
+                                  {
+                                    "san": "Nd4", "weight": 400,
+                                    "children": [
+                                      { "san": "Bc4", "weight": 1000, "children": [] }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "san": "d4", "weight": 300,
+                                "children": [
+                                  { "san": "exd4", "weight": 1000, "children": [] }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "sicilian_najdorf",
+    "name": "Sicilian Najdorf",
+    "eco": "B90",
+    "color": "black",
+    "moves": [
+      {
+        "san": "e4", "weight": 1000,
+        "children": [
+          {
+            "san": "c5", "weight": 1000,
+            "children": [
+              {
+                "san": "Nf3", "weight": 1000,
+                "children": [
+                  {
+                    "san": "d6", "weight": 1000,
+                    "children": [
+                      {
+                        "san": "d4", "weight": 1000,
+                        "children": [
+                          {
+                            "san": "cxd4", "weight": 1000,
+                            "children": [
+                              {
+                                "san": "Nxd4", "weight": 1000,
+                                "children": [
+                                  {
+                                    "san": "Nf6", "weight": 1000,
+                                    "children": [
+                                      {
+                                        "san": "Nc3", "weight": 1000,
+                                        "children": [
+                                          {
+                                            "san": "a6", "weight": 1000,
+                                            "children": [
+                                              {
+                                                "san": "Be3", "weight": 500,
+                                                "children": [
+                                                  { "san": "e5", "weight": 400, "children": [] },
+                                                  { "san": "Ng4", "weight": 300, "children": [] },
+                                                  { "san": "Nbd7", "weight": 300, "children": [] }
+                                                ]
+                                              },
+                                              {
+                                                "san": "Bg5", "weight": 350,
+                                                "children": [
+                                                  { "san": "e6", "weight": 600, "children": [] },
+                                                  { "san": "Nbd7", "weight": 400, "children": [] }
+                                                ]
+                                              },
+                                              {
+                                                "san": "f4", "weight": 150,
+                                                "children": [
+                                                  { "san": "e5", "weight": 600, "children": [] },
+                                                  { "san": "Nbd7", "weight": 400, "children": [] }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "sicilian_dragon",
+    "name": "Sicilian Dragon",
+    "eco": "B70",
+    "color": "black",
+    "moves": [
+      {
+        "san": "e4", "weight": 1000,
+        "children": [
+          {
+            "san": "c5", "weight": 1000,
+            "children": [
+              {
+                "san": "Nf3", "weight": 1000,
+                "children": [
+                  {
+                    "san": "d6", "weight": 1000,
+                    "children": [
+                      {
+                        "san": "d4", "weight": 1000,
+                        "children": [
+                          {
+                            "san": "cxd4", "weight": 1000,
+                            "children": [
+                              {
+                                "san": "Nxd4", "weight": 1000,
+                                "children": [
+                                  {
+                                    "san": "Nf6", "weight": 1000,
+                                    "children": [
+                                      {
+                                        "san": "Nc3", "weight": 1000,
+                                        "children": [
+                                          {
+                                            "san": "g6", "weight": 1000,
+                                            "children": [
+                                              {
+                                                "san": "Be3", "weight": 500,
+                                                "children": [
+                                                  {
+                                                    "san": "Bg7", "weight": 1000,
+                                                    "children": [
+                                                      { "san": "f3", "weight": 600, "children": [] },
+                                                      { "san": "Be2", "weight": 400, "children": [] }
+                                                    ]
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "san": "f4", "weight": 300,
+                                                "children": [
+                                                  {
+                                                    "san": "Bg7", "weight": 1000,
+                                                    "children": [
+                                                      { "san": "e5", "weight": 600, "children": [] },
+                                                      { "san": "Be2", "weight": 400, "children": [] }
+                                                    ]
+                                                  }
+                                                ]
+                                              },
+                                              {
+                                                "san": "Be2", "weight": 200,
+                                                "children": [
+                                                  { "san": "Bg7", "weight": 1000, "children": [] }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "sicilian_classical",
+    "name": "Sicilian Classical",
+    "eco": "B56",
+    "color": "black",
+    "moves": [
+      {
+        "san": "e4", "weight": 1000,
+        "children": [
+          {
+            "san": "c5", "weight": 1000,
+            "children": [
+              {
+                "san": "Nf3", "weight": 1000,
+                "children": [
+                  {
+                    "san": "Nc6", "weight": 1000,
+                    "children": [
+                      {
+                        "san": "d4", "weight": 1000,
+                        "children": [
+                          {
+                            "san": "cxd4", "weight": 1000,
+                            "children": [
+                              {
+                                "san": "Nxd4", "weight": 1000,
+                                "children": [
+                                  {
+                                    "san": "Nf6", "weight": 600,
+                                    "children": [
+                                      {
+                                        "san": "Nc3", "weight": 1000,
+                                        "children": [
+                                          { "san": "d6", "weight": 500, "children": [] },
+                                          { "san": "e5", "weight": 300, "children": [] },
+                                          { "san": "g6", "weight": 200, "children": [] }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "san": "d6", "weight": 400,
+                                    "children": [
+                                      {
+                                        "san": "Nc3", "weight": 1000,
+                                        "children": [
+                                          { "san": "Nf6", "weight": 700, "children": [] },
+                                          { "san": "e6", "weight": 300, "children": [] }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "french_defense",
+    "name": "French Defense",
+    "eco": "C00",
+    "color": "black",
+    "moves": [
+      {
+        "san": "e4", "weight": 1000,
+        "children": [
+          {
+            "san": "e6", "weight": 1000,
+            "children": [
+              {
+                "san": "d4", "weight": 1000,
+                "children": [
+                  {
+                    "san": "d5", "weight": 1000,
+                    "children": [
+                      {
+                        "san": "Nc3", "weight": 500,
+                        "children": [
+                          {
+                            "san": "Nf6", "weight": 500,
+                            "children": [
+                              {
+                                "san": "Bg5", "weight": 500,
+                                "children": [
+                                  { "san": "Be7", "weight": 600, "children": [] },
+                                  { "san": "dxe4", "weight": 400, "children": [] }
+                                ]
+                              },
+                              {
+                                "san": "e5", "weight": 500,
+                                "children": [
+                                  { "san": "Nfd7", "weight": 1000, "children": [] }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "san": "Bb4", "weight": 400,
+                            "children": [
+                              { "san": "e5", "weight": 600, "children": [] },
+                              { "san": "exd5", "weight": 400, "children": [] }
+                            ]
+                          },
+                          {
+                            "san": "dxe4", "weight": 100,
+                            "children": [
+                              { "san": "Nxe4", "weight": 1000, "children": [] }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "san": "Nd2", "weight": 350,
+                        "children": [
+                          {
+                            "san": "Nf6", "weight": 600,
+                            "children": [
+                              {
+                                "san": "e5", "weight": 700,
+                                "children": [
+                                  { "san": "Nfd7", "weight": 1000, "children": [] }
+                                ]
+                              },
+                              {
+                                "san": "Ngf3", "weight": 300,
+                                "children": [
+                                  { "san": "c5", "weight": 1000, "children": [] }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "san": "c5", "weight": 400,
+                            "children": [
+                              { "san": "exd5", "weight": 500, "children": [] },
+                              { "san": "Ngf3", "weight": 500, "children": [] }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "san": "exd5", "weight": 150,
+                        "children": [
+                          { "san": "exd5", "weight": 1000, "children": [] }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "caro_kann",
+    "name": "Caro-Kann",
+    "eco": "B10",
+    "color": "black",
+    "moves": [
+      {
+        "san": "e4", "weight": 1000,
+        "children": [
+          {
+            "san": "c6", "weight": 1000,
+            "children": [
+              {
+                "san": "d4", "weight": 700,
+                "children": [
+                  {
+                    "san": "d5", "weight": 1000,
+                    "children": [
+                      {
+                        "san": "Nc3", "weight": 400,
+                        "children": [
+                          {
+                            "san": "dxe4", "weight": 600,
+                            "children": [
+                              {
+                                "san": "Nxe4", "weight": 1000,
+                                "children": [
+                                  { "san": "Bf5", "weight": 600, "children": [] },
+                                  { "san": "Nd7", "weight": 400, "children": [] }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "san": "g6", "weight": 200,
+                            "children": [
+                              { "san": "Nf3", "weight": 600, "children": [] },
+                              { "san": "f4", "weight": 400, "children": [] }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "san": "exd5", "weight": 400,
+                        "children": [
+                          {
+                            "san": "cxd5", "weight": 1000,
+                            "children": [
+                              { "san": "c4", "weight": 600, "children": [] },
+                              { "san": "Nf3", "weight": 400, "children": [] }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "san": "e5", "weight": 200,
+                        "children": [
+                          { "san": "Bf5", "weight": 700, "children": [] },
+                          { "san": "c5", "weight": 300, "children": [] }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "san": "Nc3", "weight": 300,
+                "children": [
+                  {
+                    "san": "d5", "weight": 700,
+                    "children": [
+                      { "san": "Nf3", "weight": 600, "children": [] },
+                      { "san": "d4", "weight": 400, "children": [] }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "kings_indian_defense",
+    "name": "King's Indian Defense",
+    "eco": "E60",
+    "color": "black",
+    "moves": [
+      {
+        "san": "d4", "weight": 1000,
+        "children": [
+          {
+            "san": "Nf6", "weight": 1000,
+            "children": [
+              {
+                "san": "c4", "weight": 1000,
+                "children": [
+                  {
+                    "san": "g6", "weight": 1000,
+                    "children": [
+                      {
+                        "san": "Nc3", "weight": 1000,
+                        "children": [
+                          {
+                            "san": "Bg7", "weight": 1000,
+                            "children": [
+                              {
+                                "san": "e4", "weight": 1000,
+                                "children": [
+                                  {
+                                    "san": "d6", "weight": 1000,
+                                    "children": [
+                                      {
+                                        "san": "Nf3", "weight": 600,
+                                        "children": [
+                                          {
+                                            "san": "O-O", "weight": 1000,
+                                            "children": [
+                                              { "san": "Be2", "weight": 500, "children": [] },
+                                              { "san": "Be3", "weight": 300, "children": [] },
+                                              { "san": "h3", "weight": 200, "children": [] }
+                                            ]
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "san": "Be2", "weight": 400,
+                                        "children": [
+                                          { "san": "O-O", "weight": 1000, "children": [] }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "grunfeld_defense",
+    "name": "Grünfeld Defense",
+    "eco": "D80",
+    "color": "black",
+    "moves": [
+      {
+        "san": "d4", "weight": 1000,
+        "children": [
+          {
+            "san": "Nf6", "weight": 1000,
+            "children": [
+              {
+                "san": "c4", "weight": 1000,
+                "children": [
+                  {
+                    "san": "g6", "weight": 1000,
+                    "children": [
+                      {
+                        "san": "Nc3", "weight": 1000,
+                        "children": [
+                          {
+                            "san": "d5", "weight": 1000,
+                            "children": [
+                              {
+                                "san": "cxd5", "weight": 700,
+                                "children": [
+                                  {
+                                    "san": "Nxd5", "weight": 1000,
+                                    "children": [
+                                      {
+                                        "san": "e4", "weight": 600,
+                                        "children": [
+                                          {
+                                            "san": "Nxc3", "weight": 1000,
+                                            "children": [
+                                              { "san": "bxc3", "weight": 700, "children": [] },
+                                              { "san": "Bc4", "weight": 300, "children": [] }
+                                            ]
+                                          }
+                                        ]
+                                      },
+                                      {
+                                        "san": "Nf3", "weight": 400,
+                                        "children": [
+                                          { "san": "Bg7", "weight": 1000, "children": [] }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "san": "Nf3", "weight": 300,
+                                "children": [
+                                  { "san": "Bg7", "weight": 600, "children": [] },
+                                  { "san": "dxc4", "weight": 400, "children": [] }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "nimzo_indian",
+    "name": "Nimzo-Indian Defense",
+    "eco": "E20",
+    "color": "black",
+    "moves": [
+      {
+        "san": "d4", "weight": 1000,
+        "children": [
+          {
+            "san": "Nf6", "weight": 1000,
+            "children": [
+              {
+                "san": "c4", "weight": 1000,
+                "children": [
+                  {
+                    "san": "e6", "weight": 1000,
+                    "children": [
+                      {
+                        "san": "Nc3", "weight": 1000,
+                        "children": [
+                          {
+                            "san": "Bb4", "weight": 1000,
+                            "children": [
+                              {
+                                "san": "e3", "weight": 400,
+                                "children": [
+                                  { "san": "O-O", "weight": 600, "children": [] },
+                                  { "san": "c5", "weight": 400, "children": [] }
+                                ]
+                              },
+                              {
+                                "san": "Qc2", "weight": 350,
+                                "children": [
+                                  { "san": "O-O", "weight": 600, "children": [] },
+                                  { "san": "c5", "weight": 400, "children": [] }
+                                ]
+                              },
+                              {
+                                "san": "a3", "weight": 250,
+                                "children": [
+                                  {
+                                    "san": "Bxc3+", "weight": 700,
+                                    "children": [
+                                      { "san": "bxc3", "weight": 1000, "children": [] }
+                                    ]
+                                  },
+                                  {
+                                    "san": "Ba5", "weight": 300,
+                                    "children": [
+                                      { "san": "Nf3", "weight": 1000, "children": [] }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "dutch_defense",
+    "name": "Dutch Defense",
+    "eco": "A80",
+    "color": "black",
+    "moves": [
+      {
+        "san": "d4", "weight": 1000,
+        "children": [
+          {
+            "san": "f5", "weight": 1000,
+            "children": [
+              {
+                "san": "g3", "weight": 400,
+                "children": [
+                  {
+                    "san": "Nf6", "weight": 700,
+                    "children": [
+                      {
+                        "san": "Bg2", "weight": 1000,
+                        "children": [
+                          { "san": "e6", "weight": 600, "children": [] },
+                          { "san": "g6", "weight": 400, "children": [] }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "san": "e6", "weight": 300,
+                    "children": [
+                      { "san": "Bg2", "weight": 1000, "children": [] }
+                    ]
+                  }
+                ]
+              },
+              {
+                "san": "c4", "weight": 400,
+                "children": [
+                  {
+                    "san": "Nf6", "weight": 700,
+                    "children": [
+                      { "san": "g3", "weight": 500, "children": [] },
+                      { "san": "Nc3", "weight": 500, "children": [] }
+                    ]
+                  }
+                ]
+              },
+              {
+                "san": "Nf3", "weight": 200,
+                "children": [
+                  { "san": "Nf6", "weight": 700, "children": [] },
+                  { "san": "e6", "weight": 300, "children": [] }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "slav_defense",
+    "name": "Slav Defense",
+    "eco": "D10",
+    "color": "black",
+    "moves": [
+      {
+        "san": "d4", "weight": 1000,
+        "children": [
+          {
+            "san": "d5", "weight": 1000,
+            "children": [
+              {
+                "san": "c4", "weight": 1000,
+                "children": [
+                  {
+                    "san": "c6", "weight": 1000,
+                    "children": [
+                      {
+                        "san": "Nc3", "weight": 600,
+                        "children": [
+                          {
+                            "san": "Nf6", "weight": 1000,
+                            "children": [
+                              {
+                                "san": "Nf3", "weight": 600,
+                                "children": [
+                                  { "san": "dxc4", "weight": 500, "children": [] },
+                                  { "san": "e6", "weight": 400, "children": [] },
+                                  { "san": "a6", "weight": 100, "children": [] }
+                                ]
+                              },
+                              {
+                                "san": "e3", "weight": 400,
+                                "children": [
+                                  { "san": "e6", "weight": 600, "children": [] },
+                                  { "san": "Bf5", "weight": 400, "children": [] }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "san": "Nf3", "weight": 400,
+                        "children": [
+                          {
+                            "san": "Nf6", "weight": 1000,
+                            "children": [
+                              { "san": "Nc3", "weight": 600, "children": [] },
+                              { "san": "e3", "weight": 400, "children": [] }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "scandinavian",
+    "name": "Scandinavian Defense",
+    "eco": "B01",
+    "color": "black",
+    "moves": [
+      {
+        "san": "e4", "weight": 1000,
+        "children": [
+          {
+            "san": "d5", "weight": 1000,
+            "children": [
+              {
+                "san": "exd5", "weight": 1000,
+                "children": [
+                  {
+                    "san": "Qxd5", "weight": 700,
+                    "children": [
+                      {
+                        "san": "Nc3", "weight": 1000,
+                        "children": [
+                          {
+                            "san": "Qa5", "weight": 700,
+                            "children": [
+                              { "san": "d4", "weight": 600, "children": [] },
+                              { "san": "Nf3", "weight": 400, "children": [] }
+                            ]
+                          },
+                          {
+                            "san": "Qd6", "weight": 200,
+                            "children": [
+                              { "san": "Nf3", "weight": 600, "children": [] },
+                              { "san": "d4", "weight": 400, "children": [] }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "san": "Nf6", "weight": 300,
+                    "children": [
+                      {
+                        "san": "d4", "weight": 700,
+                        "children": [
+                          { "san": "Nxd5", "weight": 600, "children": [] },
+                          { "san": "g6", "weight": 400, "children": [] }
+                        ]
+                      },
+                      {
+                        "san": "c4", "weight": 300,
+                        "children": [
+                          { "san": "c6", "weight": 600, "children": [] },
+                          { "san": "e6", "weight": 400, "children": [] }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "petrov_defense",
+    "name": "Petrov Defense",
+    "eco": "C42",
+    "color": "black",
+    "moves": [
+      {
+        "san": "e4", "weight": 1000,
+        "children": [
+          {
+            "san": "e5", "weight": 1000,
+            "children": [
+              {
+                "san": "Nf3", "weight": 1000,
+                "children": [
+                  {
+                    "san": "Nf6", "weight": 1000,
+                    "children": [
+                      {
+                        "san": "Nxe5", "weight": 700,
+                        "children": [
+                          {
+                            "san": "d6", "weight": 1000,
+                            "children": [
+                              {
+                                "san": "Nf3", "weight": 700,
+                                "children": [
+                                  {
+                                    "san": "Nxe4", "weight": 1000,
+                                    "children": [
+                                      { "san": "d4", "weight": 700, "children": [] },
+                                      { "san": "Nc3", "weight": 300, "children": [] }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "san": "Nc4", "weight": 300,
+                                "children": [
+                                  { "san": "Nxe4", "weight": 1000, "children": [] }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "san": "d4", "weight": 300,
+                        "children": [
+                          {
+                            "san": "exd4", "weight": 1000,
+                            "children": [
+                              { "san": "e5", "weight": 700, "children": [] },
+                              { "san": "Nxd4", "weight": 300, "children": [] }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "berlin_defense",
+    "name": "Berlin Defense",
+    "eco": "C65",
+    "color": "black",
+    "moves": [
+      {
+        "san": "e4", "weight": 1000,
+        "children": [
+          {
+            "san": "e5", "weight": 1000,
+            "children": [
+              {
+                "san": "Nf3", "weight": 1000,
+                "children": [
+                  {
+                    "san": "Nc6", "weight": 1000,
+                    "children": [
+                      {
+                        "san": "Bb5", "weight": 1000,
+                        "children": [
+                          {
+                            "san": "Nf6", "weight": 1000,
+                            "children": [
+                              {
+                                "san": "O-O", "weight": 700,
+                                "children": [
+                                  {
+                                    "san": "Nxe4", "weight": 1000,
+                                    "children": [
+                                      {
+                                        "san": "d4", "weight": 700,
+                                        "children": [
+                                          { "san": "Nd6", "weight": 700, "children": [] },
+                                          { "san": "Be7", "weight": 300, "children": [] }
+                                        ]
+                                      },
+                                      {
+                                        "san": "Re1", "weight": 300,
+                                        "children": [
+                                          { "san": "Nd6", "weight": 1000, "children": [] }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "san": "d3", "weight": 300,
+                                "children": [
+                                  { "san": "Bc5", "weight": 600, "children": [] },
+                                  { "san": "d6", "weight": 400, "children": [] }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "pirc_defense",
+    "name": "Pirc Defense",
+    "eco": "B07",
+    "color": "black",
+    "moves": [
+      {
+        "san": "e4", "weight": 1000,
+        "children": [
+          {
+            "san": "d6", "weight": 1000,
+            "children": [
+              {
+                "san": "d4", "weight": 800,
+                "children": [
+                  {
+                    "san": "Nf6", "weight": 1000,
+                    "children": [
+                      {
+                        "san": "Nc3", "weight": 700,
+                        "children": [
+                          {
+                            "san": "g6", "weight": 1000,
+                            "children": [
+                              {
+                                "san": "Be3", "weight": 400,
+                                "children": [
+                                  {
+                                    "san": "Bg7", "weight": 1000,
+                                    "children": [
+                                      { "san": "Qd2", "weight": 600, "children": [] },
+                                      { "san": "f3", "weight": 400, "children": [] }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                "san": "f4", "weight": 400,
+                                "children": [
+                                  { "san": "Bg7", "weight": 1000, "children": [] }
+                                ]
+                              },
+                              {
+                                "san": "Nf3", "weight": 200,
+                                "children": [
+                                  { "san": "Bg7", "weight": 1000, "children": [] }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "san": "Nf3", "weight": 300,
+                        "children": [
+                          { "san": "g6", "weight": 700, "children": [] },
+                          { "san": "Nbd7", "weight": 300, "children": [] }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "queens_indian",
+    "name": "Queen's Indian Defense",
+    "eco": "E12",
+    "color": "black",
+    "moves": [
+      {
+        "san": "d4", "weight": 1000,
+        "children": [
+          {
+            "san": "Nf6", "weight": 1000,
+            "children": [
+              {
+                "san": "c4", "weight": 1000,
+                "children": [
+                  {
+                    "san": "e6", "weight": 1000,
+                    "children": [
+                      {
+                        "san": "Nf3", "weight": 1000,
+                        "children": [
+                          {
+                            "san": "b6", "weight": 1000,
+                            "children": [
+                              {
+                                "san": "g3", "weight": 500,
+                                "children": [
+                                  { "san": "Bb7", "weight": 700, "children": [] },
+                                  { "san": "Ba6", "weight": 300, "children": [] }
+                                ]
+                              },
+                              {
+                                "san": "Nc3", "weight": 300,
+                                "children": [
+                                  { "san": "Bb7", "weight": 600, "children": [] },
+                                  { "san": "Bb4", "weight": 400, "children": [] }
+                                ]
+                              },
+                              {
+                                "san": "e3", "weight": 200,
+                                "children": [
+                                  { "san": "Bb7", "weight": 700, "children": [] },
+                                  { "san": "Bb4+", "weight": 300, "children": [] }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
