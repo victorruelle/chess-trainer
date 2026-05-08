@@ -7,42 +7,52 @@
     "moves": [
       {
         "san": "e4", "weight": 1000,
+        "explanation": "Controls the center immediately and opens lines for the bishop and queen. The most direct way to fight for central space from move one.",
         "children": [
           {
             "san": "e5", "weight": 1000,
+            "explanation": "Black mirrors White's central claim, establishing a symmetric pawn tension that defines open game theory.",
             "children": [
               {
                 "san": "Nf3", "weight": 1000,
+                "explanation": "Develops a piece with tempo by attacking the e5 pawn, forcing Black to defend. Natural, efficient, and principled.",
                 "children": [
                   {
                     "san": "Nc6", "weight": 1000,
+                    "explanation": "The most natural defense of e5, developing the knight toward the center.",
                     "children": [
                       {
                         "san": "Bb5", "weight": 1000,
+                        "explanation": "The Ruy Lopez move. The bishop indirectly pressures e5 by targeting the knight that defends it, posing a long-term strategic threat.",
                         "children": [
                           {
                             "san": "a6", "weight": 700,
+                            "explanation": "The Morphy Defense — Black immediately challenges the bishop to declare its intentions, gaining space on the queenside.",
                             "children": [
                               {
                                 "san": "Ba4", "weight": 1000,
+                                "explanation": "Retreating maintains the pin on the Nc6 without exchanging, keeping long-term pressure on e5.",
                                 "children": [
                                   {
                                     "san": "Nf6", "weight": 700,
+                                    "explanation": "Black attacks the e4 pawn with tempo, accelerating development and preparing to castle.",
                                     "children": [
                                       {
                                         "san": "O-O", "weight": 1000,
+                                        "explanation": "White castles, safeguarding the king and preparing the Ruy Lopez bind with Re1 and c3.",
                                         "children": [
-                                          { "san": "Be7", "weight": 600, "children": [] },
-                                          { "san": "b5", "weight": 300, "children": [] },
-                                          { "san": "Nxe4", "weight": 100, "children": [] }
+                                          { "san": "Be7", "weight": 600, "explanation": "Solid development preparing to castle. Black chooses safety over counterplay, entering the Closed Ruy.", "children": [] },
+                                          { "san": "b5", "weight": 300, "explanation": "Attacks the bishop immediately to gain queenside space, though it weakens the a5 square slightly.", "children": [] },
+                                          { "san": "Nxe4", "weight": 100, "explanation": "The Open Ruy Lopez — Black grabs a pawn but must handle sharp tactical complications after d4.", "children": [] }
                                         ]
                                       }
                                     ]
                                   },
                                   {
                                     "san": "d6", "weight": 200,
+                                    "explanation": "The Steinitz Deferred — solid pawn support for e5 but blocks the dark-squared bishop.",
                                     "children": [
-                                      { "san": "c3", "weight": 1000, "children": [] }
+                                      { "san": "c3", "weight": 1000, "explanation": "Prepares d4 to build a strong pawn center, a core idea of the Ruy Lopez system.", "children": [] }
                                     ]
                                   }
                                 ]
@@ -51,22 +61,26 @@
                           },
                           {
                             "san": "Nf6", "weight": 200,
+                            "explanation": "The Berlin Defense — pragmatic and solid, directly countering e4. Favored at the top level for its endgame resilience.",
                             "children": [
                               {
                                 "san": "O-O", "weight": 1000,
+                                "explanation": "White castles first, inviting the Berlin endgame which White accepts for a structural advantage.",
                                 "children": [
-                                  { "san": "Nxe4", "weight": 1000, "children": [] }
+                                  { "san": "Nxe4", "weight": 1000, "explanation": "Black takes the pawn, entering the famous Berlin endgame — drawish but deeply strategic.", "children": [] }
                                 ]
                               }
                             ]
                           },
                           {
                             "san": "d6", "weight": 80,
+                            "explanation": "The Steinitz Defense — very solid, reinforcing e5, but it gives up the bishop pair and falls slightly behind in development.",
                             "children": [
                               {
                                 "san": "c3", "weight": 1000,
+                                "explanation": "Preparing the central thrust d4 to challenge Black's solid but passive setup.",
                                 "children": [
-                                  { "san": "Nf6", "weight": 1000, "children": [] }
+                                  { "san": "Nf6", "weight": 1000, "explanation": "Black develops and attacks e4 before White can build with d4.", "children": [] }
                                 ]
                               }
                             ]
@@ -91,64 +105,77 @@
     "moves": [
       {
         "san": "e4", "weight": 1000,
+        "explanation": "Controls the center and opens lines. The foundation of the Italian Game.",
         "children": [
           {
             "san": "e5", "weight": 1000,
+            "explanation": "Black establishes a central pawn, contesting the center symmetrically.",
             "children": [
               {
                 "san": "Nf3", "weight": 1000,
+                "explanation": "Attacks e5 immediately while developing. The most natural follow-up.",
                 "children": [
                   {
                     "san": "Nc6", "weight": 1000,
+                    "explanation": "Defends e5 with a developing move.",
                     "children": [
                       {
                         "san": "Bc4", "weight": 1000,
+                        "explanation": "The Italian bishop — aims at the vulnerable f7 square and controls the center diagonally. A classical and aggressive piece placement.",
                         "children": [
                           {
                             "san": "Bc5", "weight": 600,
+                            "explanation": "The Giuoco Piano — Black mirrors White's diagonal control, eyeing f2. Leads to rich strategic battles.",
                             "children": [
                               {
                                 "san": "c3", "weight": 600,
+                                "explanation": "Prepares d4 to challenge the center. The main line of the Italian, building a classical pawn center.",
                                 "children": [
-                                  { "san": "Nf6", "weight": 700, "children": [] },
-                                  { "san": "d6", "weight": 200, "children": [] }
+                                  { "san": "Nf6", "weight": 700, "explanation": "Black develops and attacks e4, gaining time before White can play d4.", "children": [] },
+                                  { "san": "d6", "weight": 200, "explanation": "Solid support of e5, though slightly passive. Black prepares queenside development.", "children": [] }
                                 ]
                               },
                               {
                                 "san": "O-O", "weight": 300,
+                                "explanation": "White castles first for king safety before committing to a pawn structure. Flexible and solid.",
                                 "children": [
-                                  { "san": "Nf6", "weight": 1000, "children": [] }
+                                  { "san": "Nf6", "weight": 1000, "explanation": "Black counterattacks e4 while completing development.", "children": [] }
                                 ]
                               },
                               {
                                 "san": "d3", "weight": 100,
+                                "explanation": "The quiet Italian — White opts for a slower build-up, avoiding early pawn battles.",
                                 "children": [
-                                  { "san": "Nf6", "weight": 1000, "children": [] }
+                                  { "san": "Nf6", "weight": 1000, "explanation": "Natural development, preparing to castle.", "children": [] }
                                 ]
                               }
                             ]
                           },
                           {
                             "san": "Nf6", "weight": 350,
+                            "explanation": "Two Knights Defense — aggressive counterplay, attacking e4 and inviting White to overextend.",
                             "children": [
                               {
                                 "san": "Ng5", "weight": 500,
+                                "explanation": "Attacks f7 immediately — the most aggressive response, leading to sharp tactical play.",
                                 "children": [
-                                  { "san": "d5", "weight": 1000, "children": [] }
+                                  { "san": "d5", "weight": 1000, "explanation": "The correct counterattack — Black must challenge the center or fall into a passive position.", "children": [] }
                                 ]
                               },
                               {
                                 "san": "d3", "weight": 500,
+                                "explanation": "Quiet and solid — White avoids the tactical Two Knights complications, aiming for steady development.",
                                 "children": [
-                                  { "san": "Bc5", "weight": 1000, "children": [] }
+                                  { "san": "Bc5", "weight": 1000, "explanation": "Black develops the bishop to its best diagonal, transposing to a Giuoco Piano type position.", "children": [] }
                                 ]
                               }
                             ]
                           },
                           {
                             "san": "d6", "weight": 50,
+                            "explanation": "Hungarian Defense — very solid but passive. Black avoids Italian complications at the cost of activity.",
                             "children": [
-                              { "san": "c3", "weight": 1000, "children": [] }
+                              { "san": "c3", "weight": 1000, "explanation": "Preparing d4 to exploit Black's passive setup with a strong central advance.", "children": [] }
                             ]
                           }
                         ]
@@ -171,55 +198,65 @@
     "moves": [
       {
         "san": "e4", "weight": 1000,
+        "explanation": "Controls the center, starting one of the most aggressive openings in chess history.",
         "children": [
           {
             "san": "e5", "weight": 1000,
+            "explanation": "Black claims central space symmetrically.",
             "children": [
               {
                 "san": "f4", "weight": 1000,
+                "explanation": "The King's Gambit! White offers a pawn to destroy Black's central pawn and open the f-file for attack. Aggressive and romantic.",
                 "children": [
                   {
                     "san": "exf4", "weight": 700,
+                    "explanation": "Accepting the gambit — Black takes the pawn but must weather White's attacking initiative.",
                     "children": [
                       {
                         "san": "Nf3", "weight": 600,
+                        "explanation": "Develops with tempo and prepares to castle, building attacking pressure against the f4 pawn and the kingside.",
                         "children": [
-                          { "san": "g5", "weight": 500, "children": [] },
-                          { "san": "d6", "weight": 300, "children": [] },
-                          { "san": "Nf6", "weight": 200, "children": [] }
+                          { "san": "g5", "weight": 500, "explanation": "Holding the extra pawn aggressively with a space grab, though it weakens the kingside.", "children": [] },
+                          { "san": "d6", "weight": 300, "explanation": "Solid development, consolidating the extra pawn before counterattacking.", "children": [] },
+                          { "san": "Nf6", "weight": 200, "explanation": "Counter-developing, trading activity for the extra material.", "children": [] }
                         ]
                       },
                       {
                         "san": "Bc4", "weight": 400,
+                        "explanation": "The Bishop's Gambit — White aims directly at f7, combining development with immediate attacking threats.",
                         "children": [
-                          { "san": "g5", "weight": 600, "children": [] },
-                          { "san": "Nf6", "weight": 400, "children": [] }
+                          { "san": "g5", "weight": 600, "explanation": "Defends the extra pawn and threatens g4, but invites a sharp battle.", "children": [] },
+                          { "san": "Nf6", "weight": 400, "explanation": "Active development, attacking e4 rather than holding the extra pawn passively.", "children": [] }
                         ]
                       }
                     ]
                   },
                   {
                     "san": "Bc5", "weight": 200,
+                    "explanation": "The Falkbeer Counter-Gambit — Black declines and attacks the center directly with d5, counter-gambiting.",
                     "children": [
                       {
                         "san": "Nf3", "weight": 700,
+                        "explanation": "Developing naturally before committing to any pawn captures.",
                         "children": [
-                          { "san": "d6", "weight": 600, "children": [] },
-                          { "san": "Nc6", "weight": 400, "children": [] }
+                          { "san": "d6", "weight": 600, "explanation": "Solid structure, keeping the bishop and preventing White's center from advancing.", "children": [] },
+                          { "san": "Nc6", "weight": 400, "explanation": "Developing toward the center, pressuring e4.", "children": [] }
                         ]
                       },
                       {
                         "san": "fxe5", "weight": 300,
+                        "explanation": "White takes the pawn, but Black gets strong compensation with the active Bc5 bishop.",
                         "children": [
-                          { "san": "Bxe5", "weight": 1000, "children": [] }
+                          { "san": "Bxe5", "weight": 1000, "explanation": "Recapturing with the bishop, maintaining the diagonal and central pressure.", "children": [] }
                         ]
                       }
                     ]
                   },
                   {
                     "san": "d5", "weight": 100,
+                    "explanation": "The Falkbeer Counter-Gambit — aggressive counterplay in the center rather than accepting the gambit.",
                     "children": [
-                      { "san": "exd5", "weight": 1000, "children": [] }
+                      { "san": "exd5", "weight": 1000, "explanation": "White accepts, opening the position and leading to complex tactical battles.", "children": [] }
                     ]
                   }
                 ]
@@ -238,48 +275,58 @@
     "moves": [
       {
         "san": "d4", "weight": 1000,
+        "explanation": "Controls the center with the d-pawn, the starting move for the London System.",
         "children": [
           {
             "san": "d5", "weight": 700,
+            "explanation": "Black also controls the center, entering a symmetrical pawn structure.",
             "children": [
               {
                 "san": "Nf3", "weight": 1000,
+                "explanation": "Developing the knight before committing the bishop, keeping options open.",
                 "children": [
                   {
                     "san": "Nf6", "weight": 700,
+                    "explanation": "Black mirrors White's knight development.",
                     "children": [
                       {
                         "san": "Bf4", "weight": 1000,
+                        "explanation": "The London bishop — placed outside the pawn chain early, it creates a solid, hard-to-attack structure. The defining move of the system.",
                         "children": [
                           {
                             "san": "e6", "weight": 500,
+                            "explanation": "Solid and flexible, supporting d5 and preparing to develop the dark-squared bishop.",
                             "children": [
                               {
                                 "san": "e3", "weight": 700,
+                                "explanation": "Completing the bishop chain and preparing to develop Bd3, building a solid but slightly passive structure.",
                                 "children": [
-                                  { "san": "Bd6", "weight": 500, "children": [] },
-                                  { "san": "Be7", "weight": 500, "children": [] }
+                                  { "san": "Bd6", "weight": 500, "explanation": "Black challenges the London bishop directly, trading it to eliminate White's best-placed piece.", "children": [] },
+                                  { "san": "Be7", "weight": 500, "explanation": "Solid development, preparing to castle and maintaining flexibility.", "children": [] }
                                 ]
                               },
-                              { "san": "c3", "weight": 300, "children": [] }
+                              { "san": "c3", "weight": 300, "explanation": "Reinforcing d4 and preparing a possible queenside expansion.", "children": [] }
                             ]
                           },
                           {
                             "san": "c5", "weight": 300,
+                            "explanation": "Aggressive counterplay against d4, the most dynamic response to the London.",
                             "children": [
                               {
                                 "san": "e3", "weight": 1000,
+                                "explanation": "Solid and principled, not rushing to capture but maintaining the structure.",
                                 "children": [
-                                  { "san": "Nc6", "weight": 600, "children": [] },
-                                  { "san": "e6", "weight": 400, "children": [] }
+                                  { "san": "Nc6", "weight": 600, "explanation": "Developing and pressuring d4, maintaining the tension.", "children": [] },
+                                  { "san": "e6", "weight": 400, "explanation": "Solid, preparing to develop and castle.", "children": [] }
                                 ]
                               }
                             ]
                           },
                           {
                             "san": "c6", "weight": 200,
+                            "explanation": "The Slav setup — reinforcing d5 and preparing a solid defensive structure.",
                             "children": [
-                              { "san": "e3", "weight": 1000, "children": [] }
+                              { "san": "e3", "weight": 1000, "explanation": "Consolidating the London structure before further development.", "children": [] }
                             ]
                           }
                         ]
@@ -288,8 +335,9 @@
                   },
                   {
                     "san": "Bf5", "weight": 200,
+                    "explanation": "Black develops the bishop actively before playing e6, a key idea in the London setup.",
                     "children": [
-                      { "san": "Bf4", "weight": 1000, "children": [] }
+                      { "san": "Bf4", "weight": 1000, "explanation": "White mirrors with the London bishop, reaching a symmetric position.", "children": [] }
                     ]
                   }
                 ]
@@ -298,20 +346,24 @@
           },
           {
             "san": "Nf6", "weight": 300,
+            "explanation": "Black develops the knight first, keeping the d5 square flexible.",
             "children": [
               {
                 "san": "Nf3", "weight": 1000,
+                "explanation": "Developing naturally before defining the pawn structure.",
                 "children": [
                   {
                     "san": "g6", "weight": 500,
+                    "explanation": "Black prepares a King's Indian type fianchetto setup.",
                     "children": [
-                      { "san": "Bf4", "weight": 1000, "children": [] }
+                      { "san": "Bf4", "weight": 1000, "explanation": "White deploys the London bishop, adapting the system to the King's Indian structure.", "children": [] }
                     ]
                   },
                   {
                     "san": "e6", "weight": 500,
+                    "explanation": "Solid and flexible, allowing multiple pawn setups.",
                     "children": [
-                      { "san": "Bf4", "weight": 1000, "children": [] }
+                      { "san": "Bf4", "weight": 1000, "explanation": "White sets up the London bishop, targeting the queenside.", "children": [] }
                     ]
                   }
                 ]
@@ -330,52 +382,64 @@
     "moves": [
       {
         "san": "d4", "weight": 1000,
+        "explanation": "Controls the center with the d-pawn, the foundation of Queen's pawn openings.",
         "children": [
           {
             "san": "d5", "weight": 1000,
+            "explanation": "Black contests the center directly with a symmetric response.",
             "children": [
               {
                 "san": "c4", "weight": 1000,
+                "explanation": "The Queen's Gambit — White attacks d5 to displace it and gain central control. Not actually a gambit since 2...dxc4 can't be held.",
                 "children": [
                   {
                     "san": "e6", "weight": 1000,
+                    "explanation": "The QGD — Black firmly declines, supporting d5 with the e-pawn. Solid but the c8 bishop is temporarily blocked.",
                     "children": [
                       {
                         "san": "Nc3", "weight": 600,
+                        "explanation": "Developing the knight while maintaining pressure on d5. The main line continuation.",
                         "children": [
                           {
                             "san": "Nf6", "weight": 1000,
+                            "explanation": "Developing toward the center, preparing to castle.",
                             "children": [
                               {
                                 "san": "Bg5", "weight": 600,
+                                "explanation": "The Classical QGD — pins the knight against the queen, creating pressure on d5 and eyeing a long-term attack.",
                                 "children": [
                                   {
                                     "san": "Be7", "weight": 600,
+                                    "explanation": "Solid development, preparing to castle and unpinning the knight at the right moment.",
                                     "children": [
-                                      { "san": "e3", "weight": 1000, "children": [] }
+                                      { "san": "e3", "weight": 1000, "explanation": "Completing queenside development before castling, building a solid pawn chain.", "children": [] }
                                     ]
                                   },
                                   {
                                     "san": "Nbd7", "weight": 300,
+                                    "explanation": "Preparing to challenge with c5, a dynamic approach to free Black's game.",
                                     "children": [
-                                      { "san": "cxd5", "weight": 1000, "children": [] }
+                                      { "san": "cxd5", "weight": 1000, "explanation": "Exchanging to open the c-file and prepare queenside expansion.", "children": [] }
                                     ]
                                   },
                                   {
                                     "san": "h6", "weight": 100,
+                                    "explanation": "Immediately challenging the pin — risky as it weakens the kingside but gains the bishop pair.",
                                     "children": [
-                                      { "san": "Bxf6", "weight": 1000, "children": [] }
+                                      { "san": "Bxf6", "weight": 1000, "explanation": "White doubles Black's pawns, gaining a structural advantage in exchange for the bishop pair.", "children": [] }
                                     ]
                                   }
                                 ]
                               },
                               {
                                 "san": "Nf3", "weight": 400,
+                                "explanation": "A quieter approach — developing without pinning immediately, aiming for solid positional play.",
                                 "children": [
                                   {
                                     "san": "Be7", "weight": 1000,
+                                    "explanation": "Solid and flexible, preparing to castle kingside.",
                                     "children": [
-                                      { "san": "Bf4", "weight": 1000, "children": [] }
+                                      { "san": "Bf4", "weight": 1000, "explanation": "The London-QGD hybrid — White develops the bishop outside the pawn chain.", "children": [] }
                                     ]
                                   }
                                 ]
@@ -386,11 +450,13 @@
                       },
                       {
                         "san": "Nf3", "weight": 400,
+                        "explanation": "Developing the knight first before committing the queenside knight.",
                         "children": [
                           {
                             "san": "Nf6", "weight": 1000,
+                            "explanation": "Matching development, preparing to castle.",
                             "children": [
-                              { "san": "Nc3", "weight": 1000, "children": [] }
+                              { "san": "Nc3", "weight": 1000, "explanation": "Developing the queenside knight, building toward the classical QGD setup.", "children": [] }
                             ]
                           }
                         ]
@@ -413,48 +479,58 @@
     "moves": [
       {
         "san": "d4", "weight": 1000,
+        "explanation": "The first step of the Queen's Gambit — controlling the center with a strong pawn.",
         "children": [
           {
             "san": "d5", "weight": 1000,
+            "explanation": "Black contests the center symmetrically.",
             "children": [
               {
                 "san": "c4", "weight": 1000,
+                "explanation": "Offering the Queen's Gambit, attacking d5 to gain central dominance.",
                 "children": [
                   {
                     "san": "dxc4", "weight": 1000,
+                    "explanation": "Accepting the gambit — Black takes the pawn and must return it or defend it carefully, ceding the center temporarily.",
                     "children": [
                       {
                         "san": "e4", "weight": 500,
+                        "explanation": "The most aggressive response — White immediately builds a massive center, knowing Black cannot hold the pawn long-term.",
                         "children": [
                           {
                             "san": "e5", "weight": 500,
+                            "explanation": "Black fights for counterplay in the center rather than trying to hold the extra pawn.",
                             "children": [
-                              { "san": "Nf3", "weight": 700, "children": [] },
-                              { "san": "d5", "weight": 300, "children": [] }
+                              { "san": "Nf3", "weight": 700, "explanation": "Developing and attacking e5, forcing Black to make a structural decision.", "children": [] },
+                              { "san": "d5", "weight": 300, "explanation": "White advances the center pawn aggressively, gaining space.", "children": [] }
                             ]
                           },
                           {
                             "san": "Nc6", "weight": 300,
+                            "explanation": "Developing while defending the c4 pawn, an ambitious try.",
                             "children": [
-                              { "san": "Nf3", "weight": 1000, "children": [] }
+                              { "san": "Nf3", "weight": 1000, "explanation": "Developing naturally before dealing with the c4 pawn.", "children": [] }
                             ]
                           }
                         ]
                       },
                       {
                         "san": "Nf3", "weight": 500,
+                        "explanation": "Developing with flexibility — White will regain the c4 pawn easily while maintaining central tension.",
                         "children": [
                           {
                             "san": "Nf6", "weight": 700,
+                            "explanation": "Developing naturally before returning or defending the extra pawn.",
                             "children": [
-                              { "san": "e3", "weight": 600, "children": [] },
-                              { "san": "Nc3", "weight": 400, "children": [] }
+                              { "san": "e3", "weight": 600, "explanation": "Solid — preparing Bxc4 to recapture the gambit pawn with tempo.", "children": [] },
+                              { "san": "Nc3", "weight": 400, "explanation": "Developing the queenside knight, maintaining pressure on the center.", "children": [] }
                             ]
                           },
                           {
                             "san": "a6", "weight": 300,
+                            "explanation": "Defending the extra pawn with b5, though this concedes the center.",
                             "children": [
-                              { "san": "e3", "weight": 1000, "children": [] }
+                              { "san": "e3", "weight": 1000, "explanation": "Preparing to recapture on c4 while developing solidly.", "children": [] }
                             ]
                           }
                         ]
@@ -477,39 +553,48 @@
     "moves": [
       {
         "san": "d4", "weight": 1000,
+        "explanation": "Central control with the d-pawn, the foundation of the Catalan.",
         "children": [
           {
             "san": "Nf6", "weight": 1000,
+            "explanation": "Black develops actively, keeping the center flexible.",
             "children": [
               {
                 "san": "c4", "weight": 1000,
+                "explanation": "The Queen's Gambit move, attacking the center and preparing a fianchetto setup.",
                 "children": [
                   {
                     "san": "e6", "weight": 700,
+                    "explanation": "Solid and flexible — Black supports a future d5 and prepares normal development.",
                     "children": [
                       {
                         "san": "g3", "weight": 1000,
+                        "explanation": "The Catalan move — White fianchettoes the bishop to exert long-term diagonal pressure on the queenside, one of the most strategically rich setups in chess.",
                         "children": [
                           {
                             "san": "d5", "weight": 600,
+                            "explanation": "Black establishes the classical QGD pawn structure, contesting the center.",
                             "children": [
                               {
                                 "san": "Bg2", "weight": 1000,
+                                "explanation": "The Catalan bishop — on g2 it exerts permanent pressure down the long diagonal, targeting d5 and c6.",
                                 "children": [
-                                  { "san": "Be7", "weight": 500, "children": [] },
-                                  { "san": "dxc4", "weight": 400, "children": [] },
-                                  { "san": "Bb4+", "weight": 100, "children": [] }
+                                  { "san": "Be7", "weight": 500, "explanation": "Solid development, preparing to castle and reinforcing the center.", "children": [] },
+                                  { "san": "dxc4", "weight": 400, "explanation": "The Open Catalan — Black accepts the pawn to open lines, but White gets strong diagonal pressure.", "children": [] },
+                                  { "san": "Bb4+", "weight": 100, "explanation": "Checking to disrupt White's development, a sharp alternative.", "children": [] }
                                 ]
                               }
                             ]
                           },
                           {
                             "san": "c5", "weight": 300,
+                            "explanation": "Challenging d4 immediately rather than supporting d5, a dynamic approach.",
                             "children": [
                               {
                                 "san": "Bg2", "weight": 1000,
+                                "explanation": "Completing the fianchetto before dealing with the c5 challenge.",
                                 "children": [
-                                  { "san": "cxd4", "weight": 1000, "children": [] }
+                                  { "san": "cxd4", "weight": 1000, "explanation": "Black exchanges in the center, opening the position for active piece play.", "children": [] }
                                 ]
                               }
                             ]
@@ -534,26 +619,31 @@
     "moves": [
       {
         "san": "c4", "weight": 1000,
+        "explanation": "The English Opening — White controls d5 from the flank, delaying the central pawns for a flexible hypermodern setup.",
         "children": [
           {
             "san": "e5", "weight": 500,
+            "explanation": "Black immediately occupies the center, fighting for the initiative.",
             "children": [
               {
                 "san": "Nc3", "weight": 1000,
+                "explanation": "Developing the knight toward the center, preparing to contest e5 and d5.",
                 "children": [
                   {
                     "san": "Nf6", "weight": 600,
+                    "explanation": "Active development, controlling the center and preparing to castle.",
                     "children": [
-                      { "san": "Nf3", "weight": 500, "children": [] },
-                      { "san": "g3", "weight": 400, "children": [] },
-                      { "san": "e4", "weight": 100, "children": [] }
+                      { "san": "Nf3", "weight": 500, "explanation": "Completing development and maintaining flexible central pressure.", "children": [] },
+                      { "san": "g3", "weight": 400, "explanation": "Preparing the kingside fianchetto for long-term diagonal pressure against Black's center.", "children": [] },
+                      { "san": "e4", "weight": 100, "explanation": "The Four Knights English — White claims a full central pawn duo for a more classical game.", "children": [] }
                     ]
                   },
                   {
                     "san": "Nc6", "weight": 400,
+                    "explanation": "Solid development, mirroring White's knight.",
                     "children": [
-                      { "san": "g3", "weight": 600, "children": [] },
-                      { "san": "Nf3", "weight": 400, "children": [] }
+                      { "san": "g3", "weight": 600, "explanation": "Preparing the fianchetto, the most popular continuation in the English.", "children": [] },
+                      { "san": "Nf3", "weight": 400, "explanation": "Developing before committing to a fianchetto, keeping the structure flexible.", "children": [] }
                     ]
                   }
                 ]
@@ -562,32 +652,37 @@
           },
           {
             "san": "Nf6", "weight": 300,
+            "explanation": "Black develops flexibly, waiting to see White's setup before committing.",
             "children": [
               {
                 "san": "Nc3", "weight": 800,
+                "explanation": "Developing toward the center with natural piece development.",
                 "children": [
-                  { "san": "d5", "weight": 500, "children": [] },
-                  { "san": "e6", "weight": 300, "children": [] },
-                  { "san": "g6", "weight": 200, "children": [] }
+                  { "san": "d5", "weight": 500, "explanation": "Black contests the center directly, challenging c4.", "children": [] },
+                  { "san": "e6", "weight": 300, "explanation": "Solid and flexible, preparing d5 or b6 setups.", "children": [] },
+                  { "san": "g6", "weight": 200, "explanation": "Preparing a King's Indian style fianchetto against the English.", "children": [] }
                 ]
               },
               {
                 "san": "Nf3", "weight": 200,
+                "explanation": "Developing before committing the queenside knight.",
                 "children": [
-                  { "san": "e6", "weight": 500, "children": [] },
-                  { "san": "g6", "weight": 300, "children": [] }
+                  { "san": "e6", "weight": 500, "explanation": "Solid setup, preparing d5 and normal piece development.", "children": [] },
+                  { "san": "g6", "weight": 300, "explanation": "Fianchetto setup, aiming for a King's Indian type position.", "children": [] }
                 ]
               }
             ]
           },
           {
             "san": "c5", "weight": 200,
+            "explanation": "The Symmetrical English — Black mirrors White's setup, leading to rich strategic battles with no clear weaknesses.",
             "children": [
               {
                 "san": "Nc3", "weight": 1000,
+                "explanation": "Developing naturally while maintaining the symmetry.",
                 "children": [
-                  { "san": "Nc6", "weight": 600, "children": [] },
-                  { "san": "Nf6", "weight": 400, "children": [] }
+                  { "san": "Nc6", "weight": 600, "explanation": "Black mirrors with symmetrical knight development.", "children": [] },
+                  { "san": "Nf6", "weight": 400, "explanation": "Active development before deciding on the knight's optimal square.", "children": [] }
                 ]
               }
             ]
@@ -604,43 +699,53 @@
     "moves": [
       {
         "san": "e4", "weight": 1000,
+        "explanation": "Central control — the starting point of the Scotch Game.",
         "children": [
           {
             "san": "e5", "weight": 1000,
+            "explanation": "Black claims equal central space.",
             "children": [
               {
                 "san": "Nf3", "weight": 1000,
+                "explanation": "Developing with tempo, the natural third move.",
                 "children": [
                   {
                     "san": "Nc6", "weight": 1000,
+                    "explanation": "Defending e5 and developing.",
                     "children": [
                       {
                         "san": "d4", "weight": 1000,
+                        "explanation": "The Scotch Game — White immediately opens the center on move 3, avoiding the long theory of the Ruy Lopez.",
                         "children": [
                           {
                             "san": "exd4", "weight": 1000,
+                            "explanation": "Black accepts the offered pawn tension, opening the position.",
                             "children": [
                               {
                                 "san": "Nxd4", "weight": 1000,
+                                "explanation": "Recapturing with the knight, centralizing it powerfully.",
                                 "children": [
                                   {
                                     "san": "Nf6", "weight": 500,
+                                    "explanation": "Active development, attacking e4 and inviting tactical complications.",
                                     "children": [
-                                      { "san": "Nxc6", "weight": 600, "children": [] },
-                                      { "san": "Nc3", "weight": 400, "children": [] }
+                                      { "san": "Nxc6", "weight": 600, "explanation": "The main line — doubling Black's c-pawns in exchange for rapid development.", "children": [] },
+                                      { "san": "Nc3", "weight": 400, "explanation": "Defending e4 and developing, leading to a complex middlegame.", "children": [] }
                                     ]
                                   },
                                   {
                                     "san": "Bc5", "weight": 400,
+                                    "explanation": "Classical development — the bishop pressures the knight on d4 and aims at the long diagonal.",
                                     "children": [
-                                      { "san": "Be3", "weight": 600, "children": [] },
-                                      { "san": "Nb3", "weight": 400, "children": [] }
+                                      { "san": "Be3", "weight": 600, "explanation": "Defending the knight and preparing queenside castling for a sharp attacking game.", "children": [] },
+                                      { "san": "Nb3", "weight": 400, "explanation": "Retreating the knight to a safer square, keeping the bishop pair.", "children": [] }
                                     ]
                                   },
                                   {
                                     "san": "Qh4", "weight": 100,
+                                    "explanation": "The Scotch Gambit declined — an unusual early queen move hoping for tricks.",
                                     "children": [
-                                      { "san": "Nb5", "weight": 1000, "children": [] }
+                                      { "san": "Nb5", "weight": 1000, "explanation": "Threatening Nc7+ and d6+, forcing Black to deal with the threat immediately.", "children": [] }
                                     ]
                                   }
                                 ]
@@ -667,44 +772,54 @@
     "moves": [
       {
         "san": "e4", "weight": 1000,
+        "explanation": "Central control — the foundation of the Four Knights.",
         "children": [
           {
             "san": "e5", "weight": 1000,
+            "explanation": "Black mirrors with equal central control.",
             "children": [
               {
                 "san": "Nf3", "weight": 1000,
+                "explanation": "Developing with tempo.",
                 "children": [
                   {
                     "san": "Nc6", "weight": 1000,
+                    "explanation": "Defending e5 naturally.",
                     "children": [
                       {
                         "san": "Nc3", "weight": 1000,
+                        "explanation": "White develops the second knight, maintaining symmetry and heading toward the Four Knights.",
                         "children": [
                           {
                             "san": "Nf6", "weight": 1000,
+                            "explanation": "Black completes the Four Knights setup — all four knights developed, solid and principled.",
                             "children": [
                               {
                                 "san": "Bb5", "weight": 700,
+                                "explanation": "The Spanish Four Knights — applying Ruy Lopez pressure, targeting Nc6 and threatening to win the e5 pawn.",
                                 "children": [
                                   {
                                     "san": "Bb4", "weight": 600,
+                                    "explanation": "Symmetrical response — Black mirrors White's pin, leading to complex double-pin positions.",
                                     "children": [
-                                      { "san": "O-O", "weight": 600, "children": [] },
-                                      { "san": "Nd5", "weight": 400, "children": [] }
+                                      { "san": "O-O", "weight": 600, "explanation": "Castling early for safety before the position opens up.", "children": [] },
+                                      { "san": "Nd5", "weight": 400, "explanation": "Attacking Bb4 while centralizing the knight aggressively.", "children": [] }
                                     ]
                                   },
                                   {
                                     "san": "Nd4", "weight": 400,
+                                    "explanation": "Black jumps to the central outpost, gaining space and attacking Bb5.",
                                     "children": [
-                                      { "san": "Bc4", "weight": 1000, "children": [] }
+                                      { "san": "Bc4", "weight": 1000, "explanation": "Retreating to a more active square, targeting f7 in the classical style.", "children": [] }
                                     ]
                                   }
                                 ]
                               },
                               {
                                 "san": "d4", "weight": 300,
+                                "explanation": "Immediate central challenge — White opens the game sharply rather than developing pieces first.",
                                 "children": [
-                                  { "san": "exd4", "weight": 1000, "children": [] }
+                                  { "san": "exd4", "weight": 1000, "explanation": "Black accepts, opening the position for tactical play.", "children": [] }
                                 ]
                               }
                             ]
@@ -729,54 +844,64 @@
     "moves": [
       {
         "san": "e4", "weight": 1000,
+        "explanation": "White claims the center — Black's plan is to fight back asymmetrically.",
         "children": [
           {
             "san": "c5", "weight": 1000,
+            "explanation": "The Sicilian! Black fights for the d4 square without mirroring with e5, creating an imbalanced position right away.",
             "children": [
               {
                 "san": "Nf3", "weight": 1000,
+                "explanation": "White develops and prepares d4 to open the center.",
                 "children": [
                   {
                     "san": "d6", "weight": 1000,
+                    "explanation": "Controlling e5 and preparing Nf6, the most flexible Sicilian move.",
                     "children": [
                       {
                         "san": "d4", "weight": 1000,
+                        "explanation": "White opens the center, the critical moment — Black must capture to avoid falling behind.",
                         "children": [
                           {
                             "san": "cxd4", "weight": 1000,
+                            "explanation": "Black exchanges to open the c-file, the key counterplay mechanism in all Sicilians.",
                             "children": [
                               {
                                 "san": "Nxd4", "weight": 1000,
+                                "explanation": "White recaptures with the knight, centralizing it powerfully.",
                                 "children": [
                                   {
                                     "san": "Nf6", "weight": 1000,
+                                    "explanation": "Developing with tempo, attacking e4 and preparing to castle.",
                                     "children": [
                                       {
                                         "san": "Nc3", "weight": 1000,
+                                        "explanation": "Defending e4 and developing.",
                                         "children": [
                                           {
                                             "san": "a6", "weight": 1000,
+                                            "explanation": "The Najdorf move! Stops Bb5+ and prepares b5 queenside expansion — the most popular and dynamic Sicilian variation.",
                                             "children": [
                                               {
                                                 "san": "Be3", "weight": 500,
                                                 "children": [
-                                                  { "san": "e5", "weight": 400, "children": [] },
-                                                  { "san": "Ng4", "weight": 300, "children": [] },
-                                                  { "san": "Nbd7", "weight": 300, "children": [] }
+                                                  { "san": "e5", "weight": 400, "explanation": "Gains space and kicks the Nd4, the English Attack is met with a central counter.", "children": [] },
+                                                  { "san": "Ng4", "weight": 300, "explanation": "Attacking the Be3 bishop, a sharp tactical approach popular in the Najdorf.", "children": [] },
+                                                  { "san": "Nbd7", "weight": 300, "explanation": "Solid development, preparing e5 or b5 expansion.", "children": [] }
                                                 ]
                                               },
                                               {
                                                 "san": "Bg5", "weight": 350,
                                                 "children": [
-                                                  { "san": "e6", "weight": 600, "children": [] },
-                                                  { "san": "Nbd7", "weight": 400, "children": [] }
+                                                  { "san": "e6", "weight": 600, "explanation": "Supporting d6 and preparing to develop queenside pieces, the main classical response.", "children": [] },
+                                                  { "san": "Nbd7", "weight": 400, "explanation": "Preparing e5 immediately, a dynamic equalizing approach.", "children": [] }
                                                 ]
                                               },
                                               {
                                                 "san": "f4", "weight": 150,
                                                 "children": [
-                                                  { "san": "e5", "weight": 600, "children": [] },
-                                                  { "san": "Nbd7", "weight": 400, "children": [] }
+                                                  { "san": "e5", "weight": 600, "explanation": "Counterattacking the center before White's attack gains momentum.", "children": [] },
+                                                  { "san": "Nbd7", "weight": 400, "explanation": "Solid development, preparing e5 after White commits.", "children": [] }
                                                 ]
                                               }
                                             ]
@@ -809,42 +934,53 @@
     "moves": [
       {
         "san": "e4", "weight": 1000,
+        "explanation": "White stakes a claim in the center.",
         "children": [
           {
             "san": "c5", "weight": 1000,
+            "explanation": "The Sicilian — asymmetric fight for the d4 square.",
             "children": [
               {
                 "san": "Nf3", "weight": 1000,
+                "explanation": "Preparing d4.",
                 "children": [
                   {
                     "san": "d6", "weight": 1000,
+                    "explanation": "Flexible — controlling e5 and allowing multiple Sicilian setups.",
                     "children": [
                       {
                         "san": "d4", "weight": 1000,
+                        "explanation": "Opening the center.",
                         "children": [
                           {
                             "san": "cxd4", "weight": 1000,
+                            "explanation": "Opening the c-file for Black's counterplay.",
                             "children": [
                               {
                                 "san": "Nxd4", "weight": 1000,
+                                "explanation": "Recapturing with the knight.",
                                 "children": [
                                   {
                                     "san": "Nf6", "weight": 1000,
+                                    "explanation": "Developing actively.",
                                     "children": [
                                       {
                                         "san": "Nc3", "weight": 1000,
+                                        "explanation": "Defending e4.",
                                         "children": [
                                           {
                                             "san": "g6", "weight": 1000,
+                                            "explanation": "The Dragon! Black fianchettoes the bishop to g7, creating a powerful diagonal that will blast open after ...d5 or ...e5. The most double-edged Sicilian.",
                                             "children": [
                                               {
                                                 "san": "Be3", "weight": 500,
                                                 "children": [
                                                   {
                                                     "san": "Bg7", "weight": 1000,
+                                                    "explanation": "Completing the Dragon fianchetto — the g7 bishop becomes Black's most powerful piece.",
                                                     "children": [
-                                                      { "san": "f3", "weight": 600, "children": [] },
-                                                      { "san": "Be2", "weight": 400, "children": [] }
+                                                      { "san": "f3", "weight": 600, "explanation": "The Yugoslav Attack — White prepares a kingside pawn storm with g4-g5.", "children": [] },
+                                                      { "san": "Be2", "weight": 400, "explanation": "Quieter development, avoiding the sharpest Yugoslav lines.", "children": [] }
                                                     ]
                                                   }
                                                 ]
@@ -854,9 +990,10 @@
                                                 "children": [
                                                   {
                                                     "san": "Bg7", "weight": 1000,
+                                                    "explanation": "Completing the fianchetto despite White's aggressive setup.",
                                                     "children": [
-                                                      { "san": "e5", "weight": 600, "children": [] },
-                                                      { "san": "Be2", "weight": 400, "children": [] }
+                                                      { "san": "e5", "weight": 600, "explanation": "White kicks the Nf6, gaining space but creating a weak d5 square for Black to exploit.", "children": [] },
+                                                      { "san": "Be2", "weight": 400, "explanation": "Developing solidly before launching the kingside attack.", "children": [] }
                                                     ]
                                                   }
                                                 ]
@@ -864,7 +1001,7 @@
                                               {
                                                 "san": "Be2", "weight": 200,
                                                 "children": [
-                                                  { "san": "Bg7", "weight": 1000, "children": [] }
+                                                  { "san": "Bg7", "weight": 1000, "explanation": "Completing the Dragon fianchetto.", "children": [] }
                                                 ]
                                               }
                                             ]
@@ -897,46 +1034,57 @@
     "moves": [
       {
         "san": "e4", "weight": 1000,
+        "explanation": "White claims the center.",
         "children": [
           {
             "san": "c5", "weight": 1000,
+            "explanation": "The Sicilian — asymmetric central fight.",
             "children": [
               {
                 "san": "Nf3", "weight": 1000,
+                "explanation": "Preparing d4.",
                 "children": [
                   {
                     "san": "Nc6", "weight": 1000,
+                    "explanation": "The Classical Sicilian — Black develops the knight immediately to c6, maintaining flexibility about where the d-pawn will go.",
                     "children": [
                       {
                         "san": "d4", "weight": 1000,
+                        "explanation": "Opening the center.",
                         "children": [
                           {
                             "san": "cxd4", "weight": 1000,
+                            "explanation": "Opening the c-file for Black's queenside counterplay.",
                             "children": [
                               {
                                 "san": "Nxd4", "weight": 1000,
+                                "explanation": "Recapturing centrally.",
                                 "children": [
                                   {
                                     "san": "Nf6", "weight": 600,
+                                    "explanation": "Active development, attacking e4 and keeping options open for the d-pawn.",
                                     "children": [
                                       {
                                         "san": "Nc3", "weight": 1000,
+                                        "explanation": "Defending e4 and developing.",
                                         "children": [
-                                          { "san": "d6", "weight": 500, "children": [] },
-                                          { "san": "e5", "weight": 300, "children": [] },
-                                          { "san": "g6", "weight": 200, "children": [] }
+                                          { "san": "d6", "weight": 500, "explanation": "Solid — supporting e5 and preparing queenside development, heading toward a Scheveningen-type position.", "children": [] },
+                                          { "san": "e5", "weight": 300, "explanation": "Aggressive — kicking the Nd4 and claiming central space immediately.", "children": [] },
+                                          { "san": "g6", "weight": 200, "explanation": "The Dragon setup — fianchettoing the bishop for long-term diagonal pressure.", "children": [] }
                                         ]
                                       }
                                     ]
                                   },
                                   {
                                     "san": "d6", "weight": 400,
+                                    "explanation": "Solid — controlling e5 and preparing Nf6 with a Najdorf-type structure.",
                                     "children": [
                                       {
                                         "san": "Nc3", "weight": 1000,
+                                        "explanation": "Defending e4 and developing.",
                                         "children": [
-                                          { "san": "Nf6", "weight": 700, "children": [] },
-                                          { "san": "e6", "weight": 300, "children": [] }
+                                          { "san": "Nf6", "weight": 700, "explanation": "Developing with tempo, attacking e4.", "children": [] },
+                                          { "san": "e6", "weight": 300, "explanation": "Solid setup, preparing Be7 and castling.", "children": [] }
                                         ]
                                       }
                                     ]
@@ -965,85 +1113,101 @@
     "moves": [
       {
         "san": "e4", "weight": 1000,
+        "explanation": "White claims the center aggressively.",
         "children": [
           {
             "san": "e6", "weight": 1000,
+            "explanation": "The French Defense — preparing d5 to challenge the center. Solid but the c8 bishop can be temporarily restricted.",
             "children": [
               {
                 "san": "d4", "weight": 1000,
+                "explanation": "White builds a strong pawn center.",
                 "children": [
                   {
                     "san": "d5", "weight": 1000,
+                    "explanation": "The key French move — challenging the center immediately and leading to rich strategic battles around the pawn chain.",
                     "children": [
                       {
                         "san": "Nc3", "weight": 500,
+                        "explanation": "Defending e4 and developing, the Classical and Winawer lines branch from here.",
                         "children": [
                           {
                             "san": "Nf6", "weight": 500,
+                            "explanation": "Natural development, attacking e4 and heading toward the Classical French.",
                             "children": [
                               {
                                 "san": "Bg5", "weight": 500,
+                                "explanation": "The Classical French — pinning the knight to increase pressure on d5 and e5.",
                                 "children": [
-                                  { "san": "Be7", "weight": 600, "children": [] },
-                                  { "san": "dxe4", "weight": 400, "children": [] }
+                                  { "san": "Be7", "weight": 600, "explanation": "Unpinning solidly, preparing to castle kingside. The main Classical French response.", "children": [] },
+                                  { "san": "dxe4", "weight": 400, "explanation": "Burns the center immediately, trading pawn tension for piece activity.", "children": [] }
                                 ]
                               },
                               {
                                 "san": "e5", "weight": 500,
+                                "explanation": "The Advance Variation — White gains space but creates a fixed pawn chain that Black will attack with c5.",
                                 "children": [
-                                  { "san": "Nfd7", "weight": 1000, "children": [] }
+                                  { "san": "Nfd7", "weight": 1000, "explanation": "The knight retreats to support c5 and e5 breaks, the main French Advance plan.", "children": [] }
                                 ]
                               }
                             ]
                           },
                           {
                             "san": "Bb4", "weight": 400,
+                            "explanation": "The Winawer Variation — pinning the Nc3, creating maximum imbalance and one of the most theoretically dense French lines.",
                             "children": [
-                              { "san": "e5", "weight": 600, "children": [] },
-                              { "san": "exd5", "weight": 400, "children": [] }
+                              { "san": "e5", "weight": 600, "explanation": "White advances, creating a space advantage and a fixed pawn chain Black will attack.", "children": [] },
+                              { "san": "exd5", "weight": 400, "explanation": "White exchanges to simplify, though Black gets an active position.", "children": [] }
                             ]
                           },
                           {
                             "san": "dxe4", "weight": 100,
+                            "explanation": "Rubinstein Variation — rare but leads to a unique position after Nxe4.",
                             "children": [
-                              { "san": "Nxe4", "weight": 1000, "children": [] }
+                              { "san": "Nxe4", "weight": 1000, "explanation": "White recaptures centrally, gaining space while Black plans active counterplay.", "children": [] }
                             ]
                           }
                         ]
                       },
                       {
                         "san": "Nd2", "weight": 350,
+                        "explanation": "The Tarrasch Variation — defending e4 without blocking the c1 bishop, a flexible and positional approach.",
                         "children": [
                           {
                             "san": "Nf6", "weight": 600,
+                            "explanation": "Active development, attacking e4 and pressuring the center.",
                             "children": [
                               {
                                 "san": "e5", "weight": 700,
+                                "explanation": "White advances, gaining space and starting the Tarrasch pawn chain battle.",
                                 "children": [
-                                  { "san": "Nfd7", "weight": 1000, "children": [] }
+                                  { "san": "Nfd7", "weight": 1000, "explanation": "The key French move — retreating the knight to support c5 and attack the pawn chain from the base.", "children": [] }
                                 ]
                               },
                               {
                                 "san": "Ngf3", "weight": 300,
+                                "explanation": "Developing more pieces before advancing, keeping more flexibility.",
                                 "children": [
-                                  { "san": "c5", "weight": 1000, "children": [] }
+                                  { "san": "c5", "weight": 1000, "explanation": "Black strikes at the base of the pawn chain immediately.", "children": [] }
                                 ]
                               }
                             ]
                           },
                           {
                             "san": "c5", "weight": 400,
+                            "explanation": "Immediate counter-attack on d4 — the most aggressive Tarrasch approach.",
                             "children": [
-                              { "san": "exd5", "weight": 500, "children": [] },
-                              { "san": "Ngf3", "weight": 500, "children": [] }
+                              { "san": "exd5", "weight": 500, "explanation": "White simplifies, getting an IQP position with active piece play.", "children": [] },
+                              { "san": "Ngf3", "weight": 500, "explanation": "Developing before capturing, maintaining central tension.", "children": [] }
                             ]
                           }
                         ]
                       },
                       {
                         "san": "exd5", "weight": 150,
+                        "explanation": "The Exchange Variation — White releases central tension, aiming for a symmetrical position that is considered drawish but can be tricky.",
                         "children": [
-                          { "san": "exd5", "weight": 1000, "children": [] }
+                          { "san": "exd5", "weight": 1000, "explanation": "Recapturing to maintain the symmetric pawn structure.", "children": [] }
                         ]
                       }
                     ]
@@ -1064,57 +1228,68 @@
     "moves": [
       {
         "san": "e4", "weight": 1000,
+        "explanation": "White claims the center.",
         "children": [
           {
             "san": "c6", "weight": 1000,
+            "explanation": "The Caro-Kann — preparing d5 with solid pawn support. Unlike the French, the c8 bishop stays active.",
             "children": [
               {
                 "san": "d4", "weight": 700,
+                "explanation": "White builds a strong pawn center.",
                 "children": [
                   {
                     "san": "d5", "weight": 1000,
+                    "explanation": "The key Caro-Kann move — challenging the center with c6 already supporting d5, which is more solid than in the French.",
                     "children": [
                       {
                         "san": "Nc3", "weight": 400,
+                        "explanation": "The Classical Caro-Kann — defending e4 with the knight.",
                         "children": [
                           {
                             "san": "dxe4", "weight": 600,
+                            "explanation": "Exchanging to reach the Classical Caro-Kann — Black gets excellent piece activity after Nxe4.",
                             "children": [
                               {
                                 "san": "Nxe4", "weight": 1000,
+                                "explanation": "Recapturing centrally with the knight.",
                                 "children": [
-                                  { "san": "Bf5", "weight": 600, "children": [] },
-                                  { "san": "Nd7", "weight": 400, "children": [] }
+                                  { "san": "Bf5", "weight": 600, "explanation": "The Classical Caro-Kann move — the bishop develops outside the pawn chain before ...e6, a key advantage over the French.", "children": [] },
+                                  { "san": "Nd7", "weight": 400, "explanation": "Solid — preparing to develop without committing the bishop immediately.", "children": [] }
                                 ]
                               }
                             ]
                           },
                           {
                             "san": "g6", "weight": 200,
+                            "explanation": "The Gurgenidze System — Black prepares a fianchetto, aiming for a King's Indian type structure.",
                             "children": [
-                              { "san": "Nf3", "weight": 600, "children": [] },
-                              { "san": "f4", "weight": 400, "children": [] }
+                              { "san": "Nf3", "weight": 600, "explanation": "Developing naturally before dealing with Black's setup.", "children": [] },
+                              { "san": "f4", "weight": 400, "explanation": "Aggressive — White prepares a kingside attack immediately.", "children": [] }
                             ]
                           }
                         ]
                       },
                       {
                         "san": "exd5", "weight": 400,
+                        "explanation": "The Exchange Variation — White simplifies the center but Black recaptures with good piece activity.",
                         "children": [
                           {
                             "san": "cxd5", "weight": 1000,
+                            "explanation": "Black recaptures with the c-pawn, maintaining a symmetric structure.",
                             "children": [
-                              { "san": "c4", "weight": 600, "children": [] },
-                              { "san": "Nf3", "weight": 400, "children": [] }
+                              { "san": "c4", "weight": 600, "explanation": "Attacking the d5 pawn immediately — the Panov-Botvinnik Attack, leading to IQP positions.", "children": [] },
+                              { "san": "Nf3", "weight": 400, "explanation": "Developing solidly before creating pawn pressure.", "children": [] }
                             ]
                           }
                         ]
                       },
                       {
                         "san": "e5", "weight": 200,
+                        "explanation": "The Advance Variation — White gains space but must defend the pawn chain against ...c5 and ...Bf5.",
                         "children": [
-                          { "san": "Bf5", "weight": 700, "children": [] },
-                          { "san": "c5", "weight": 300, "children": [] }
+                          { "san": "Bf5", "weight": 700, "explanation": "The key Caro-Kann advantage — Black develops the c8 bishop outside the pawn chain before playing ...e6.", "children": [] },
+                          { "san": "c5", "weight": 300, "explanation": "Immediate counterplay against d4, the most aggressive Advance Caro-Kann response.", "children": [] }
                         ]
                       }
                     ]
@@ -1123,12 +1298,14 @@
               },
               {
                 "san": "Nc3", "weight": 300,
+                "explanation": "White develops without d4 first, maintaining flexibility.",
                 "children": [
                   {
                     "san": "d5", "weight": 700,
+                    "explanation": "Black stakes the center anyway.",
                     "children": [
-                      { "san": "Nf3", "weight": 600, "children": [] },
-                      { "san": "d4", "weight": 400, "children": [] }
+                      { "san": "Nf3", "weight": 600, "explanation": "Developing naturally, preparing d4.", "children": [] },
+                      { "san": "d4", "weight": 400, "explanation": "Building the pawn center, transposing to classical Caro-Kann lines.", "children": [] }
                     ]
                   }
                 ]
@@ -1147,45 +1324,56 @@
     "moves": [
       {
         "san": "d4", "weight": 1000,
+        "explanation": "White builds a queen's pawn center — Black will allow it and then attack it.",
         "children": [
           {
             "san": "Nf6", "weight": 1000,
+            "explanation": "Developing actively, controlling e4 while keeping the center flexible for the KID setup.",
             "children": [
               {
                 "san": "c4", "weight": 1000,
+                "explanation": "White builds a broad pawn center.",
                 "children": [
                   {
                     "san": "g6", "weight": 1000,
+                    "explanation": "The King's Indian — Black prepares to fianchetto the bishop, allowing White a big center only to attack it violently later.",
                     "children": [
                       {
                         "san": "Nc3", "weight": 1000,
+                        "explanation": "Developing and reinforcing the center.",
                         "children": [
                           {
                             "san": "Bg7", "weight": 1000,
+                            "explanation": "The KID bishop — placed on g7 it becomes Black's most powerful piece, pressuring along the long diagonal and supporting kingside attacks.",
                             "children": [
                               {
                                 "san": "e4", "weight": 1000,
+                                "explanation": "White completes the ideal pawn center — now Black must attack it decisively.",
                                 "children": [
                                   {
                                     "san": "d6", "weight": 1000,
+                                    "explanation": "Solid — supporting e5 and preparing the KID's classic ...e5 break to challenge White's center.",
                                     "children": [
                                       {
                                         "san": "Nf3", "weight": 600,
+                                        "explanation": "Natural development before committing to a specific system.",
                                         "children": [
                                           {
                                             "san": "O-O", "weight": 1000,
+                                            "explanation": "Black castles, preparing the key ...e5 break and the kingside attack.",
                                             "children": [
-                                              { "san": "Be2", "weight": 500, "children": [] },
-                                              { "san": "Be3", "weight": 300, "children": [] },
-                                              { "san": "h3", "weight": 200, "children": [] }
+                                              { "san": "Be2", "weight": 500, "explanation": "The Classical KID — solid development, White prepares to fight the ...e5 break.", "children": [] },
+                                              { "san": "Be3", "weight": 300, "explanation": "Preparing for queenside castling and a sharp kingside attack with the Sämisch system.", "children": [] },
+                                              { "san": "h3", "weight": 200, "explanation": "Preventing ...Ng4, the Averbakh with h3 — solid but slightly slow.", "children": [] }
                                             ]
                                           }
                                         ]
                                       },
                                       {
                                         "san": "Be2", "weight": 400,
+                                        "explanation": "White develops the bishop early, heading for the Classical KID.",
                                         "children": [
-                                          { "san": "O-O", "weight": 1000, "children": [] }
+                                          { "san": "O-O", "weight": 1000, "explanation": "Castling and preparing the ...e5 break.", "children": [] }
                                         ]
                                       }
                                     ]
@@ -1214,44 +1402,55 @@
     "moves": [
       {
         "san": "d4", "weight": 1000,
+        "explanation": "White builds the center — the Grünfeld allows it temporarily.",
         "children": [
           {
             "san": "Nf6", "weight": 1000,
+            "explanation": "Developing actively.",
             "children": [
               {
                 "san": "c4", "weight": 1000,
+                "explanation": "Extending the center.",
                 "children": [
                   {
                     "san": "g6", "weight": 1000,
+                    "explanation": "Preparing the Grünfeld fianchetto — Black will allow a massive White center and then demolish it with ...d5.",
                     "children": [
                       {
                         "san": "Nc3", "weight": 1000,
+                        "explanation": "White reinforces the center.",
                         "children": [
                           {
                             "san": "d5", "weight": 1000,
+                            "explanation": "The Grünfeld move! Black directly challenges the center before completing development — a provocative and principled hypermodern concept.",
                             "children": [
                               {
                                 "san": "cxd5", "weight": 700,
+                                "explanation": "White accepts the challenge, heading for the main Grünfeld lines.",
                                 "children": [
                                   {
                                     "san": "Nxd5", "weight": 1000,
+                                    "explanation": "Black recaptures, inviting White to build a huge center that Black will attack with ...c5 and the g7 bishop.",
                                     "children": [
                                       {
                                         "san": "e4", "weight": 600,
+                                        "explanation": "White builds the classical Grünfeld center — e4+d4, the maximum central ambition.",
                                         "children": [
                                           {
                                             "san": "Nxc3", "weight": 1000,
+                                            "explanation": "Black destroys the key defender of the center, aiming to prove that White's pawns are overextended.",
                                             "children": [
-                                              { "san": "bxc3", "weight": 700, "children": [] },
-                                              { "san": "Bc4", "weight": 300, "children": [] }
+                                              { "san": "bxc3", "weight": 700, "explanation": "White recaptures, maintaining the pawn center but with a structural weakness on c3.", "children": [] },
+                                              { "san": "Bc4", "weight": 300, "explanation": "Developing the bishop with tempo instead of recapturing, an ambitious approach.", "children": [] }
                                             ]
                                           }
                                         ]
                                       },
                                       {
                                         "san": "Nf3", "weight": 400,
+                                        "explanation": "Developing before expanding — a quieter Grünfeld approach.",
                                         "children": [
-                                          { "san": "Bg7", "weight": 1000, "children": [] }
+                                          { "san": "Bg7", "weight": 1000, "explanation": "Completing the fianchetto, the Grünfeld bishop becomes Black's key attacking piece.", "children": [] }
                                         ]
                                       }
                                     ]
@@ -1260,9 +1459,10 @@
                               },
                               {
                                 "san": "Nf3", "weight": 300,
+                                "explanation": "A quieter approach that avoids the main theoretical lines.",
                                 "children": [
-                                  { "san": "Bg7", "weight": 600, "children": [] },
-                                  { "san": "dxc4", "weight": 400, "children": [] }
+                                  { "san": "Bg7", "weight": 600, "explanation": "Completing the fianchetto and preparing ...dxc4 or ...c6.", "children": [] },
+                                  { "san": "dxc4", "weight": 400, "explanation": "Grabbing the pawn before White can recapture, leading to complex positions.", "children": [] }
                                 ]
                               }
                             ]
@@ -1287,49 +1487,60 @@
     "moves": [
       {
         "san": "d4", "weight": 1000,
+        "explanation": "White builds the center.",
         "children": [
           {
             "san": "Nf6", "weight": 1000,
+            "explanation": "Developing actively, keeping options open.",
             "children": [
               {
                 "san": "c4", "weight": 1000,
+                "explanation": "Expanding the center.",
                 "children": [
                   {
                     "san": "e6", "weight": 1000,
+                    "explanation": "Solid — supporting a future d5 and preparing to develop queenside pieces.",
                     "children": [
                       {
                         "san": "Nc3", "weight": 1000,
+                        "explanation": "White develops the knight.",
                         "children": [
                           {
                             "san": "Bb4", "weight": 1000,
+                            "explanation": "The Nimzo-Indian! Black pins the Nc3, preventing White from maintaining a classical center without conceding the bishop pair. One of the most theoretically rich and strategically deep openings.",
                             "children": [
                               {
                                 "san": "e3", "weight": 400,
+                                "explanation": "Solid — White reinforces the center and prepares Bd3 and Nge2.",
                                 "children": [
-                                  { "san": "O-O", "weight": 600, "children": [] },
-                                  { "san": "c5", "weight": 400, "children": [] }
+                                  { "san": "O-O", "weight": 600, "explanation": "Castling before deciding on the pin — safe and flexible.", "children": [] },
+                                  { "san": "c5", "weight": 400, "explanation": "Immediate challenge against d4, the most dynamic Nimzo response.", "children": [] }
                                 ]
                               },
                               {
                                 "san": "Qc2", "weight": 350,
+                                "explanation": "The Classical Variation — White avoids doubled pawns by defending the c3 knight indirectly.",
                                 "children": [
-                                  { "san": "O-O", "weight": 600, "children": [] },
-                                  { "san": "c5", "weight": 400, "children": [] }
+                                  { "san": "O-O", "weight": 600, "explanation": "Castling first, keeping the position flexible.", "children": [] },
+                                  { "san": "c5", "weight": 400, "explanation": "Counterattacking d4 immediately before White can solidify the center.", "children": [] }
                                 ]
                               },
                               {
                                 "san": "a3", "weight": 250,
+                                "explanation": "The Sämisch Variation — White forces the issue immediately, accepting doubled pawns if Black takes.",
                                 "children": [
                                   {
                                     "san": "Bxc3+", "weight": 700,
+                                    "explanation": "Black trades the bishop for doubled pawns — giving White the bishop pair but saddling them with a structural weakness.",
                                     "children": [
-                                      { "san": "bxc3", "weight": 1000, "children": [] }
+                                      { "san": "bxc3", "weight": 1000, "explanation": "White recaptures, accepting the doubled c-pawns in exchange for the bishop pair and central control.", "children": [] }
                                     ]
                                   },
                                   {
                                     "san": "Ba5", "weight": 300,
+                                    "explanation": "Retreating the bishop, maintaining the pin without giving up the bishop pair.",
                                     "children": [
-                                      { "san": "Nf3", "weight": 1000, "children": [] }
+                                      { "san": "Nf3", "weight": 1000, "explanation": "Developing naturally after Black retreats the bishop.", "children": [] }
                                     ]
                                   }
                                 ]
@@ -1356,50 +1567,59 @@
     "moves": [
       {
         "san": "d4", "weight": 1000,
+        "explanation": "White controls the center with d4.",
         "children": [
           {
             "san": "f5", "weight": 1000,
+            "explanation": "The Dutch Defense — an aggressive and imbalanced response. Black fights for e4, stakes a kingside claim, but weakens the e6 and h5 squares.",
             "children": [
               {
                 "san": "g3", "weight": 400,
+                "explanation": "White prepares a fianchetto, aiming the bishop down the long diagonal to put pressure on Black's kingside setup.",
                 "children": [
                   {
                     "san": "Nf6", "weight": 700,
+                    "explanation": "Developing naturally, reinforcing e4 control.",
                     "children": [
                       {
                         "san": "Bg2", "weight": 1000,
+                        "explanation": "Completing the fianchetto — the bishop will target Black's kingside and apply pressure on the long diagonal.",
                         "children": [
-                          { "san": "e6", "weight": 600, "children": [] },
-                          { "san": "g6", "weight": 400, "children": [] }
+                          { "san": "e6", "weight": 600, "explanation": "Solid structure, preparing Be7 and castling. The Classical Dutch setup.", "children": [] },
+                          { "san": "g6", "weight": 400, "explanation": "The Leningrad Dutch — Black also fianchettoes, creating a unique double-fianchetto battle.", "children": [] }
                         ]
                       }
                     ]
                   },
                   {
                     "san": "e6", "weight": 300,
+                    "explanation": "Solid — supporting f5 and preparing to develop normally.",
                     "children": [
-                      { "san": "Bg2", "weight": 1000, "children": [] }
+                      { "san": "Bg2", "weight": 1000, "explanation": "Completing the fianchetto.", "children": [] }
                     ]
                   }
                 ]
               },
               {
                 "san": "c4", "weight": 400,
+                "explanation": "White extends the center before developing the kingside.",
                 "children": [
                   {
                     "san": "Nf6", "weight": 700,
+                    "explanation": "Developing actively.",
                     "children": [
-                      { "san": "g3", "weight": 500, "children": [] },
-                      { "san": "Nc3", "weight": 500, "children": [] }
+                      { "san": "g3", "weight": 500, "explanation": "Preparing the fianchetto, the most popular continuation against the Dutch.", "children": [] },
+                      { "san": "Nc3", "weight": 500, "explanation": "Developing the queenside knight before the fianchetto.", "children": [] }
                     ]
                   }
                 ]
               },
               {
                 "san": "Nf3", "weight": 200,
+                "explanation": "Simple development before committing to a pawn structure.",
                 "children": [
-                  { "san": "Nf6", "weight": 700, "children": [] },
-                  { "san": "e6", "weight": 300, "children": [] }
+                  { "san": "Nf6", "weight": 700, "explanation": "Developing symmetrically.", "children": [] },
+                  { "san": "e6", "weight": 300, "explanation": "Solid Dutch structure.", "children": [] }
                 ]
               }
             ]
@@ -1416,35 +1636,43 @@
     "moves": [
       {
         "san": "d4", "weight": 1000,
+        "explanation": "White builds the center.",
         "children": [
           {
             "san": "d5", "weight": 1000,
+            "explanation": "Black contests the center symmetrically.",
             "children": [
               {
                 "san": "c4", "weight": 1000,
+                "explanation": "The Queen's Gambit.",
                 "children": [
                   {
                     "san": "c6", "weight": 1000,
+                    "explanation": "The Slav Defense — supporting d5 with c6 instead of e6, keeping the c8 bishop free and avoiding the French bishop problem.",
                     "children": [
                       {
                         "san": "Nc3", "weight": 600,
+                        "explanation": "White develops and maintains pressure on d5.",
                         "children": [
                           {
                             "san": "Nf6", "weight": 1000,
+                            "explanation": "Developing with tempo and preparing to castle.",
                             "children": [
                               {
                                 "san": "Nf3", "weight": 600,
+                                "explanation": "Developing toward the Slav's main line.",
                                 "children": [
-                                  { "san": "dxc4", "weight": 500, "children": [] },
-                                  { "san": "e6", "weight": 400, "children": [] },
-                                  { "san": "a6", "weight": 100, "children": [] }
+                                  { "san": "dxc4", "weight": 500, "explanation": "Accepting the gambit — Black can hold the pawn with ...b5, unlike the QGA.", "children": [] },
+                                  { "san": "e6", "weight": 400, "explanation": "Solid — supporting the center while keeping the c8 bishop active.", "children": [] },
+                                  { "san": "a6", "weight": 100, "explanation": "Preparing ...b5 to accept the gambit while controlling b5 first.", "children": [] }
                                 ]
                               },
                               {
                                 "san": "e3", "weight": 400,
+                                "explanation": "Solid — supporting d4 and preparing to develop the dark-squared bishop.",
                                 "children": [
-                                  { "san": "e6", "weight": 600, "children": [] },
-                                  { "san": "Bf5", "weight": 400, "children": [] }
+                                  { "san": "e6", "weight": 600, "explanation": "Solid Slav setup, preparing to develop both bishops.", "children": [] },
+                                  { "san": "Bf5", "weight": 400, "explanation": "Developing the bishop actively before playing ...e6 — a key Slav idea.", "children": [] }
                                 ]
                               }
                             ]
@@ -1453,12 +1681,14 @@
                       },
                       {
                         "san": "Nf3", "weight": 400,
+                        "explanation": "White develops the knight without committing the queenside knight.",
                         "children": [
                           {
                             "san": "Nf6", "weight": 1000,
+                            "explanation": "Developing naturally.",
                             "children": [
-                              { "san": "Nc3", "weight": 600, "children": [] },
-                              { "san": "e3", "weight": 400, "children": [] }
+                              { "san": "Nc3", "weight": 600, "explanation": "Developing and entering classical Slav territory.", "children": [] },
+                              { "san": "e3", "weight": 400, "explanation": "Solid approach, reinforcing d4.", "children": [] }
                             ]
                           }
                         ]
@@ -1481,31 +1711,38 @@
     "moves": [
       {
         "san": "e4", "weight": 1000,
+        "explanation": "White claims the center.",
         "children": [
           {
             "san": "d5", "weight": 1000,
+            "explanation": "The Scandinavian — Black immediately challenges e4 on move 1, accepting an early pawn trade but gaining quick piece activity.",
             "children": [
               {
                 "san": "exd5", "weight": 1000,
+                "explanation": "White captures, and now Black's response defines the opening.",
                 "children": [
                   {
                     "san": "Qxd5", "weight": 700,
+                    "explanation": "Recapturing with the queen — Black gets the pawn back immediately but must relocate the queen when White plays Nc3.",
                     "children": [
                       {
                         "san": "Nc3", "weight": 1000,
+                        "explanation": "Developing with tempo, attacking the queen.",
                         "children": [
                           {
                             "san": "Qa5", "weight": 700,
+                            "explanation": "The main retreat — the queen is active on a5, eyeing the e1-a5 diagonal and preparing ...Nf6 and ...c6.",
                             "children": [
-                              { "san": "d4", "weight": 600, "children": [] },
-                              { "san": "Nf3", "weight": 400, "children": [] }
+                              { "san": "d4", "weight": 600, "explanation": "White builds the center while Black must show how the Qa5 compensates for the lost tempo.", "children": [] },
+                              { "san": "Nf3", "weight": 400, "explanation": "Developing naturally before building the center.", "children": [] }
                             ]
                           },
                           {
                             "san": "Qd6", "weight": 200,
+                            "explanation": "Less common — the queen develops to a central square, preparing ...Nf6 and ...c6.",
                             "children": [
-                              { "san": "Nf3", "weight": 600, "children": [] },
-                              { "san": "d4", "weight": 400, "children": [] }
+                              { "san": "Nf3", "weight": 600, "explanation": "Natural development.", "children": [] },
+                              { "san": "d4", "weight": 400, "explanation": "Building the center.", "children": [] }
                             ]
                           }
                         ]
@@ -1514,19 +1751,22 @@
                   },
                   {
                     "san": "Nf6", "weight": 300,
+                    "explanation": "The Modern Scandinavian — Black doesn't recapture immediately, developing with tempo instead and planning to regain the pawn later.",
                     "children": [
                       {
                         "san": "d4", "weight": 700,
+                        "explanation": "Holding the pawn and building the center.",
                         "children": [
-                          { "san": "Nxd5", "weight": 600, "children": [] },
-                          { "san": "g6", "weight": 400, "children": [] }
+                          { "san": "Nxd5", "weight": 600, "explanation": "Recapturing the pawn after White commits the d-pawn.", "children": [] },
+                          { "san": "g6", "weight": 400, "explanation": "Preparing a fianchetto instead of recapturing, a dynamic approach.", "children": [] }
                         ]
                       },
                       {
                         "san": "c4", "weight": 300,
+                        "explanation": "White advances, trying to keep the extra pawn.",
                         "children": [
-                          { "san": "c6", "weight": 600, "children": [] },
-                          { "san": "e6", "weight": 400, "children": [] }
+                          { "san": "c6", "weight": 600, "explanation": "Challenging the d5 pawn's defender and preparing to regain material.", "children": [] },
+                          { "san": "e6", "weight": 400, "explanation": "Solid — attacking d5 while developing.", "children": [] }
                         ]
                       }
                     ]
@@ -1547,38 +1787,47 @@
     "moves": [
       {
         "san": "e4", "weight": 1000,
+        "explanation": "White claims the center.",
         "children": [
           {
             "san": "e5", "weight": 1000,
+            "explanation": "Black mirrors with equal central control.",
             "children": [
               {
                 "san": "Nf3", "weight": 1000,
+                "explanation": "White attacks e5 — the Petrov counters by attacking e4 in turn.",
                 "children": [
                   {
                     "san": "Nf6", "weight": 1000,
+                    "explanation": "The Petrov Defense — instead of defending e5, Black counterattacks e4. Solid and rock-solid at the top level, with many draws among elite players.",
                     "children": [
                       {
                         "san": "Nxe5", "weight": 700,
+                        "explanation": "White captures — but now Black must be careful with the sequence to equalize.",
                         "children": [
                           {
                             "san": "d6", "weight": 1000,
+                            "explanation": "The critical Petrov move — kicking the Ne5 before recapturing on e4, to avoid losing material.",
                             "children": [
                               {
                                 "san": "Nf3", "weight": 700,
+                                "explanation": "Retreating the knight, the safe main line.",
                                 "children": [
                                   {
                                     "san": "Nxe4", "weight": 1000,
+                                    "explanation": "Now Black recaptures safely — the Petrov sequence complete, reaching a roughly equal position.",
                                     "children": [
-                                      { "san": "d4", "weight": 700, "children": [] },
-                                      { "san": "Nc3", "weight": 300, "children": [] }
+                                      { "san": "d4", "weight": 700, "explanation": "White builds the center, the main Petrov main line continuation.", "children": [] },
+                                      { "san": "Nc3", "weight": 300, "explanation": "Developing, preparing to contest the central knight.", "children": [] }
                                     ]
                                   }
                                 ]
                               },
                               {
                                 "san": "Nc4", "weight": 300,
+                                "explanation": "An aggressive but unusual knight retreat, trying to keep more tension.",
                                 "children": [
-                                  { "san": "Nxe4", "weight": 1000, "children": [] }
+                                  { "san": "Nxe4", "weight": 1000, "explanation": "Black recaptures the pawn now that the knight has moved.", "children": [] }
                                 ]
                               }
                             ]
@@ -1587,12 +1836,14 @@
                       },
                       {
                         "san": "d4", "weight": 300,
+                        "explanation": "White tries to avoid the Petrov main line with an early center advance.",
                         "children": [
                           {
                             "san": "exd4", "weight": 1000,
+                            "explanation": "Black accepts, entering a Scotch-type position.",
                             "children": [
-                              { "san": "e5", "weight": 700, "children": [] },
-                              { "san": "Nxd4", "weight": 300, "children": [] }
+                              { "san": "e5", "weight": 700, "explanation": "White advances aggressively, kicking the Nf6 and gaining space.", "children": [] },
+                              { "san": "Nxd4", "weight": 300, "explanation": "Recapturing centrally, entering symmetrical Scotch-type play.", "children": [] }
                             ]
                           }
                         ]
@@ -1615,39 +1866,49 @@
     "moves": [
       {
         "san": "e4", "weight": 1000,
+        "explanation": "White claims the center.",
         "children": [
           {
             "san": "e5", "weight": 1000,
+            "explanation": "Black mirrors.",
             "children": [
               {
                 "san": "Nf3", "weight": 1000,
+                "explanation": "Attacking e5.",
                 "children": [
                   {
                     "san": "Nc6", "weight": 1000,
+                    "explanation": "Defending e5.",
                     "children": [
                       {
                         "san": "Bb5", "weight": 1000,
+                        "explanation": "The Ruy Lopez — targeting Nc6.",
                         "children": [
                           {
                             "san": "Nf6", "weight": 1000,
+                            "explanation": "The Berlin Defense — counterattacking e4 immediately rather than defending the pin. Became famous for its extreme solidity after Kramnik used it to defeat Kasparov.",
                             "children": [
                               {
                                 "san": "O-O", "weight": 700,
+                                "explanation": "White castles — the critical Berlin endgame follows after Nxe4.",
                                 "children": [
                                   {
                                     "san": "Nxe4", "weight": 1000,
+                                    "explanation": "Black captures, entering the famous Berlin endgame — White will force the queens off the board but Black gets a rock-solid fortress.",
                                     "children": [
                                       {
                                         "san": "d4", "weight": 700,
+                                        "explanation": "White attacks immediately, leading to the main Berlin endgame after Re1.",
                                         "children": [
-                                          { "san": "Nd6", "weight": 700, "children": [] },
-                                          { "san": "Be7", "weight": 300, "children": [] }
+                                          { "san": "Nd6", "weight": 700, "explanation": "Retreating the knight — the Berlin endgame structure begins, a deeply strategic position.", "children": [] },
+                                          { "san": "Be7", "weight": 300, "explanation": "Developing solidly, keeping the knight on e4 temporarily.", "children": [] }
                                         ]
                                       },
                                       {
                                         "san": "Re1", "weight": 300,
+                                        "explanation": "Attacking the Ne4 directly, a sharp alternative to d4.",
                                         "children": [
-                                          { "san": "Nd6", "weight": 1000, "children": [] }
+                                          { "san": "Nd6", "weight": 1000, "explanation": "The knight retreats, and the Berlin endgame structure takes shape.", "children": [] }
                                         ]
                                       }
                                     ]
@@ -1656,9 +1917,10 @@
                               },
                               {
                                 "san": "d3", "weight": 300,
+                                "explanation": "The Anti-Berlin — White avoids the endgame, choosing a slower positional approach.",
                                 "children": [
-                                  { "san": "Bc5", "weight": 600, "children": [] },
-                                  { "san": "d6", "weight": 400, "children": [] }
+                                  { "san": "Bc5", "weight": 600, "explanation": "Active development — the bishop targets f2 and the center.", "children": [] },
+                                  { "san": "d6", "weight": 400, "explanation": "Solid — reinforcing e5 and preparing queenside development.", "children": [] }
                                 ]
                               }
                             ]
@@ -1683,44 +1945,54 @@
     "moves": [
       {
         "san": "e4", "weight": 1000,
+        "explanation": "White claims the center — the Pirc allows it and then attacks it.",
         "children": [
           {
             "san": "d6", "weight": 1000,
+            "explanation": "The first Pirc move — flexible, supporting e5 later and preparing g6. Black invites White to build a big center.",
             "children": [
               {
                 "san": "d4", "weight": 800,
+                "explanation": "White builds a strong pawn center.",
                 "children": [
                   {
                     "san": "Nf6", "weight": 1000,
+                    "explanation": "Developing actively, attacking e4 and preparing the fianchetto.",
                     "children": [
                       {
                         "san": "Nc3", "weight": 700,
+                        "explanation": "Defending e4 and developing, the main Pirc continuation.",
                         "children": [
                           {
                             "san": "g6", "weight": 1000,
+                            "explanation": "The key Pirc move — fianchettoing the bishop to g7 where it will attack the White center from long range.",
                             "children": [
                               {
                                 "san": "Be3", "weight": 400,
+                                "explanation": "The Classical System — solid development, preparing Qd2 and castling queenside for a direct kingside attack.",
                                 "children": [
                                   {
                                     "san": "Bg7", "weight": 1000,
+                                    "explanation": "Completing the fianchetto — the Pirc bishop on g7 is Black's key attacking piece.",
                                     "children": [
-                                      { "san": "Qd2", "weight": 600, "children": [] },
-                                      { "san": "f3", "weight": 400, "children": [] }
+                                      { "san": "Qd2", "weight": 600, "explanation": "Preparing queenside castling and a direct kingside attack, the Austrian or Classical setup.", "children": [] },
+                                      { "san": "f3", "weight": 400, "explanation": "The Sämisch-type approach — preparing g4-g5 for a kingside pawn storm.", "children": [] }
                                     ]
                                   }
                                 ]
                               },
                               {
                                 "san": "f4", "weight": 400,
+                                "explanation": "The Austrian Attack — the most aggressive response to the Pirc, aiming for f5 and a massive kingside attack.",
                                 "children": [
-                                  { "san": "Bg7", "weight": 1000, "children": [] }
+                                  { "san": "Bg7", "weight": 1000, "explanation": "Completing the fianchetto, preparing ...c5 or ...O-O counterplay against White's attack.", "children": [] }
                                 ]
                               },
                               {
                                 "san": "Nf3", "weight": 200,
+                                "explanation": "Solid development, avoiding the sharpest lines.",
                                 "children": [
-                                  { "san": "Bg7", "weight": 1000, "children": [] }
+                                  { "san": "Bg7", "weight": 1000, "explanation": "Completing the fianchetto.", "children": [] }
                                 ]
                               }
                             ]
@@ -1729,9 +2001,10 @@
                       },
                       {
                         "san": "Nf3", "weight": 300,
+                        "explanation": "White develops without committing to Nc3, keeping flexibility.",
                         "children": [
-                          { "san": "g6", "weight": 700, "children": [] },
-                          { "san": "Nbd7", "weight": 300, "children": [] }
+                          { "san": "g6", "weight": 700, "explanation": "Heading for the Pirc fianchetto setup.", "children": [] },
+                          { "san": "Nbd7", "weight": 300, "explanation": "Solid development, supporting e5 and preparing a different setup.", "children": [] }
                         ]
                       }
                     ]
@@ -1752,41 +2025,50 @@
     "moves": [
       {
         "san": "d4", "weight": 1000,
+        "explanation": "White builds the center.",
         "children": [
           {
             "san": "Nf6", "weight": 1000,
+            "explanation": "Developing actively.",
             "children": [
               {
                 "san": "c4", "weight": 1000,
+                "explanation": "Expanding the center.",
                 "children": [
                   {
                     "san": "e6", "weight": 1000,
+                    "explanation": "Solid and flexible, preparing d5 or b6 setups.",
                     "children": [
                       {
                         "san": "Nf3", "weight": 1000,
+                        "explanation": "White develops before committing to Nc3, which would allow the Nimzo-Indian.",
                         "children": [
                           {
                             "san": "b6", "weight": 1000,
+                            "explanation": "The Queen's Indian! Black fianchettoes the c8 bishop to b7, controlling e4 from the flank — a hypermodern masterpiece.",
                             "children": [
                               {
                                 "san": "g3", "weight": 500,
+                                "explanation": "White also fianchettoes — both sides aim their bishops at the long diagonals, leading to deep positional battles.",
                                 "children": [
-                                  { "san": "Bb7", "weight": 700, "children": [] },
-                                  { "san": "Ba6", "weight": 300, "children": [] }
+                                  { "san": "Bb7", "weight": 700, "explanation": "Completing the QID fianchetto — the Bb7 battles White's Bg2 for control of the long diagonal.", "children": [] },
+                                  { "san": "Ba6", "weight": 300, "explanation": "A provocative alternative — the bishop goes to a6 to trade off White's key Bg2 bishop.", "children": [] }
                                 ]
                               },
                               {
                                 "san": "Nc3", "weight": 300,
+                                "explanation": "White develops the queenside knight, reaching Nimzo-Indian territory if Black plays ...Bb4.",
                                 "children": [
-                                  { "san": "Bb7", "weight": 600, "children": [] },
-                                  { "san": "Bb4", "weight": 400, "children": [] }
+                                  { "san": "Bb7", "weight": 600, "explanation": "Completing the QID fianchetto and pressuring e4.", "children": [] },
+                                  { "san": "Bb4", "weight": 400, "explanation": "Transposing to the Nimzo-Indian with Bb4, a flexible and strong choice.", "children": [] }
                                 ]
                               },
                               {
                                 "san": "e3", "weight": 200,
+                                "explanation": "Solid — supporting d4 and preparing to develop the dark-squared bishop.",
                                 "children": [
-                                  { "san": "Bb7", "weight": 700, "children": [] },
-                                  { "san": "Bb4+", "weight": 300, "children": [] }
+                                  { "san": "Bb7", "weight": 700, "explanation": "Completing the QID setup.", "children": [] },
+                                  { "san": "Bb4+", "weight": 300, "explanation": "Checking to disrupt White's development before completing the fianchetto.", "children": [] }
                                 ]
                               }
                             ]

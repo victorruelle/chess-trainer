@@ -47,6 +47,8 @@ class OpeningBookService {
         fromSquare: squares.$1,
         toSquare: squares.$2,
         rank: ArrowRank.values[i],
+        san: node.san,
+        explanation: node.explanation,
       ));
     }
     return BookResult(status: BookStatus.inBook, arrows: arrows);

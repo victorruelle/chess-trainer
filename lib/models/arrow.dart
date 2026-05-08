@@ -7,11 +7,15 @@ class Arrow {
   final String fromSquare;
   final String toSquare;
   final ArrowRank rank;
+  final String san;
+  final String? explanation;
 
   const Arrow({
     required this.fromSquare,
     required this.toSquare,
     required this.rank,
+    required this.san,
+    this.explanation,
   });
 }
 
