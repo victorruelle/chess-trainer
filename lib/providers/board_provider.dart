@@ -16,6 +16,7 @@ class BoardNotifier extends Notifier<BoardState> {
     state = BoardState.initial.copyWith(
       arrows: result.arrows,
       status: _toStatus(result.status),
+      variation: result.variation,
     );
   }
 
@@ -51,6 +52,7 @@ class BoardNotifier extends Notifier<BoardState> {
       clearSelection: true,
       arrows: result.arrows,
       status: _toStatus(result.status),
+      variation: result.variation,
     );
   }
 
@@ -70,6 +72,7 @@ class BoardNotifier extends Notifier<BoardState> {
       clearSelection: true,
       arrows: result.arrows,
       status: _toStatus(result.status),
+      variation: result.variation,
     );
   }
 

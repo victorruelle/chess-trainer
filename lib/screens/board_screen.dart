@@ -15,7 +15,28 @@ class BoardScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(opening?.name ?? 'Opening Trainer'),
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              opening?.name ?? 'Opening Trainer',
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+            ),
+            if (boardState.variation != null)
+              Text(
+                boardState.variation!,
+                style: TextStyle(
+                  fontSize: 12,
+                  color: Theme.of(context)
+                      .colorScheme
+                      .onSurface
+                      .withValues(alpha: 0.6),
+                  fontWeight: FontWeight.normal,
+                ),
+              ),
+          ],
+        ),
         centerTitle: false,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),

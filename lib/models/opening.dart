@@ -4,17 +4,23 @@ import 'package:flutter/foundation.dart';
 class MoveNode {
   final String san;
   final int weight;
+  final String? explanation;
+  final String? variation;
   final List<MoveNode> children;
 
   const MoveNode({
     required this.san,
     required this.weight,
+    this.explanation,
+    this.variation,
     this.children = const [],
   });
 
   factory MoveNode.fromJson(Map<String, dynamic> json) => MoveNode(
         san: json['san'] as String,
         weight: json['weight'] as int,
+        explanation: json['explanation'] as String?,
+        variation: json['variation'] as String?,
         children: (json['children'] as List<dynamic>? ?? [])
             .map((e) => MoveNode.fromJson(e as Map<String, dynamic>))
             .toList(),

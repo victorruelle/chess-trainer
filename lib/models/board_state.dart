@@ -9,6 +9,7 @@ class BoardState {
   final String? selectedSquare;
   final List<Arrow> arrows;
   final OpeningStatus status;
+  final String? variation;
 
   const BoardState({
     required this.fen,
@@ -16,6 +17,7 @@ class BoardState {
     this.selectedSquare,
     this.arrows = const [],
     required this.status,
+    this.variation,
   });
 
   static const initial = BoardState(
@@ -31,6 +33,8 @@ class BoardState {
     bool clearSelection = false,
     List<Arrow>? arrows,
     OpeningStatus? status,
+    String? variation,
+    bool clearVariation = false,
   }) {
     return BoardState(
       fen: fen ?? this.fen,
@@ -38,6 +42,7 @@ class BoardState {
       selectedSquare: clearSelection ? null : (selectedSquare ?? this.selectedSquare),
       arrows: arrows ?? this.arrows,
       status: status ?? this.status,
+      variation: clearVariation ? null : (variation ?? this.variation),
     );
   }
 }
