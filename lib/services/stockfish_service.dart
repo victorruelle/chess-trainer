@@ -1,5 +1,8 @@
 import 'dart:async';
-import 'package:stockfish/stockfish.dart';
+import 'package:flutter/foundation.dart';
+
+// Stockfish is not available on web, only on native platforms
+import 'package:stockfish/stockfish.dart' show Stockfish;
 
 class EngineEval {
   final double score; // pawns, positive = White advantage
@@ -26,8 +29,9 @@ class EngineEval {
 
 /// Singleton-pattern wrapper around the Stockfish UCI engine.
 /// Fires onEval callbacks as info lines arrive so the UI updates in real-time.
+/// On web platform, the engine is not available and init() will return early.
 class StockfishService {
-  Stockfish? _engine;
+  late Stockfish? _engine;
   StreamSubscription<String>? _sub;
   void Function(EngineEval)? _onUpdate;
   int _searchDepth = 0;
@@ -37,6 +41,11 @@ class StockfishService {
 
   Future<void> init() async {
     if (_ready) return;
+    if (kIsWeb) {
+      _engine = null;
+      _ready = false;
+      return;
+    }
     try {
       _engine = Stockfish();
       // Wait until engine signals readyok
