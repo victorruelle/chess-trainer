@@ -7571,15 +7571,20 @@
                                                                       {
                                                                         "san": "Nb3",
                                                                         "weight": 600,
-                                                                        "children": []
+                                                                        "children": [],
+                                                                        "explanation": "White's knight retreats to an active square on the queenside"
                                                                       }
-                                                                    ]
+                                                                    ],
+                                                                    "explanation": "Black develops the queen's knight with centrality"
                                                                   }
-                                                                ]
+                                                                ],
+                                                                "explanation": "White solidifies d4, prepares for long-term advantage"
                                                               }
-                                                            ]
+                                                            ],
+                                                            "explanation": "Black strikes at the center, gains counterplay"
                                                           }
-                                                        ]
+                                                        ],
+                                                        "explanation": "Develops the queen's knight, prepares to redeploy"
                                                       },
                                                       {
                                                         "san": "Be3",
@@ -7592,13 +7597,17 @@
                                                               {
                                                                 "san": "c3",
                                                                 "weight": 600,
-                                                                "children": []
+                                                                "children": [],
+                                                                "explanation": "White solidifies d4, prepares for long-term advantage"
                                                               }
-                                                            ]
+                                                            ],
+                                                            "explanation": "Black strikes at the center, gains counterplay"
                                                           }
-                                                        ]
+                                                        ],
+                                                        "explanation": "Develops the bishop, supports d4"
                                                       }
-                                                    ]
+                                                    ],
+                                                    "explanation": "Knight repositions to attack e5 and h4, supports kingside"
                                                   },
                                                   {
                                                     "san": "c5",
@@ -7615,11 +7624,14 @@
                                                               {
                                                                 "san": "Nbd2",
                                                                 "weight": 600,
-                                                                "children": []
+                                                                "children": [],
+                                                                "explanation": "Develops the queen's knight, prepares to redeploy"
                                                               }
-                                                            ]
+                                                            ],
+                                                            "explanation": "Black develops the queen's knight with centrality"
                                                           }
-                                                        ]
+                                                        ],
+                                                        "explanation": "White solidifies d4, prepares for long-term advantage"
                                                       },
                                                       {
                                                         "san": "dxc5",
@@ -7632,19 +7644,24 @@
                                                               {
                                                                 "san": "Nb3",
                                                                 "weight": 600,
-                                                                "children": []
+                                                                "children": [],
+                                                                "explanation": "White's knight retreats to an active square on the queenside"
                                                               }
                                                             ]
                                                           }
                                                         ]
                                                       }
-                                                    ]
+                                                    ],
+                                                    "explanation": "Black strikes at the center, gains counterplay"
                                                   }
-                                                ]
+                                                ],
+                                                "explanation": "Black kingside castling for safety"
                                               }
-                                            ]
+                                            ],
+                                            "explanation": "Flexible knight placement, prepares castling and king safety"
                                           }
-                                        ]
+                                        ],
+                                        "explanation": "White unpins and continues development"
                                       },
                                       {
                                         "san": "Nc3",
@@ -7681,15 +7698,20 @@
                                                                       {
                                                                         "san": "Bd3",
                                                                         "weight": 700,
-                                                                        "children": []
+                                                                        "children": [],
+                                                                        "explanation": "Develops the light-squared bishop with attacking potential"
                                                                       }
-                                                                    ]
+                                                                    ],
+                                                                    "explanation": "Bishop retreats to the long diagonal"
                                                                   }
-                                                                ]
+                                                                ],
+                                                                "explanation": "Black attacks White's pawn chain, prevents g5"
                                                               }
-                                                            ]
+                                                            ],
+                                                            "explanation": "Black develops the bishop to an active square"
                                                           }
-                                                        ]
+                                                        ],
+                                                        "explanation": "Aggressive pawn advance, gains space for an attack"
                                                       },
                                                       {
                                                         "san": "Nf3",
@@ -7710,19 +7732,25 @@
                                                                       {
                                                                         "san": "h5",
                                                                         "weight": 700,
-                                                                        "children": []
+                                                                        "children": [],
+                                                                        "explanation": "Black attacks White's pawn chain, prevents g5"
                                                                       }
-                                                                    ]
+                                                                    ],
+                                                                    "explanation": "Black develops the bishop to an active square"
                                                                   }
-                                                                ]
+                                                                ],
+                                                                "explanation": "Aggressive pawn advance, gains space for an attack"
                                                               }
                                                             ]
                                                           }
-                                                        ]
+                                                        ],
+                                                        "explanation": "Develops a piece, prepares kingside castling"
                                                       }
-                                                    ]
+                                                    ],
+                                                    "explanation": "Black prevents Ng5, solidifies the kingside"
                                                   }
-                                                ]
+                                                ],
+                                                "explanation": "White gains kingside space, prepares a pawn storm"
                                               },
                                               {
                                                 "san": "g4",
@@ -7747,25 +7775,34 @@
                                                                   {
                                                                     "san": "h5",
                                                                     "weight": 600,
-                                                                    "children": []
+                                                                    "children": [],
+                                                                    "explanation": "Black attacks White's pawn chain, prevents g5"
                                                                   }
-                                                                ]
+                                                                ],
+                                                                "explanation": "White gains kingside space, prepares a pawn storm"
                                                               }
-                                                            ]
+                                                            ],
+                                                            "explanation": "Black strikes at the center, gains counterplay"
                                                           }
                                                         ]
                                                       }
-                                                    ]
+                                                    ],
+                                                    "explanation": "Black develops the bishop to an active square"
                                                   }
-                                                ]
+                                                ],
+                                                "explanation": "Aggressive pawn advance, gains space for an attack"
                                               }
-                                            ]
+                                            ],
+                                            "explanation": "Flexible knight placement, prepares castling and king safety"
                                           }
-                                        ]
+                                        ],
+                                        "explanation": "Classical development, supports the center and d4"
                                       }
-                                    ]
+                                    ],
+                                    "explanation": "Black opens the light-squared bishop, strengthens d5"
                                   }
-                                ]
+                                ],
+                                "explanation": "Develops a piece, prepares kingside castling"
                               },
                               {
                                 "san": "c4",
@@ -7807,9 +7844,11 @@
                                                                   {
                                                                     "san": "Be7",
                                                                     "weight": 600,
-                                                                    "children": []
+                                                                    "children": [],
+                                                                    "explanation": "Black blocks the pin, develops the kingside bishop"
                                                                   }
-                                                                ]
+                                                                ],
+                                                                "explanation": "White pins the knight, creates pressure"
                                                               },
                                                               {
                                                                 "san": "O-O",
@@ -7818,11 +7857,14 @@
                                                                   {
                                                                     "san": "Be7",
                                                                     "weight": 600,
-                                                                    "children": []
+                                                                    "children": [],
+                                                                    "explanation": "Black blocks the pin, develops the kingside bishop"
                                                                   }
-                                                                ]
+                                                                ],
+                                                                "explanation": "Black kingside castling for safety"
                                                               }
-                                                            ]
+                                                            ],
+                                                            "explanation": "Knight repositions to pressure White's center"
                                                           },
                                                           {
                                                             "san": "Nd7",
@@ -7835,25 +7877,35 @@
                                                                   {
                                                                     "san": "Nf5",
                                                                     "weight": 600,
-                                                                    "children": []
+                                                                    "children": [],
+                                                                    "explanation": "Knight repositions to pressure White's center"
                                                                   }
-                                                                ]
+                                                                ],
+                                                                "explanation": "Black kingside castling for safety"
                                                               }
-                                                            ]
+                                                            ],
+                                                            "explanation": "Black develops the queen's knight flexibly"
                                                           }
-                                                        ]
+                                                        ],
+                                                        "explanation": "Develops a piece, prepares kingside castling"
                                                       }
-                                                    ]
+                                                    ],
+                                                    "explanation": "Flexible knight placement, prepares castling and king safety"
                                                   }
-                                                ]
+                                                ],
+                                                "explanation": "White develops and recaptures with tempo"
                                               }
-                                            ]
+                                            ],
+                                            "explanation": "Black opens the light-squared bishop, strengthens d5"
                                           }
-                                        ]
+                                        ],
+                                        "explanation": "Classical development, supports the center and d4"
                                       }
-                                    ]
+                                    ],
+                                    "explanation": "Black captures, clearing the d-file"
                                   }
-                                ]
+                                ],
+                                "explanation": "Short Variation: White attacks the center laterally"
                               },
                               {
                                 "san": "Nc3",
@@ -7887,9 +7939,11 @@
                                                           {
                                                             "san": "h5",
                                                             "weight": 600,
-                                                            "children": []
+                                                            "children": [],
+                                                            "explanation": "Black attacks White's pawn chain, prevents g5"
                                                           }
-                                                        ]
+                                                        ],
+                                                        "explanation": "White gains kingside space, prepares a pawn storm"
                                                       },
                                                       {
                                                         "san": "Be3",
@@ -7898,17 +7952,22 @@
                                                           {
                                                             "san": "Nc6",
                                                             "weight": 700,
-                                                            "children": []
+                                                            "children": [],
+                                                            "explanation": "Black develops the queen's knight with centrality"
                                                           }
-                                                        ]
+                                                        ],
+                                                        "explanation": "Develops the bishop, supports d4"
                                                       }
-                                                    ]
+                                                    ],
+                                                    "explanation": "Black strikes at the center, gains counterplay"
                                                   }
                                                 ]
                                               }
-                                            ]
+                                            ],
+                                            "explanation": "Black develops the bishop to an active square"
                                           }
-                                        ]
+                                        ],
+                                        "explanation": "Aggressive pawn advance, gains space for an attack"
                                       },
                                       {
                                         "san": "f4",
@@ -7925,17 +7984,22 @@
                                                   {
                                                     "san": "Nc6",
                                                     "weight": 700,
-                                                    "children": []
+                                                    "children": [],
+                                                    "explanation": "Black develops the queen's knight with centrality"
                                                   }
-                                                ]
+                                                ],
+                                                "explanation": "Develops a piece, prepares kingside castling"
                                               }
-                                            ]
+                                            ],
+                                            "explanation": "Black strikes at the center, gains counterplay"
                                           }
                                         ]
                                       }
-                                    ]
+                                    ],
+                                    "explanation": "Black opens the light-squared bishop, strengthens d5"
                                   }
-                                ]
+                                ],
+                                "explanation": "Classical development, supports the center and d4"
                               },
                               {
                                 "san": "h4",
@@ -7965,17 +8029,23 @@
                                                       {
                                                         "san": "Nf3",
                                                         "weight": 700,
-                                                        "children": []
+                                                        "children": [],
+                                                        "explanation": "Develops a piece, prepares kingside castling"
                                                       }
-                                                    ]
+                                                    ],
+                                                    "explanation": "Flexible knight placement, prepares castling and king safety"
                                                   }
-                                                ]
+                                                ],
+                                                "explanation": "Classical development, supports the center and d4"
                                               }
-                                            ]
+                                            ],
+                                            "explanation": "Black opens the light-squared bishop, strengthens d5"
                                           }
-                                        ]
+                                        ],
+                                        "explanation": "Short Variation: White attacks the center laterally"
                                       }
-                                    ]
+                                    ],
+                                    "explanation": "Black attacks White's pawn chain, prevents g5"
                                   },
                                   {
                                     "san": "h6",
@@ -7992,17 +8062,23 @@
                                               {
                                                 "san": "Be2",
                                                 "weight": 700,
-                                                "children": []
+                                                "children": [],
+                                                "explanation": "White unpins and continues development"
                                               }
-                                            ]
+                                            ],
+                                            "explanation": "Black opens the light-squared bishop, strengthens d5"
                                           }
-                                        ]
+                                        ],
+                                        "explanation": "Develops a piece, prepares kingside castling"
                                       }
-                                    ]
+                                    ],
+                                    "explanation": "Black prevents Ng5, solidifies the kingside"
                                   }
-                                ]
+                                ],
+                                "explanation": "White gains kingside space, prepares a pawn storm"
                               }
-                            ]
+                            ],
+                            "explanation": "Natural development, Black controls the e4 square"
                           },
                           {
                             "san": "c5",
@@ -8059,17 +8135,22 @@
                                                       {
                                                         "san": "Bd3",
                                                         "weight": 600,
-                                                        "children": []
+                                                        "children": [],
+                                                        "explanation": "Develops the light-squared bishop with attacking potential"
                                                       }
                                                     ]
                                                   }
-                                                ]
+                                                ],
+                                                "explanation": "White develops with active piece placement"
                                               }
-                                            ]
+                                            ],
+                                            "explanation": "Black opens the light-squared bishop, strengthens d5"
                                           }
-                                        ]
+                                        ],
+                                        "explanation": "Develops a piece, prepares kingside castling"
                                       }
-                                    ]
+                                    ],
+                                    "explanation": "Black develops the queen's knight with centrality"
                                   }
                                 ]
                               },
@@ -8101,13 +8182,17 @@
                                                       {
                                                         "san": "O-O",
                                                         "weight": 700,
-                                                        "children": []
+                                                        "children": [],
+                                                        "explanation": "Black kingside castling for safety"
                                                       }
-                                                    ]
+                                                    ],
+                                                    "explanation": "Black opens the light-squared bishop, strengthens d5"
                                                   }
-                                                ]
+                                                ],
+                                                "explanation": "White unpins and continues development"
                                               }
-                                            ]
+                                            ],
+                                            "explanation": "Black pins the knight, applies pressure"
                                           },
                                           {
                                             "san": "Qb6",
@@ -8126,15 +8211,20 @@
                                               }
                                             ]
                                           }
-                                        ]
+                                        ],
+                                        "explanation": "Develops a piece, prepares kingside castling"
                                       }
-                                    ]
+                                    ],
+                                    "explanation": "Black develops the queen's knight with centrality"
                                   }
-                                ]
+                                ],
+                                "explanation": "White solidifies d4, prepares for long-term advantage"
                               }
-                            ]
+                            ],
+                            "explanation": "Black strikes at the center, gains counterplay"
                           }
-                        ]
+                        ],
+                        "explanation": "White gains space and locks the center with a pawn chain"
                       },
                       {
                         "san": "Nc3",
@@ -8207,17 +8297,23 @@
                                                                                         "weight": 700,
                                                                                         "children": []
                                                                                       }
-                                                                                    ]
+                                                                                    ],
+                                                                                    "explanation": "Black opens the light-squared bishop, strengthens d5"
                                                                                   }
-                                                                                ]
+                                                                                ],
+                                                                                "explanation": "White's queen centralizes with attacking chances"
                                                                               }
-                                                                            ]
+                                                                            ],
+                                                                            "explanation": "Black eliminates White's strong bishop"
                                                                           }
-                                                                        ]
+                                                                        ],
+                                                                        "explanation": "Develops the light-squared bishop with attacking potential"
                                                                       }
-                                                                    ]
+                                                                    ],
+                                                                    "explanation": "Bishop retreats to the long diagonal"
                                                                   }
-                                                                ]
+                                                                ],
+                                                                "explanation": "Black attacks White's pawn chain, prevents g5"
                                                               },
                                                               {
                                                                 "san": "Bd3",
@@ -8242,15 +8338,20 @@
                                                                               }
                                                                             ]
                                                                           }
-                                                                        ]
+                                                                        ],
+                                                                        "explanation": "White's queen centralizes with attacking chances"
                                                                       }
-                                                                    ]
+                                                                    ],
+                                                                    "explanation": "Black eliminates White's strong bishop"
                                                                   }
-                                                                ]
+                                                                ],
+                                                                "explanation": "Develops the light-squared bishop with attacking potential"
                                                               }
-                                                            ]
+                                                            ],
+                                                            "explanation": "Black develops the queen's knight flexibly"
                                                           }
-                                                        ]
+                                                        ],
+                                                        "explanation": "Develops a piece, prepares kingside castling"
                                                       },
                                                       {
                                                         "san": "h5",
@@ -8279,21 +8380,29 @@
                                                                               {
                                                                                 "san": "Qxd3",
                                                                                 "weight": 700,
-                                                                                "children": []
+                                                                                "children": [],
+                                                                                "explanation": "White's queen centralizes with attacking chances"
                                                                               }
-                                                                            ]
+                                                                            ],
+                                                                            "explanation": "Black eliminates White's strong bishop"
                                                                           }
-                                                                        ]
+                                                                        ],
+                                                                        "explanation": "Develops the light-squared bishop with attacking potential"
                                                                       }
-                                                                    ]
+                                                                    ],
+                                                                    "explanation": "Black develops the queen's knight flexibly"
                                                                   }
-                                                                ]
+                                                                ],
+                                                                "explanation": "Develops a piece, prepares kingside castling"
                                                               }
-                                                            ]
+                                                            ],
+                                                            "explanation": "Bishop retreats to the long diagonal"
                                                           }
-                                                        ]
+                                                        ],
+                                                        "explanation": "Black attacks White's pawn chain, prevents g5"
                                                       }
-                                                    ]
+                                                    ],
+                                                    "explanation": "Black prevents Ng5, solidifies the kingside"
                                                   },
                                                   {
                                                     "san": "Nf6",
@@ -8314,17 +8423,23 @@
                                                                   {
                                                                     "san": "e6",
                                                                     "weight": 700,
-                                                                    "children": []
+                                                                    "children": [],
+                                                                    "explanation": "Black opens the light-squared bishop, strengthens d5"
                                                                   }
-                                                                ]
+                                                                ],
+                                                                "explanation": "Develops a piece, prepares kingside castling"
                                                               }
-                                                            ]
+                                                            ],
+                                                            "explanation": "Bishop retreats to the long diagonal"
                                                           }
-                                                        ]
+                                                        ],
+                                                        "explanation": "Black attacks White's pawn chain, prevents g5"
                                                       }
-                                                    ]
+                                                    ],
+                                                    "explanation": "Black develops the kingside knight"
                                                   }
-                                                ]
+                                                ],
+                                                "explanation": "White gains kingside space, prepares a pawn storm"
                                               },
                                               {
                                                 "san": "Nf3",
@@ -8353,15 +8468,19 @@
                                                                       {
                                                                         "san": "O-O",
                                                                         "weight": 700,
-                                                                        "children": []
+                                                                        "children": [],
+                                                                        "explanation": "Black kingside castling for safety"
                                                                       }
                                                                     ]
                                                                   }
-                                                                ]
+                                                                ],
+                                                                "explanation": "White's queen centralizes with attacking chances"
                                                               }
-                                                            ]
+                                                            ],
+                                                            "explanation": "Black eliminates White's strong bishop"
                                                           }
-                                                        ]
+                                                        ],
+                                                        "explanation": "Develops the light-squared bishop with attacking potential"
                                                       },
                                                       {
                                                         "san": "h4",
@@ -8378,21 +8497,29 @@
                                                                   {
                                                                     "san": "Bh7",
                                                                     "weight": 700,
-                                                                    "children": []
+                                                                    "children": [],
+                                                                    "explanation": "Bishop retreats to the long diagonal"
                                                                   }
-                                                                ]
+                                                                ],
+                                                                "explanation": "Black attacks White's pawn chain, prevents g5"
                                                               }
-                                                            ]
+                                                            ],
+                                                            "explanation": "Black prevents Ng5, solidifies the kingside"
                                                           }
-                                                        ]
+                                                        ],
+                                                        "explanation": "White gains kingside space, prepares a pawn storm"
                                                       }
-                                                    ]
+                                                    ],
+                                                    "explanation": "Black develops the queen's knight flexibly"
                                                   }
-                                                ]
+                                                ],
+                                                "explanation": "Develops a piece, prepares kingside castling"
                                               }
-                                            ]
+                                            ],
+                                            "explanation": "Black develops the bishop to an active square"
                                           }
-                                        ]
+                                        ],
+                                        "explanation": "White's knight retreats but maintains influence"
                                       },
                                       {
                                         "san": "Bd3",
@@ -8434,9 +8561,11 @@
                                                                       }
                                                                     ]
                                                                   }
-                                                                ]
+                                                                ],
+                                                                "explanation": "Black kingside castling for safety"
                                                               }
-                                                            ]
+                                                            ],
+                                                            "explanation": "Black develops the queen's knight flexibly"
                                                           },
                                                           {
                                                             "san": "Nf6",
@@ -8451,19 +8580,26 @@
                                                                     "weight": 700,
                                                                     "children": []
                                                                   }
-                                                                ]
+                                                                ],
+                                                                "explanation": "Black kingside castling for safety"
                                                               }
-                                                            ]
+                                                            ],
+                                                            "explanation": "Black develops the kingside knight"
                                                           }
-                                                        ]
+                                                        ],
+                                                        "explanation": "Develops a piece, prepares kingside castling"
                                                       }
-                                                    ]
+                                                    ],
+                                                    "explanation": "Black opens the light-squared bishop, strengthens d5"
                                                   }
-                                                ]
+                                                ],
+                                                "explanation": "White's queen centralizes with attacking chances"
                                               }
-                                            ]
+                                            ],
+                                            "explanation": "Black eliminates White's strong bishop"
                                           }
-                                        ]
+                                        ],
+                                        "explanation": "Develops the light-squared bishop with attacking potential"
                                       },
                                       {
                                         "san": "Ne2",
@@ -8493,21 +8629,27 @@
                                                               {
                                                                 "san": "Bd3",
                                                                 "weight": 700,
-                                                                "children": []
+                                                                "children": [],
+                                                                "explanation": "Develops the light-squared bishop with attacking potential"
                                                               }
-                                                            ]
+                                                            ],
+                                                            "explanation": "Black develops the queen's knight flexibly"
                                                           }
-                                                        ]
+                                                        ],
+                                                        "explanation": "White solidifies d4, prepares for long-term advantage"
                                                       }
-                                                    ]
+                                                    ],
+                                                    "explanation": "Bishop retreats to the long diagonal"
                                                   }
                                                 ]
                                               }
-                                            ]
+                                            ],
+                                            "explanation": "Black develops the bishop to an active square"
                                           }
                                         ]
                                       }
-                                    ]
+                                    ],
+                                    "explanation": "Natural development, Black controls the e4 square"
                                   },
                                   {
                                     "san": "Nd7",
@@ -8545,11 +8687,14 @@
                                                                   {
                                                                     "san": "e6",
                                                                     "weight": 700,
-                                                                    "children": []
+                                                                    "children": [],
+                                                                    "explanation": "Black opens the light-squared bishop, strengthens d5"
                                                                   }
-                                                                ]
+                                                                ],
+                                                                "explanation": "Black kingside castling for safety"
                                                               }
-                                                            ]
+                                                            ],
+                                                            "explanation": "Natural development, Black controls the e4 square"
                                                           },
                                                           {
                                                             "san": "e6",
@@ -8564,9 +8709,11 @@
                                                                     "weight": 700,
                                                                     "children": []
                                                                   }
-                                                                ]
+                                                                ],
+                                                                "explanation": "Black kingside castling for safety"
                                                               }
-                                                            ]
+                                                            ],
+                                                            "explanation": "Black opens the light-squared bishop, strengthens d5"
                                                           }
                                                         ]
                                                       },
@@ -8581,9 +8728,11 @@
                                                               {
                                                                 "san": "Bd3",
                                                                 "weight": 700,
-                                                                "children": []
+                                                                "children": [],
+                                                                "explanation": "Develops the light-squared bishop with attacking potential"
                                                               }
-                                                            ]
+                                                            ],
+                                                            "explanation": "Black opens the light-squared bishop, strengthens d5"
                                                           }
                                                         ]
                                                       }
@@ -8620,17 +8769,21 @@
                                                               }
                                                             ]
                                                           }
-                                                        ]
+                                                        ],
+                                                        "explanation": "Develops the light-squared bishop with attacking potential"
                                                       }
                                                     ]
                                                   }
                                                 ]
                                               }
-                                            ]
+                                            ],
+                                            "explanation": "Black develops the kingside knight"
                                           }
-                                        ]
+                                        ],
+                                        "explanation": "Develops a piece, prepares kingside castling"
                                       }
-                                    ]
+                                    ],
+                                    "explanation": "Black develops the queen's knight flexibly"
                                   },
                                   {
                                     "san": "Nf6",
@@ -8660,7 +8813,8 @@
                                                           {
                                                             "san": "Be7",
                                                             "weight": 700,
-                                                            "children": []
+                                                            "children": [],
+                                                            "explanation": "Black blocks the pin, develops the kingside bishop"
                                                           }
                                                         ]
                                                       }
@@ -8679,11 +8833,13 @@
                                                       {
                                                         "san": "Bd3",
                                                         "weight": 700,
-                                                        "children": []
+                                                        "children": [],
+                                                        "explanation": "Develops the light-squared bishop with attacking potential"
                                                       }
                                                     ]
                                                   }
-                                                ]
+                                                ],
+                                                "explanation": "Develops a piece, prepares kingside castling"
                                               }
                                             ]
                                           },
@@ -8698,19 +8854,24 @@
                                                   {
                                                     "san": "h5",
                                                     "weight": 600,
-                                                    "children": []
+                                                    "children": [],
+                                                    "explanation": "Black attacks White's pawn chain, prevents g5"
                                                   }
-                                                ]
+                                                ],
+                                                "explanation": "Develops a piece, prepares kingside castling"
                                               }
                                             ]
                                           }
                                         ]
                                       }
-                                    ]
+                                    ],
+                                    "explanation": "Black develops the kingside knight"
                                   }
-                                ]
+                                ],
+                                "explanation": "White recaptures and activates the knight"
                               }
-                            ]
+                            ],
+                            "explanation": "Black captures, removes White's central pawn"
                           },
                           {
                             "san": "e6",
@@ -8765,15 +8926,18 @@
                                                           {
                                                             "san": "Bd3",
                                                             "weight": 700,
-                                                            "children": []
+                                                            "children": [],
+                                                            "explanation": "Develops the light-squared bishop with attacking potential"
                                                           }
-                                                        ]
+                                                        ],
+                                                        "explanation": "Black challenges White's center with solid symmetry"
                                                       }
                                                     ]
                                                   }
                                                 ]
                                               }
-                                            ]
+                                            ],
+                                            "explanation": "Black develops the kingside knight"
                                           },
                                           {
                                             "san": "Nd7",
@@ -8790,17 +8954,21 @@
                                                       {
                                                         "san": "O-O",
                                                         "weight": 700,
-                                                        "children": []
+                                                        "children": [],
+                                                        "explanation": "Black kingside castling for safety"
                                                       }
                                                     ]
                                                   }
                                                 ]
                                               }
-                                            ]
+                                            ],
+                                            "explanation": "Black develops the queen's knight flexibly"
                                           }
-                                        ]
+                                        ],
+                                        "explanation": "White recaptures and activates the knight"
                                       }
-                                    ]
+                                    ],
+                                    "explanation": "Black captures, removes White's central pawn"
                                   },
                                   {
                                     "san": "Nf6",
@@ -8821,21 +8989,27 @@
                                                   {
                                                     "san": "c5",
                                                     "weight": 700,
-                                                    "children": []
+                                                    "children": [],
+                                                    "explanation": "Black strikes at the center, gains counterplay"
                                                   }
                                                 ]
                                               }
                                             ]
                                           }
-                                        ]
+                                        ],
+                                        "explanation": "White gains space and locks the center with a pawn chain"
                                       }
-                                    ]
+                                    ],
+                                    "explanation": "Black develops the kingside knight"
                                   }
-                                ]
+                                ],
+                                "explanation": "Develops a piece, prepares kingside castling"
                               }
-                            ]
+                            ],
+                            "explanation": "Black opens the light-squared bishop, strengthens d5"
                           }
-                        ]
+                        ],
+                        "explanation": "Classical development, supports the center and d4"
                       },
                       {
                         "san": "Nd2",
@@ -8897,15 +9071,20 @@
                                                                               {
                                                                                 "san": "Qxd3",
                                                                                 "weight": 700,
-                                                                                "children": []
+                                                                                "children": [],
+                                                                                "explanation": "White's queen centralizes with attacking chances"
                                                                               }
-                                                                            ]
+                                                                            ],
+                                                                            "explanation": "Black eliminates White's strong bishop"
                                                                           }
-                                                                        ]
+                                                                        ],
+                                                                        "explanation": "Develops the light-squared bishop with attacking potential"
                                                                       }
-                                                                    ]
+                                                                    ],
+                                                                    "explanation": "Bishop retreats to the long diagonal"
                                                                   }
-                                                                ]
+                                                                ],
+                                                                "explanation": "Black attacks White's pawn chain, prevents g5"
                                                               },
                                                               {
                                                                 "san": "Bd3",
@@ -8918,17 +9097,22 @@
                                                                       {
                                                                         "san": "Qxd3",
                                                                         "weight": 700,
-                                                                        "children": []
+                                                                        "children": [],
+                                                                        "explanation": "White's queen centralizes with attacking chances"
                                                                       }
-                                                                    ]
+                                                                    ],
+                                                                    "explanation": "Black eliminates White's strong bishop"
                                                                   }
-                                                                ]
+                                                                ],
+                                                                "explanation": "Develops the light-squared bishop with attacking potential"
                                                               }
-                                                            ]
+                                                            ],
+                                                            "explanation": "Black develops the queen's knight flexibly"
                                                           }
                                                         ]
                                                       }
-                                                    ]
+                                                    ],
+                                                    "explanation": "Black prevents Ng5, solidifies the kingside"
                                                   },
                                                   {
                                                     "san": "Nf3",
@@ -8945,15 +9129,20 @@
                                                               {
                                                                 "san": "Ne7",
                                                                 "weight": 700,
-                                                                "children": []
+                                                                "children": [],
+                                                                "explanation": "Flexible knight placement, prepares castling and king safety"
                                                               }
-                                                            ]
+                                                            ],
+                                                            "explanation": "White unpins and continues development"
                                                           }
-                                                        ]
+                                                        ],
+                                                        "explanation": "Black opens the light-squared bishop, strengthens d5"
                                                       }
-                                                    ]
+                                                    ],
+                                                    "explanation": "Develops a piece, prepares kingside castling"
                                                   }
-                                                ]
+                                                ],
+                                                "explanation": "White gains kingside space, prepares a pawn storm"
                                               },
                                               {
                                                 "san": "Nf3",
@@ -8974,19 +9163,26 @@
                                                               {
                                                                 "san": "O-O",
                                                                 "weight": 700,
-                                                                "children": []
+                                                                "children": [],
+                                                                "explanation": "Black kingside castling for safety"
                                                               }
-                                                            ]
+                                                            ],
+                                                            "explanation": "Flexible knight placement, prepares castling and king safety"
                                                           }
-                                                        ]
+                                                        ],
+                                                        "explanation": "White unpins and continues development"
                                                       }
-                                                    ]
+                                                    ],
+                                                    "explanation": "Black opens the light-squared bishop, strengthens d5"
                                                   }
-                                                ]
+                                                ],
+                                                "explanation": "Develops a piece, prepares kingside castling"
                                               }
-                                            ]
+                                            ],
+                                            "explanation": "Black develops the bishop to an active square"
                                           }
-                                        ]
+                                        ],
+                                        "explanation": "White's knight retreats but maintains influence"
                                       },
                                       {
                                         "san": "Bd3",
@@ -9011,19 +9207,26 @@
                                                           {
                                                             "san": "Nd7",
                                                             "weight": 700,
-                                                            "children": []
+                                                            "children": [],
+                                                            "explanation": "Black develops the queen's knight flexibly"
                                                           }
-                                                        ]
+                                                        ],
+                                                        "explanation": "Develops a piece, prepares kingside castling"
                                                       }
-                                                    ]
+                                                    ],
+                                                    "explanation": "Black opens the light-squared bishop, strengthens d5"
                                                   }
-                                                ]
+                                                ],
+                                                "explanation": "White's queen centralizes with attacking chances"
                                               }
-                                            ]
+                                            ],
+                                            "explanation": "Black eliminates White's strong bishop"
                                           }
-                                        ]
+                                        ],
+                                        "explanation": "Develops the light-squared bishop with attacking potential"
                                       }
-                                    ]
+                                    ],
+                                    "explanation": "Natural development, Black controls the e4 square"
                                   },
                                   {
                                     "san": "Nf6",
@@ -9052,13 +9255,16 @@
                                                           {
                                                             "san": "O-O",
                                                             "weight": 700,
-                                                            "children": []
+                                                            "children": [],
+                                                            "explanation": "Black kingside castling for safety"
                                                           }
-                                                        ]
+                                                        ],
+                                                        "explanation": "Develops the light-squared bishop with attacking potential"
                                                       }
                                                     ]
                                                   }
-                                                ]
+                                                ],
+                                                "explanation": "White solidifies d4, prepares for long-term advantage"
                                               }
                                             ]
                                           },
@@ -9073,15 +9279,18 @@
                                                   {
                                                     "san": "h5",
                                                     "weight": 600,
-                                                    "children": []
+                                                    "children": [],
+                                                    "explanation": "Black attacks White's pawn chain, prevents g5"
                                                   }
-                                                ]
+                                                ],
+                                                "explanation": "Develops a piece, prepares kingside castling"
                                               }
                                             ]
                                           }
                                         ]
                                       }
-                                    ]
+                                    ],
+                                    "explanation": "Black develops the kingside knight"
                                   },
                                   {
                                     "san": "Nd7",
@@ -9115,11 +9324,14 @@
                                                               {
                                                                 "san": "Bd3",
                                                                 "weight": 700,
-                                                                "children": []
+                                                                "children": [],
+                                                                "explanation": "Develops the light-squared bishop with attacking potential"
                                                               }
-                                                            ]
+                                                            ],
+                                                            "explanation": "Black opens the light-squared bishop, strengthens d5"
                                                           }
-                                                        ]
+                                                        ],
+                                                        "explanation": "White solidifies d4, prepares for long-term advantage"
                                                       }
                                                     ]
                                                   }
@@ -9127,13 +9339,17 @@
                                               }
                                             ]
                                           }
-                                        ]
+                                        ],
+                                        "explanation": "Develops a piece, prepares kingside castling"
                                       }
-                                    ]
+                                    ],
+                                    "explanation": "Black develops the queen's knight flexibly"
                                   }
-                                ]
+                                ],
+                                "explanation": "White recaptures and activates the knight"
                               }
-                            ]
+                            ],
+                            "explanation": "Black captures, removes White's central pawn"
                           },
                           {
                             "san": "c5",
@@ -9167,17 +9383,21 @@
                                                       {
                                                         "san": "O-O",
                                                         "weight": 700,
-                                                        "children": []
+                                                        "children": [],
+                                                        "explanation": "Black kingside castling for safety"
                                                       }
-                                                    ]
+                                                    ],
+                                                    "explanation": "Black develops the kingside knight"
                                                   }
-                                                ]
+                                                ],
+                                                "explanation": "Develops the light-squared bishop with attacking potential"
                                               }
                                             ]
                                           }
                                         ]
                                       }
-                                    ]
+                                    ],
+                                    "explanation": "Black opens the light-squared bishop, strengthens d5"
                                   }
                                 ]
                               },
@@ -9200,17 +9420,21 @@
                                               {
                                                 "san": "Bb5",
                                                 "weight": 700,
-                                                "children": []
+                                                "children": [],
+                                                "explanation": "White develops with aggressive intent, threatens to pin"
                                               }
-                                            ]
+                                            ],
+                                            "explanation": "Black develops the queen's knight with centrality"
                                           }
                                         ]
                                       }
-                                    ]
+                                    ],
+                                    "explanation": "Black recaptures, maintains symmetrical pawn structure"
                                   }
                                 ]
                               }
-                            ]
+                            ],
+                            "explanation": "Black strikes at the center, gains counterplay"
                           }
                         ]
                       },
@@ -9268,13 +9492,17 @@
                                                               }
                                                             ]
                                                           }
-                                                        ]
+                                                        ],
+                                                        "explanation": "Black kingside castling for safety"
                                                       }
-                                                    ]
+                                                    ],
+                                                    "explanation": "Black opens the light-squared bishop, strengthens d5"
                                                   }
-                                                ]
+                                                ],
+                                                "explanation": "White unpins and continues development"
                                               }
-                                            ]
+                                            ],
+                                            "explanation": "Black pins the knight, applies pressure"
                                           },
                                           {
                                             "san": "Nf6",
@@ -9307,7 +9535,8 @@
                                                                       {
                                                                         "san": "O-O",
                                                                         "weight": 700,
-                                                                        "children": []
+                                                                        "children": [],
+                                                                        "explanation": "Black kingside castling for safety"
                                                                       }
                                                                     ]
                                                                   }
@@ -9315,15 +9544,20 @@
                                                               }
                                                             ]
                                                           }
-                                                        ]
+                                                        ],
+                                                        "explanation": "Develops the light-squared bishop with attacking potential"
                                                       }
-                                                    ]
+                                                    ],
+                                                    "explanation": "Black opens the light-squared bishop, strengthens d5"
                                                   }
-                                                ]
+                                                ],
+                                                "explanation": "White solidifies d4, prepares for long-term advantage"
                                               }
-                                            ]
+                                            ],
+                                            "explanation": "Black develops the kingside knight"
                                           }
-                                        ]
+                                        ],
+                                        "explanation": "White develops with active piece placement"
                                       },
                                       {
                                         "san": "Bb5",
@@ -9353,9 +9587,11 @@
                                                               {
                                                                 "san": "O-O",
                                                                 "weight": 700,
-                                                                "children": []
+                                                                "children": [],
+                                                                "explanation": "Black kingside castling for safety"
                                                               }
-                                                            ]
+                                                            ],
+                                                            "explanation": "Black opens the light-squared bishop, strengthens d5"
                                                           }
                                                         ]
                                                       }
@@ -9363,7 +9599,8 @@
                                                   }
                                                 ]
                                               }
-                                            ]
+                                            ],
+                                            "explanation": "Black pins the knight, applies pressure"
                                           },
                                           {
                                             "san": "Nf6",
@@ -9382,15 +9619,20 @@
                                                         "weight": 700,
                                                         "children": []
                                                       }
-                                                    ]
+                                                    ],
+                                                    "explanation": "Black opens the light-squared bishop, strengthens d5"
                                                   }
-                                                ]
+                                                ],
+                                                "explanation": "Black kingside castling for safety"
                                               }
-                                            ]
+                                            ],
+                                            "explanation": "Black develops the kingside knight"
                                           }
-                                        ]
+                                        ],
+                                        "explanation": "White develops with aggressive intent, threatens to pin"
                                       }
-                                    ]
+                                    ],
+                                    "explanation": "Black develops the queen's knight with centrality"
                                   },
                                   {
                                     "san": "Nf6",
@@ -9427,13 +9669,17 @@
                                                               }
                                                             ]
                                                           }
-                                                        ]
+                                                        ],
+                                                        "explanation": "Develops the light-squared bishop with attacking potential"
                                                       }
-                                                    ]
+                                                    ],
+                                                    "explanation": "Black opens the light-squared bishop, strengthens d5"
                                                   }
-                                                ]
+                                                ],
+                                                "explanation": "White solidifies d4, prepares for long-term advantage"
                                               }
-                                            ]
+                                            ],
+                                            "explanation": "Black develops the queen's knight with centrality"
                                           },
                                           {
                                             "san": "e6",
@@ -9450,19 +9696,26 @@
                                                       {
                                                         "san": "Bd3",
                                                         "weight": 700,
-                                                        "children": []
+                                                        "children": [],
+                                                        "explanation": "Develops the light-squared bishop with attacking potential"
                                                       }
-                                                    ]
+                                                    ],
+                                                    "explanation": "Black develops the queen's knight with centrality"
                                                   }
-                                                ]
+                                                ],
+                                                "explanation": "White solidifies d4, prepares for long-term advantage"
                                               }
-                                            ]
+                                            ],
+                                            "explanation": "Black opens the light-squared bishop, strengthens d5"
                                           }
-                                        ]
+                                        ],
+                                        "explanation": "White develops with active piece placement"
                                       }
-                                    ]
+                                    ],
+                                    "explanation": "Black develops the kingside knight"
                                   }
-                                ]
+                                ],
+                                "explanation": "Develops a piece, prepares kingside castling"
                               },
                               {
                                 "san": "Bd3",
@@ -9491,9 +9744,11 @@
                                                       {
                                                         "san": "O-O",
                                                         "weight": 700,
-                                                        "children": []
+                                                        "children": [],
+                                                        "explanation": "Black kingside castling for safety"
                                                       }
-                                                    ]
+                                                    ],
+                                                    "explanation": "Black pins the knight, applies pressure"
                                                   },
                                                   {
                                                     "san": "e6",
@@ -9502,17 +9757,23 @@
                                                       {
                                                         "san": "O-O",
                                                         "weight": 700,
-                                                        "children": []
+                                                        "children": [],
+                                                        "explanation": "Black kingside castling for safety"
                                                       }
-                                                    ]
+                                                    ],
+                                                    "explanation": "Black opens the light-squared bishop, strengthens d5"
                                                   }
-                                                ]
+                                                ],
+                                                "explanation": "Develops a piece, prepares kingside castling"
                                               }
-                                            ]
+                                            ],
+                                            "explanation": "Black develops the kingside knight"
                                           }
-                                        ]
+                                        ],
+                                        "explanation": "White solidifies d4, prepares for long-term advantage"
                                       }
-                                    ]
+                                    ],
+                                    "explanation": "Black develops the queen's knight with centrality"
                                   },
                                   {
                                     "san": "Nf6",
@@ -9535,27 +9796,37 @@
                                                     "weight": 700,
                                                     "children": []
                                                   }
-                                                ]
+                                                ],
+                                                "explanation": "Black kingside castling for safety"
                                               }
-                                            ]
+                                            ],
+                                            "explanation": "Black opens the light-squared bishop, strengthens d5"
                                           }
-                                        ]
+                                        ],
+                                        "explanation": "Develops a piece, prepares kingside castling"
                                       }
-                                    ]
+                                    ],
+                                    "explanation": "Black develops the kingside knight"
                                   }
-                                ]
+                                ],
+                                "explanation": "Develops the light-squared bishop with attacking potential"
                               }
-                            ]
+                            ],
+                            "explanation": "Black recaptures, maintains symmetrical pawn structure"
                           }
                         ]
                       }
-                    ]
+                    ],
+                    "explanation": "Black challenges White's center with solid symmetry"
                   }
-                ]
+                ],
+                "explanation": "White controls the d4 square and gains central space"
               }
-            ]
+            ],
+            "explanation": "Flexible Caro-Kann setup, Black supports the d5 advance"
           }
-        ]
+        ],
+        "explanation": "Controls the center, opens lines for the queen and light-squared bishop"
       }
     ]
   },
