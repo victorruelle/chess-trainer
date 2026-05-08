@@ -9,7 +9,14 @@ enum BookStatus { inBook, offBook, complete }
 class BookResult {
   final BookStatus status;
   final List<Arrow> arrows;
-  const BookResult({required this.status, required this.arrows});
+  final String? variation;
+  const BookResult({required this.status, required this.arrows, this.variation});
+}
+
+class _MatchResult {
+  final List<MoveNode> children;
+  final String? variation;
+  const _MatchResult(this.children, this.variation);
 }
 
 class OpeningBookService {
@@ -31,11 +38,15 @@ class OpeningBookService {
     if (match == null) {
       return const BookResult(status: BookStatus.offBook, arrows: []);
     }
-    if (match.isEmpty) {
-      return const BookResult(status: BookStatus.complete, arrows: []);
+    if (match.children.isEmpty) {
+      return BookResult(
+          status: BookStatus.complete,
+          arrows: [],
+          variation: match.variation);
     }
 
-    final sorted = [...match]..sort((a, b) => b.weight.compareTo(a.weight));
+    final sorted = [...match.children]
+      ..sort((a, b) => b.weight.compareTo(a.weight));
     final top = sorted.take(3).toList();
 
     final arrows = <Arrow>[];
@@ -51,27 +62,31 @@ class OpeningBookService {
         explanation: node.explanation,
       ));
     }
-    return BookResult(status: BookStatus.inBook, arrows: arrows);
+    return BookResult(
+        status: BookStatus.inBook,
+        arrows: arrows,
+        variation: match.variation);
   }
 
-  /// Returns the children of the node whose position matches [targetFen],
-  /// or null if the position is not found in the tree.
-  List<MoveNode>? _findNodeForFen(List<MoveNode> roots, String targetFen) {
-    return _searchTree(roots, ch.Chess(), targetFen);
+  _MatchResult? _findNodeForFen(List<MoveNode> roots, String targetFen) {
+    return _searchTree(roots, ch.Chess(), targetFen, null);
   }
 
-  List<MoveNode>? _searchTree(
+  _MatchResult? _searchTree(
     List<MoveNode> nodes,
     ch.Chess game,
     String targetFen,
+    String? currentVariation,
   ) {
     if (_normalizeFen(game.fen) == _normalizeFen(targetFen)) {
-      return nodes;
+      return _MatchResult(nodes, currentVariation);
     }
     for (final node in nodes) {
+      final nextVariation = node.variation ?? currentVariation;
       final copy = ch.Chess.fromFEN(game.fen);
       if (!copy.move(node.san)) continue;
-      final result = _searchTree(node.children, copy, targetFen);
+      final result =
+          _searchTree(node.children, copy, targetFen, nextVariation);
       if (result != null) return result;
     }
     return null;
@@ -93,4 +108,3 @@ class OpeningBookService {
     return null;
   }
 }
-
