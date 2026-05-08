@@ -4,8 +4,12 @@ import '../models/arrow.dart';
 import '../models/opening_status.dart';
 import '../providers/board_provider.dart';
 import '../providers/opening_provider.dart';
+import '../providers/engine_provider.dart';
+import '../services/chess_service.dart';
+import '../services/explanation_service.dart';
 import '../widgets/board/chess_board_widget.dart';
 import '../widgets/banner_overlay.dart';
+import '../widgets/eval_bar.dart';
 
 final _explanationsOpenProvider = StateProvider<bool>((ref) => false);
 
@@ -14,6 +18,9 @@ class BoardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // Touch engine provider immediately so Stockfish starts loading.
+    ref.watch(engineProvider.select((s) => s.isReady));
+
     final boardState = ref.watch(boardProvider);
     final opening = ref.watch(selectedOpeningProvider);
     final panelOpen = ref.watch(_explanationsOpenProvider);
@@ -54,33 +61,42 @@ class BoardScreen extends ConsumerWidget {
             status: boardState.status,
             openingName: opening?.name ?? '',
           ),
-          const Expanded(
-            child: Center(
-              child: ChessBoardWidget(),
+          Expanded(
+            child: Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
+                  child: Builder(builder: (context) {
+                    final engine = ref.watch(engineProvider);
+                    return EvalBar(eval: engine.eval, isReady: engine.isReady);
+                  }),
+                ),
+                const Expanded(
+                  child: Center(child: ChessBoardWidget()),
+                ),
+              ],
             ),
           ),
-          if (panelOpen)
-            _ExplanationsPanel(
-              arrows: boardState.arrows,
-              status: boardState.status,
-            ),
-          _BottomControls(),
+          if (panelOpen) const _ExplanationsPanel(),
+          const _BottomControls(),
         ],
       ),
     );
   }
 }
 
-class _ExplanationsPanel extends StatelessWidget {
-  final List<Arrow> arrows;
-  final OpeningStatus status;
+// ── Explanations panel ────────────────────────────────────────────────────────
 
-  const _ExplanationsPanel({required this.arrows, required this.status});
+class _ExplanationsPanel extends ConsumerWidget {
+  const _ExplanationsPanel();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final boardState = ref.watch(boardProvider);
+    final engine = ref.watch(engineProvider);
+
     return Container(
-      constraints: const BoxConstraints(maxHeight: 200),
+      constraints: const BoxConstraints(maxHeight: 220),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
         border: Border(
@@ -90,40 +106,132 @@ class _ExplanationsPanel extends StatelessWidget {
       ),
       child: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        child: _panelContent(),
+        child: switch (boardState.status) {
+          OpeningStatus.complete => const _EmptyState(
+              icon: Icons.check_circle_outline,
+              message: 'Opening complete — engine analysis continues above.',
+            ),
+          OpeningStatus.offBook => _OffBookPanel(engine: engine, boardFen: boardState.fen),
+          OpeningStatus.inBook => boardState.arrows.isEmpty
+              ? const _EmptyState(
+                  icon: Icons.hourglass_empty,
+                  message: 'No suggestions for this position.',
+                )
+              : Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: boardState.arrows
+                      .map((a) => _ExplanationRow(arrow: a))
+                      .toList(),
+                ),
+        },
       ),
-    );
-  }
-
-  Widget _panelContent() {
-    if (status == OpeningStatus.offBook) {
-      return const _EmptyState(
-        icon: Icons.route_outlined,
-        message: "You're off-book — no opening guidance available.",
-      );
-    }
-    if (status == OpeningStatus.complete) {
-      return const _EmptyState(
-        icon: Icons.check_circle_outline,
-        message: 'Opening complete. Play freely from here.',
-      );
-    }
-    if (arrows.isEmpty) {
-      return const _EmptyState(
-        icon: Icons.hourglass_empty,
-        message: 'No suggestions for this position.',
-      );
-    }
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: arrows.map((arrow) => _ExplanationRow(arrow: arrow)).toList(),
     );
   }
 }
 
+// ── Off-book panel ────────────────────────────────────────────────────────────
+
+class _OffBookPanel extends StatelessWidget {
+  final EngineState engine;
+  final String boardFen;
+
+  const _OffBookPanel({required this.engine, required this.boardFen});
+
+  @override
+  Widget build(BuildContext context) {
+    // Convert engine best move from UCI to SAN for the *current* position.
+    final bestMoveSan = engine.eval?.bestMove != null
+        ? ChessService.uciToSan(boardFen, engine.eval!.bestMove!)
+        : null;
+
+    // The player who just moved is the one whose turn it is NOT right now.
+    final playerWasWhite = !ChessService.isWhiteTurn(boardFen);
+
+    final explanation = ExplanationService.explain(
+      prevEval: engine.prevEval,
+      currentEval: engine.eval,
+      bestMoveSan: bestMoveSan,
+      playerIsWhite: playerWasWhite,
+    );
+
+    final severityColor = switch (explanation.severity) {
+      Severity.blunder => Colors.red.shade700,
+      Severity.mistake => Colors.orange.shade700,
+      Severity.inaccuracy => Colors.amber.shade700,
+      Severity.neutral => Colors.blue.shade700,
+    };
+
+    final severityIcon = switch (explanation.severity) {
+      Severity.blunder => Icons.dangerous_outlined,
+      Severity.mistake => Icons.warning_amber_rounded,
+      Severity.inaccuracy => Icons.info_outline,
+      Severity.neutral => Icons.route_outlined,
+    };
+
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Header row: icon + verdict + eval badge
+        Row(
+          children: [
+            Icon(severityIcon, size: 18, color: severityColor),
+            const SizedBox(width: 8),
+            Expanded(
+              child: Text(
+                explanation.verdict,
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 14,
+                  color: severityColor,
+                ),
+              ),
+            ),
+            if (explanation.evalDisplay != null)
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                decoration: BoxDecoration(
+                  color: severityColor.withValues(alpha: 0.12),
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                child: Text(
+                  explanation.evalDisplay!,
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                    color: severityColor,
+                    fontFamily: 'monospace',
+                  ),
+                ),
+              ),
+          ],
+        ),
+        const SizedBox(height: 8),
+        // Detail text
+        Text(
+          explanation.detail,
+          style: TextStyle(
+            fontSize: 13,
+            color: Colors.grey.shade800,
+            height: 1.5,
+          ),
+        ),
+        if (explanation.depth != null) ...[
+          const SizedBox(height: 6),
+          Text(
+            'Engine depth: ${explanation.depth}',
+            style: TextStyle(fontSize: 11, color: Colors.grey.shade500),
+          ),
+        ],
+      ],
+    );
+  }
+}
+
+// ── In-book explanation row ───────────────────────────────────────────────────
+
 class _ExplanationRow extends StatelessWidget {
   final Arrow arrow;
-
   const _ExplanationRow({required this.arrow});
 
   @override
@@ -174,7 +282,7 @@ class _ExplanationRow extends StatelessWidget {
                   ],
                 ),
                 if (arrow.explanation != null) ...[
-                  const SizedBox(height: 2),
+                  const SizedBox(height: 3),
                   Text(
                     arrow.explanation!,
                     style: TextStyle(
@@ -193,10 +301,11 @@ class _ExplanationRow extends StatelessWidget {
   }
 }
 
+// ── Empty state ───────────────────────────────────────────────────────────────
+
 class _EmptyState extends StatelessWidget {
   final IconData icon;
   final String message;
-
   const _EmptyState({required this.icon, required this.message});
 
   @override
@@ -219,25 +328,30 @@ class _EmptyState extends StatelessWidget {
   }
 }
 
+// ── Bottom controls ───────────────────────────────────────────────────────────
+
 class _BottomControls extends ConsumerWidget {
+  const _BottomControls();
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final canUndo = ref.watch(
       boardProvider.select((s) => s.moveHistory.isNotEmpty),
     );
     final panelOpen = ref.watch(_explanationsOpenProvider);
-    final boardState = ref.watch(boardProvider);
-    final hasExplanations =
-        boardState.status == OpeningStatus.inBook && boardState.arrows.isNotEmpty;
+    final status = ref.watch(boardProvider.select((s) => s.status));
+    final hasArrows = ref.watch(boardProvider.select((s) => s.arrows.isNotEmpty));
+
+    // Lightbulb is available in-book (arrows) and off-book (engine explanation).
+    final lightbulbAvailable =
+        status == OpeningStatus.offBook || (status == OpeningStatus.inBook && hasArrows);
 
     return SafeArea(
       child: Container(
         height: 56,
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.surface,
-          border: Border(
-            top: BorderSide(color: Colors.grey.shade300),
-          ),
+          border: Border(top: BorderSide(color: Colors.grey.shade300)),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -259,11 +373,11 @@ class _BottomControls extends ConsumerWidget {
                 panelOpen ? Icons.lightbulb : Icons.lightbulb_outline,
                 color: panelOpen
                     ? const Color(0xFFFFD700)
-                    : hasExplanations
+                    : lightbulbAvailable
                         ? Colors.grey.shade700
                         : Colors.grey.shade400,
               ),
-              tooltip: 'Move ideas',
+              tooltip: panelOpen ? 'Hide analysis' : 'Show analysis',
               onPressed: () => ref
                   .read(_explanationsOpenProvider.notifier)
                   .state = !panelOpen,
