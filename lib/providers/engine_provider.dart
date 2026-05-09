@@ -2,34 +2,32 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../services/stockfish_service.dart';
 import 'board_provider.dart';
 
-// ── Engine state ──────────────────────────────────────────────────────────────
-
 class EngineState {
   final EngineEval? eval;
-  /// Snapshot of eval at the position *before* the most recent move.
-  /// Used to compute the cost of off-book deviations.
   final EngineEval? prevEval;
+  final List<String> topMovesUci; // Up to 3 UCI moves from MultiPV
   final bool isReady;
 
   const EngineState({
     this.eval,
     this.prevEval,
+    this.topMovesUci = const [],
     this.isReady = false,
   });
 
   EngineState copyWith({
     EngineEval? eval,
     EngineEval? prevEval,
+    List<String>? topMovesUci,
     bool? isReady,
     bool clearPrev = false,
   }) => EngineState(
     eval: eval ?? this.eval,
     prevEval: clearPrev ? null : (prevEval ?? this.prevEval),
+    topMovesUci: topMovesUci ?? this.topMovesUci,
     isReady: isReady ?? this.isReady,
   );
 }
-
-// ── Notifier ──────────────────────────────────────────────────────────────────
 
 class EngineNotifier extends Notifier<EngineState> {
   late final StockfishService _service;
@@ -48,11 +46,9 @@ class EngineNotifier extends Notifier<EngineState> {
 
     state = state.copyWith(isReady: true);
 
-    // Every time the board FEN changes, snapshot the current eval as prevEval
-    // then kick off a new search.
     ref.listen(boardProvider.select((s) => s.fen), (prev, next) {
       if (prev != next) {
-        state = state.copyWith(prevEval: state.eval);
+        state = state.copyWith(prevEval: state.eval, topMovesUci: []);
         _evaluate(next);
       }
     });
@@ -64,16 +60,13 @@ class EngineNotifier extends Notifier<EngineState> {
     _service.evaluate(
       fen,
       depth: 20,
-      onUpdate: (eval) {
-        state = state.copyWith(eval: eval);
-      },
+      onUpdate: (eval) => state = state.copyWith(eval: eval),
+      onTopMoves: (moves) => state = state.copyWith(topMovesUci: moves),
     );
   }
 
   void stop() => _service.stop();
 }
-
-// ── Provider ──────────────────────────────────────────────────────────────────
 
 final engineProvider =
     NotifierProvider<EngineNotifier, EngineState>(EngineNotifier.new);
