@@ -6,6 +6,7 @@ import '../widgets/color_selector.dart';
 import '../widgets/opening_card.dart';
 import 'board_screen.dart';
 import 'profile_screen.dart';
+import 'settings_screen.dart';
 
 class OpeningSelectionScreen extends ConsumerWidget {
   const OpeningSelectionScreen({super.key});
@@ -13,7 +14,7 @@ class OpeningSelectionScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return DefaultTabController(
-      length: 2,
+      length: 3,
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Chess Openings Trainer'),
@@ -22,6 +23,7 @@ class OpeningSelectionScreen extends ConsumerWidget {
             tabs: [
               Tab(icon: Icon(Icons.library_books_outlined), text: 'Openings'),
               Tab(icon: Icon(Icons.person_outline), text: 'Profile'),
+              Tab(icon: Icon(Icons.settings_outlined), text: 'Settings'),
             ],
           ),
         ),
@@ -29,6 +31,7 @@ class OpeningSelectionScreen extends ConsumerWidget {
           children: [
             _OpeningsTab(),
             ProfileScreen(),
+            SettingsScreen(),
           ],
         ),
       ),

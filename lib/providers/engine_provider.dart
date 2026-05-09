@@ -1,7 +1,7 @@
-import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../services/stockfish_service.dart';
 import 'board_provider.dart';
+import 'settings_provider.dart';
 
 class EngineState {
   final EngineEval? eval;
@@ -55,13 +55,21 @@ class EngineNotifier extends Notifier<EngineState> {
       }
     });
 
+    ref.listen(engineDepthProvider, (prev, next) {
+      if (prev?.valueOrNull != next.valueOrNull) {
+        state = state.copyWith(topMovesUci: [], clearEval: true, clearPrev: true);
+        _evaluate(ref.read(boardProvider).fen);
+      }
+    });
+
     _evaluate(ref.read(boardProvider).fen);
   }
 
   void _evaluate(String fen) {
+    final depth = ref.read(engineDepthProvider).valueOrNull ?? kDefaultDepth;
     _service.evaluate(
       fen,
-      depth: kIsWeb ? 10 : 15,
+      depth: depth,
       onUpdate: (eval) => state = state.copyWith(eval: eval),
       onTopMoves: (moves) => state = state.copyWith(topMovesUci: moves),
     );
