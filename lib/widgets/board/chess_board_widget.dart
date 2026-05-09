@@ -10,19 +10,24 @@ class ChessBoardWidget extends ConsumerWidget {
   final double boardSize;
   final List<Arrow> extraArrows;
   final bool flipped;
+  final bool hideBookArrows;
 
   const ChessBoardWidget({
     super.key,
     required this.boardSize,
     this.extraArrows = const [],
     this.flipped = false,
+    this.hideBookArrows = false,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final boardState = ref.watch(boardProvider);
     final squareSize = boardSize / 8;
-    final allArrows = [...boardState.arrows, ...extraArrows];
+    final allArrows = [
+      if (!hideBookArrows) ...boardState.arrows,
+      ...extraArrows,
+    ];
 
     return GestureDetector(
       onTapUp: (details) {

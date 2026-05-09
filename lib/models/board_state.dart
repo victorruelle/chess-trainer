@@ -2,6 +2,21 @@ import 'package:flutter/foundation.dart';
 import 'arrow.dart';
 import 'opening_status.dart';
 
+enum MoveQuality { correct, alternative, offBook }
+
+@immutable
+class MoveEval {
+  final String playedSan;
+  final String? bestSan; // gold book move before this move; null if already off-book
+  final MoveQuality quality;
+
+  const MoveEval({
+    required this.playedSan,
+    required this.bestSan,
+    required this.quality,
+  });
+}
+
 @immutable
 class BoardState {
   final String fen;
@@ -10,6 +25,7 @@ class BoardState {
   final List<Arrow> arrows;
   final OpeningStatus status;
   final String? variation;
+  final MoveEval? lastMoveEval;
 
   const BoardState({
     required this.fen,
@@ -18,6 +34,7 @@ class BoardState {
     this.arrows = const [],
     required this.status,
     this.variation,
+    this.lastMoveEval,
   });
 
   static const initial = BoardState(
@@ -35,6 +52,8 @@ class BoardState {
     OpeningStatus? status,
     String? variation,
     bool clearVariation = false,
+    MoveEval? lastMoveEval,
+    bool clearMoveEval = false,
   }) {
     return BoardState(
       fen: fen ?? this.fen,
@@ -43,6 +62,7 @@ class BoardState {
       arrows: arrows ?? this.arrows,
       status: status ?? this.status,
       variation: clearVariation ? null : (variation ?? this.variation),
+      lastMoveEval: clearMoveEval ? null : (lastMoveEval ?? this.lastMoveEval),
     );
   }
 }

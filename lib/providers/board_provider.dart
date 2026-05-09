@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/board_state.dart';
 import '../models/opening_status.dart';
+import '../models/arrow.dart';
 import '../services/chess_service.dart';
 import '../services/opening_book_service.dart';
 import 'opening_provider.dart';
@@ -42,6 +43,10 @@ class BoardNotifier extends Notifier<BoardState> {
   void _applyMoveFromTo(String from, String to) {
     final san = ChessService.moveToSan(state.fen, from, to);
     if (san == null) return;
+
+    // Capture move quality before the position changes
+    final moveEval = _evalMove(san, state.arrows, state.status);
+
     final newFen = ChessService.applyMoveFromTo(state.fen, from, to);
     if (newFen == null) return;
 
@@ -53,7 +58,22 @@ class BoardNotifier extends Notifier<BoardState> {
       arrows: result.arrows,
       status: _toStatus(result.status),
       variation: result.variation,
+      lastMoveEval: moveEval,
     );
+  }
+
+  MoveEval _evalMove(String san, List<Arrow> arrows, OpeningStatus status) {
+    if (arrows.isEmpty || status != OpeningStatus.inBook) {
+      return MoveEval(playedSan: san, bestSan: null, quality: MoveQuality.offBook);
+    }
+    final bestSan = arrows.first.san; // gold arrow
+    if (san == bestSan) {
+      return MoveEval(playedSan: san, bestSan: bestSan, quality: MoveQuality.correct);
+    }
+    if (arrows.any((a) => a.san == san)) {
+      return MoveEval(playedSan: san, bestSan: bestSan, quality: MoveQuality.alternative);
+    }
+    return MoveEval(playedSan: san, bestSan: bestSan, quality: MoveQuality.offBook);
   }
 
   void undo() {
@@ -73,6 +93,7 @@ class BoardNotifier extends Notifier<BoardState> {
       arrows: result.arrows,
       status: _toStatus(result.status),
       variation: result.variation,
+      clearMoveEval: true,
     );
   }
 
