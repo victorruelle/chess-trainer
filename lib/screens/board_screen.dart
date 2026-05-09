@@ -25,7 +25,7 @@ const _kEvalBar = 18.0;
 const _kMinPanel = 200.0;
 const _kMaxPanel = 460.0;
 
-// ── Entry point ─────────────────────────────────────────────────────────────────────────────────
+// ── Entry point ───────────────────────────────────────────────────────────────────────────────────────────────
 
 class BoardScreen extends ConsumerStatefulWidget {
   const BoardScreen({super.key});
@@ -35,16 +35,22 @@ class BoardScreen extends ConsumerStatefulWidget {
 }
 
 class _BoardScreenState extends ConsumerState<BoardScreen> {
-  int _correctMoves = 0;
-  int _totalMoves = 0;
+  int _cleanMoves = 0;
+  int _peekCount = 0;
+  int _mistakeCount = 0;
+  int _openingMainLineLength = 0;
+  bool _peekedCurrentPosition = false;
   String? _sessionVariation;
   DateTime _sessionStart = DateTime.now();
   bool _sessionSaved = false;
   int _previousStars = 0;
 
   void _resetSession() {
-    _correctMoves = 0;
-    _totalMoves = 0;
+    _cleanMoves = 0;
+    _peekCount = 0;
+    _mistakeCount = 0;
+    _peekedCurrentPosition = false;
+    _openingMainLineLength = ref.read(boardProvider).movesRemaining ?? 0;
     _sessionVariation = ref.read(boardProvider).variation;
     _sessionStart = DateTime.now();
     _sessionSaved = false;
@@ -56,7 +62,7 @@ class _BoardScreenState extends ConsumerState<BoardScreen> {
     if (profile == null) return;
     final opening = ref.read(selectedOpeningProvider);
     if (opening == null) return;
-    if (_totalMoves == 0) return;
+    if (_openingMainLineLength == 0) return;
 
     _sessionSaved = true;
     final session = TrainingSession(
@@ -65,8 +71,8 @@ class _BoardScreenState extends ConsumerState<BoardScreen> {
       openingId: opening.id,
       openingName: opening.name,
       variation: _sessionVariation,
-      correctMoves: _correctMoves,
-      totalMoves: _totalMoves,
+      correctMoves: _cleanMoves,
+      totalMoves: _openingMainLineLength,
       completed: completed,
       startedAt: _sessionStart,
     );
@@ -75,8 +81,13 @@ class _BoardScreenState extends ConsumerState<BoardScreen> {
 
   void _showSummary({required bool completed}) {
     final opening = ref.read(selectedOpeningProvider);
-    if (opening == null || _totalMoves == 0) return;
+    if (opening == null || _openingMainLineLength == 0) return;
     final newStars = ref.read(starsForOpeningProvider(opening.id));
+    // Capture values NOW — the builder closure is lazy and runs after _resetSession()
+    final clean = _cleanMoves;
+    final peeks = _peekCount;
+    final mistakes = _mistakeCount;
+    final length = _openingMainLineLength;
 
     showModalBottomSheet(
       context: context,
@@ -86,8 +97,10 @@ class _BoardScreenState extends ConsumerState<BoardScreen> {
       ),
       builder: (_) => _SessionSummarySheet(
         openingName: opening.name,
-        correctMoves: _correctMoves,
-        totalMoves: _totalMoves,
+        cleanMoves: clean,
+        peekCount: peeks,
+        mistakeCount: mistakes,
+        openingLength: length,
         completed: completed,
         previousStars: _previousStars,
         newStars: newStars,
@@ -98,6 +111,16 @@ class _BoardScreenState extends ConsumerState<BoardScreen> {
         },
       ),
     );
+  }
+
+  Future<void> _stopSession() async {
+    final opening = ref.read(selectedOpeningProvider);
+    if (opening != null) {
+      _previousStars = computeStars(
+          ref.read(sessionsProvider).valueOrNull ?? [], opening.id);
+    }
+    await _saveSession(completed: false);
+    if (mounted) _showSummary(completed: false);
   }
 
   @override
@@ -114,27 +137,31 @@ class _BoardScreenState extends ConsumerState<BoardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // Track moves in both modes (learning: only in-book moves count)
+    // Score moves: training-mode only; clean = correct + no peek at this position
     ref.listen(boardProvider.select((s) => s.lastMoveEval), (_, eval) {
       if (eval == null) return;
       final isTraining = ref.read(trainingModeProvider);
-      if (isTraining) {
-        setState(() {
-          _totalMoves++;
+      setState(() {
+        _sessionVariation ??= ref.read(boardProvider).variation;
+        // Capture opening length on first move if not yet set
+        if (_openingMainLineLength == 0) {
+          final b = ref.read(boardProvider);
+          _openingMainLineLength = b.moveHistory.length + (b.movesRemaining ?? 0);
+        }
+        if (isTraining) {
           if (eval.quality == MoveQuality.correct ||
               eval.quality == MoveQuality.alternative) {
-            _correctMoves++;
+            if (_peekedCurrentPosition) {
+              _peekCount++;
+            } else {
+              _cleanMoves++;
+            }
+          } else {
+            _mistakeCount++;
           }
-          _sessionVariation ??= ref.read(boardProvider).variation;
-        });
-      } else if (eval.quality == MoveQuality.correct ||
-          eval.quality == MoveQuality.alternative) {
-        setState(() {
-          _totalMoves++;
-          _correctMoves++;
-          _sessionVariation ??= ref.read(boardProvider).variation;
-        });
-      }
+        }
+        _peekedCurrentPosition = false; // reset for next position
+      });
     });
 
     // Auto-save + summary when opening completes in either mode
@@ -148,7 +175,7 @@ class _BoardScreenState extends ConsumerState<BoardScreen> {
         }
         await _saveSession(completed: true);
         if (mounted) _showSummary(completed: true);
-        _resetSession();
+        if (mounted) _resetSession();
       }
     });
 
@@ -161,25 +188,29 @@ class _BoardScreenState extends ConsumerState<BoardScreen> {
       }
     });
 
-    // Save partial session whenever mode switches
+    // Save partial session on mode switch; mark position as peeked when entering learning
     ref.listen(trainingModeProvider, (prev, isTraining) {
       if (prev == null || prev == isTraining) return;
+      if (!isTraining) setState(() => _peekedCurrentPosition = true);
       _saveSession(completed: false);
       _sessionStart = DateTime.now();
       _sessionSaved = false;
-      setState(() { _correctMoves = 0; _totalMoves = 0; });
     });
 
     final isDesktop = MediaQuery.of(context).size.width >= _kDesktop;
     return isDesktop
         ? _DesktopLayout(
-            correctMoves: _correctMoves, totalMoves: _totalMoves)
+            cleanMoves: _cleanMoves,
+            openingLength: _openingMainLineLength,
+            onStop: _stopSession)
         : _MobileLayout(
-            correctMoves: _correctMoves, totalMoves: _totalMoves);
+            cleanMoves: _cleanMoves,
+            openingLength: _openingMainLineLength,
+            onStop: _stopSession);
   }
 }
 
-// ── AppBar title with inline status chip ──────────────────────────────────────────────
+// ── AppBar title with inline status chip ──────────────────────────────────────────────────────
 
 class _AppBarTitle extends StatelessWidget {
   final String name;
@@ -263,7 +294,7 @@ class _StatusChip extends StatelessWidget {
   }
 }
 
-// ── Shared helpers ─────────────────────────────────────────────────────────────────────────
+// ── Shared helpers ───────────────────────────────────────────────────────────────────────────────────────
 
 List<Arrow> _engineArrows(List<String> uciMoves, String fen) {
   const ranks = [ArrowRank.gold, ArrowRank.silver, ArrowRank.bronze];
@@ -280,7 +311,7 @@ List<Arrow> _engineArrows(List<String> uciMoves, String fen) {
   return arrows;
 }
 
-// ── Board area ────────────────────────────────────────────────────────────────────────
+// ── Board area ────────────────────────────────────────────────────────────────────────────────
 
 class _BoardArea extends ConsumerWidget {
   const _BoardArea();
@@ -329,13 +360,13 @@ class _BoardArea extends ConsumerWidget {
   }
 }
 
-// ── Analysis panel ────────────────────────────────────────────────────────────────────────────────
+// ── Analysis panel ──────────────────────────────────────────────────────────────────────────────────────────────────────
 
 class _AnalysisPanel extends ConsumerWidget {
-  final int correctMoves;
-  final int totalMoves;
+  final int cleanMoves;
+  final int openingLength;
   const _AnalysisPanel(
-      {required this.correctMoves, required this.totalMoves});
+      {required this.cleanMoves, required this.openingLength});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -366,9 +397,9 @@ class _AnalysisPanel extends ConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       if (training) ...[
-                        if (totalMoves > 0) ...[
+                        if (openingLength > 0) ...[
                           _TrainingProgressBar(
-                              correct: correctMoves, total: totalMoves),
+                              clean: cleanMoves, total: openingLength),
                           const SizedBox(height: 16),
                         ],
                         _TrainingFeedback(
@@ -420,20 +451,20 @@ class _AnalysisPanel extends ConsumerWidget {
   }
 }
 
-// ── Training progress bar ───────────────────────────────────────────────────────────────────────────────
+// ── Training progress bar ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 class _TrainingProgressBar extends StatelessWidget {
-  final int correct;
+  final int clean;
   final int total;
-  const _TrainingProgressBar({required this.correct, required this.total});
+  const _TrainingProgressBar({required this.clean, required this.total});
 
   @override
   Widget build(BuildContext context) {
-    final accuracy = total == 0 ? 0.0 : correct / total;
-    final pct = (accuracy * 100).round();
-    final color = accuracy >= 0.9
+    final score = total == 0 ? 0.0 : clean / total;
+    final pct = (score * 100).round();
+    final color = score >= 0.9
         ? Colors.green.shade600
-        : accuracy >= 0.7
+        : score >= 0.7
             ? Colors.amber.shade700
             : Colors.red.shade600;
 
@@ -443,13 +474,13 @@ class _TrainingProgressBar extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('SESSION ACCURACY',
+            Text('SCORE',
                 style: TextStyle(
                     fontSize: 10,
                     fontWeight: FontWeight.w600,
                     color: Colors.grey.shade500,
                     letterSpacing: 0.8)),
-            Text('$correct/$total · $pct%',
+            Text('$clean/$total · $pct%',
                 style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
@@ -460,7 +491,7 @@ class _TrainingProgressBar extends StatelessWidget {
         ClipRRect(
           borderRadius: BorderRadius.circular(4),
           child: LinearProgressIndicator(
-            value: accuracy,
+            value: score,
             backgroundColor: Colors.grey.shade200,
             valueColor: AlwaysStoppedAnimation<Color>(color),
             minHeight: 6,
@@ -471,7 +502,7 @@ class _TrainingProgressBar extends StatelessWidget {
   }
 }
 
-// ── Mode toggle ─────────────────────────────────────────────────────────────────────────
+// ── Mode toggle ───────────────────────────────────────────────────────────────────────────────────────
 
 class _ModeToggle extends ConsumerWidget {
   final bool training;
@@ -557,7 +588,7 @@ class _ModeChip extends StatelessWidget {
   }
 }
 
-// ── Training feedback ─────────────────────────────────────────────────────────────────────────────
+// ── Training feedback ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 class _TrainingFeedback extends StatelessWidget {
   final BoardState boardState;
@@ -580,18 +611,41 @@ class _TrainingFeedback extends StatelessWidget {
     };
   }
 
-  Widget _prompt(BuildContext context, String text) => Row(
+  Widget _movesRemainingHint(BuildContext context) {
+    final n = boardState.movesRemaining;
+    if (n == null || n == 0) return const SizedBox.shrink();
+    return Padding(
+      padding: const EdgeInsets.only(top: 8),
+      child: Row(
         children: [
-          Icon(Icons.help_outline,
-              size: 18, color: Colors.grey.shade400),
-          const SizedBox(width: 10),
-          Expanded(
-            child: Text(text,
-                style: TextStyle(
-                    color: Colors.grey.shade600,
-                    fontSize: 13,
-                    fontStyle: FontStyle.italic)),
+          Icon(Icons.flag_outlined, size: 13, color: Colors.grey.shade400),
+          const SizedBox(width: 5),
+          Text(
+            n == 1 ? '1 move left to complete this opening' : '$n moves left on main line',
+            style: TextStyle(fontSize: 12, color: Colors.grey.shade500),
           ),
+        ],
+      ),
+    );
+  }
+
+  Widget _prompt(BuildContext context, String text) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.help_outline, size: 18, color: Colors.grey.shade400),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Text(text,
+                    style: TextStyle(
+                        color: Colors.grey.shade600,
+                        fontSize: 13,
+                        fontStyle: FontStyle.italic)),
+              ),
+            ],
+          ),
+          _movesRemainingHint(context),
         ],
       );
 
@@ -613,6 +667,7 @@ class _TrainingFeedback extends StatelessWidget {
           Text("Exactly right. Keep going — what's next?",
               style:
                   TextStyle(fontSize: 13, color: Colors.grey.shade700)),
+          _movesRemainingHint(context),
         ],
       );
 
@@ -637,6 +692,7 @@ class _TrainingFeedback extends StatelessWidget {
             style:
                 TextStyle(fontSize: 13, color: Colors.grey.shade700),
           ),
+          _movesRemainingHint(context),
         ],
       );
 
@@ -677,7 +733,7 @@ class _TrainingFeedback extends StatelessWidget {
       );
 }
 
-// ── Analysis content ────────────────────────────────────────────────────────────────────────────
+// ── Analysis content ──────────────────────────────────────────────────────────────────────────────────────────────
 
 class _AnalysisContent extends StatelessWidget {
   final BoardState boardState;
@@ -726,7 +782,7 @@ class _AnalysisContent extends StatelessWidget {
       );
 }
 
-// ── Off-book commentary ─────────────────────────────────────────────────────────────────────────────
+// ── Off-book commentary ───────────────────────────────────────────────────────────────────────────────────────────────────────
 
 class _OffBookContent extends StatelessWidget {
   final EngineState engine;
@@ -821,7 +877,7 @@ class _OffBookContent extends StatelessWidget {
   }
 }
 
-// ── Engine top-3 lines ────────────────────────────────────────────────────────────────────────────
+// ── Engine top-3 lines ────────────────────────────────────────────────────────────────────────────────────────────────────
 
 class _EngineLines extends StatelessWidget {
   final List<String> topMovesUci;
@@ -905,7 +961,7 @@ class _EngineLines extends StatelessWidget {
   }
 }
 
-// ── In-book move row ──────────────────────────────────────────────────────────────────────────────
+// ── In-book move row ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 class _BookMoveRow extends StatelessWidget {
   final Arrow arrow;
@@ -965,12 +1021,14 @@ class _BookMoveRow extends StatelessWidget {
   }
 }
 
-// ── Session summary sheet ───────────────────────────────────────────────────────────────────────────────
+// ── Session summary sheet ────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 class _SessionSummarySheet extends StatelessWidget {
   final String openingName;
-  final int correctMoves;
-  final int totalMoves;
+  final int cleanMoves;
+  final int peekCount;
+  final int mistakeCount;
+  final int openingLength;
   final bool completed;
   final int previousStars;
   final int newStars;
@@ -978,25 +1036,38 @@ class _SessionSummarySheet extends StatelessWidget {
 
   const _SessionSummarySheet({
     required this.openingName,
-    required this.correctMoves,
-    required this.totalMoves,
+    required this.cleanMoves,
+    required this.peekCount,
+    required this.mistakeCount,
+    required this.openingLength,
     required this.completed,
     required this.previousStars,
     required this.newStars,
     required this.onPracticeAgain,
   });
 
+  int get _sessionStars {
+    if (openingLength == 0) return 0;
+    final score = cleanMoves / openingLength;
+    if (score >= 1.0) return 5;
+    if (score >= 0.95) return 4;
+    if (score >= 0.80) return 3;
+    if (score >= 0.60) return 2;
+    if (score > 0.0) return 1;
+    return 0;
+  }
+
   @override
   Widget build(BuildContext context) {
-    final accuracy =
-        totalMoves == 0 ? 0.0 : correctMoves / totalMoves;
-    final pct = (accuracy * 100).round();
+    final score = openingLength == 0 ? 0.0 : cleanMoves / openingLength;
+    final pct = (score * 100).round();
+    final sessionStars = _sessionStars;
     final starGained = newStars > previousStars;
-    final accentColor = accuracy >= 0.9
+    final accentColor = score >= 0.9
         ? Colors.green.shade700
-        : accuracy >= 0.7
+        : score >= 0.6
             ? Colors.amber.shade700
-            : Colors.orange.shade700;
+            : Colors.red.shade700;
 
     return Padding(
       padding: EdgeInsets.fromLTRB(
@@ -1017,7 +1088,7 @@ class _SessionSummarySheet extends StatelessWidget {
             size: 48,
             color: completed
                 ? Colors.amber.shade600
-                : Colors.grey.shade400,
+                : Colors.grey.shade500,
           ),
           const SizedBox(height: 12),
           Text(completed ? 'Opening complete!' : 'Session saved',
@@ -1027,14 +1098,42 @@ class _SessionSummarySheet extends StatelessWidget {
           Text(openingName,
               style:
                   TextStyle(fontSize: 14, color: Colors.grey.shade600)),
-          const SizedBox(height: 24),
-          _SummaryRow(
-            icon: Icons.track_changes,
-            label: 'Accuracy',
-            value: '$pct%  ($correctMoves / $totalMoves correct)',
-            color: accentColor,
+          const SizedBox(height: 20),
+          // Session stars
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: List.generate(5, (i) => Icon(
+              i < sessionStars ? Icons.star : Icons.star_border,
+              size: 32,
+              color: i < sessionStars ? Colors.amber.shade500 : Colors.grey.shade300,
+            )),
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 8),
+          Text('$pct%  ·  $cleanMoves / $openingLength clean moves',
+              style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                  color: accentColor)),
+          const SizedBox(height: 16),
+          // Breakdown row
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+            decoration: BoxDecoration(
+              color: Colors.grey.shade100,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _BreakdownCell(count: cleanMoves, label: 'clean', color: Colors.green.shade600),
+                Container(width: 1, height: 32, color: Colors.grey.shade300),
+                _BreakdownCell(count: peekCount, label: 'peeked', color: Colors.orange.shade600),
+                Container(width: 1, height: 32, color: Colors.grey.shade300),
+                _BreakdownCell(count: mistakeCount, label: 'mistakes', color: Colors.red.shade600),
+              ],
+            ),
+          ),
+          const SizedBox(height: 16),
           _SummaryRow(
             icon: Icons.star,
             label: 'Mastery',
@@ -1061,7 +1160,7 @@ class _SessionSummarySheet extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(height: 32),
+          const SizedBox(height: 28),
           Row(
             children: [
               Expanded(
@@ -1081,6 +1180,26 @@ class _SessionSummarySheet extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class _BreakdownCell extends StatelessWidget {
+  final int count;
+  final String label;
+  final Color color;
+  const _BreakdownCell({required this.count, required this.label, required this.color});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text('$count',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: color)),
+        const SizedBox(height: 2),
+        Text(label,
+            style: TextStyle(fontSize: 11, color: Colors.grey.shade600)),
+      ],
     );
   }
 }
@@ -1121,7 +1240,7 @@ class _SummaryRow extends StatelessWidget {
   }
 }
 
-// ── Star rating widget (also used in profile screen & opening cards) ────────────
+// ── Star rating widget (also used in profile screen & opening cards) ────────────────
 
 class StarRating extends StatelessWidget {
   final int stars;
@@ -1145,13 +1264,14 @@ class StarRating extends StatelessWidget {
   }
 }
 
-// ── Desktop layout ────────────────────────────────────────────────────────────────────────────
+// ── Desktop layout ──────────────────────────────────────────────────────────────────────────────────────────────
 
 class _DesktopLayout extends ConsumerWidget {
-  final int correctMoves;
-  final int totalMoves;
+  final int cleanMoves;
+  final int openingLength;
+  final Future<void> Function() onStop;
   const _DesktopLayout(
-      {required this.correctMoves, required this.totalMoves});
+      {required this.cleanMoves, required this.openingLength, required this.onStop});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -1245,6 +1365,17 @@ class _DesktopLayout extends ConsumerWidget {
                     .read(analysisPanelOpenProvider.notifier)
                     .state = !panelOpen,
               ),
+              if (training) ...[
+                const SizedBox(width: 4),
+                TextButton.icon(
+                  icon: const Icon(Icons.stop_circle_outlined, size: 18),
+                  label: const Text('Stop here'),
+                  style: TextButton.styleFrom(
+                    foregroundColor: Colors.orange.shade700,
+                  ),
+                  onPressed: onStop,
+                ),
+              ],
               const SizedBox(width: 8),
             ],
           ),
@@ -1259,8 +1390,8 @@ class _DesktopLayout extends ConsumerWidget {
                           left: BorderSide(
                               color: Colors.grey.shade300))),
                   child: _AnalysisPanel(
-                      correctMoves: correctMoves,
-                      totalMoves: totalMoves),
+                      cleanMoves: cleanMoves,
+                      openingLength: openingLength),
                 ),
             ],
           ),
@@ -1270,13 +1401,14 @@ class _DesktopLayout extends ConsumerWidget {
   }
 }
 
-// ── Mobile layout ─────────────────────────────────────────────────────────────────────────────
+// ── Mobile layout ──────────────────────────────────────────────────────────────────────────────────────────────
 
 class _MobileLayout extends ConsumerStatefulWidget {
-  final int correctMoves;
-  final int totalMoves;
+  final int cleanMoves;
+  final int openingLength;
+  final Future<void> Function() onStop;
   const _MobileLayout(
-      {required this.correctMoves, required this.totalMoves});
+      {required this.cleanMoves, required this.openingLength, required this.onStop});
 
   @override
   ConsumerState<_MobileLayout> createState() => _MobileLayoutState();
@@ -1369,8 +1501,8 @@ class _MobileLayoutState extends ConsumerState<_MobileLayout> {
                           ),
                           Expanded(
                             child: _AnalysisPanel(
-                              correctMoves: widget.correctMoves,
-                              totalMoves: widget.totalMoves,
+                              cleanMoves: widget.cleanMoves,
+                              openingLength: widget.openingLength,
                             ),
                           ),
                         ],
@@ -1440,6 +1572,13 @@ class _MobileLayoutState extends ConsumerState<_MobileLayout> {
                     _panelOpen ? 'Hide analysis' : 'Show analysis',
                 onPressed: _togglePanel,
               ),
+              if (training)
+                IconButton(
+                  icon: Icon(Icons.stop_circle_outlined,
+                      color: Colors.orange.shade700),
+                  tooltip: 'Stop here',
+                  onPressed: widget.onStop,
+                ),
             ],
           ),
         ),
