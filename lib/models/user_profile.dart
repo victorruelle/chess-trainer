@@ -20,7 +20,7 @@ class UserProfile {
 
   static final alexi = UserProfile(
     id: 'alexi',
-    name: 'Alexi',
+    name: 'Alexis',
     createdAt: DateTime(2024),
   );
 
