@@ -18,6 +18,8 @@ class BoardNotifier extends Notifier<BoardState> {
       arrows: result.arrows,
       status: _toStatus(result.status),
       variation: result.variation,
+      movesRemaining: result.movesRemaining,
+      clearMovesRemaining: result.movesRemaining == null,
     );
   }
 
@@ -59,6 +61,8 @@ class BoardNotifier extends Notifier<BoardState> {
       status: _toStatus(result.status),
       variation: result.variation,
       lastMoveEval: moveEval,
+      movesRemaining: result.movesRemaining,
+      clearMovesRemaining: result.movesRemaining == null,
     );
   }
 
@@ -94,6 +98,8 @@ class BoardNotifier extends Notifier<BoardState> {
       status: _toStatus(result.status),
       variation: result.variation,
       clearMoveEval: true,
+      movesRemaining: result.movesRemaining,
+      clearMovesRemaining: result.movesRemaining == null,
     );
   }
 

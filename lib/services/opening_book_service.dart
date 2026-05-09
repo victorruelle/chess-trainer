@@ -10,7 +10,8 @@ class BookResult {
   final BookStatus status;
   final List<Arrow> arrows;
   final String? variation;
-  const BookResult({required this.status, required this.arrows, this.variation});
+  final int? movesRemaining; // main-line depth from current position; null when offBook/complete
+  const BookResult({required this.status, required this.arrows, this.variation, this.movesRemaining});
 }
 
 class _MatchResult {
@@ -65,7 +66,14 @@ class OpeningBookService {
     return BookResult(
         status: BookStatus.inBook,
         arrows: arrows,
-        variation: match.variation);
+        variation: match.variation,
+        movesRemaining: _mainLineDepth(match.children));
+  }
+
+  int _mainLineDepth(List<MoveNode> nodes) {
+    if (nodes.isEmpty) return 0;
+    final best = nodes.reduce((a, b) => a.weight >= b.weight ? a : b);
+    return 1 + _mainLineDepth(best.children);
   }
 
   _MatchResult? _findNodeForFen(List<MoveNode> roots, String targetFen) {

@@ -26,6 +26,7 @@ class BoardState {
   final OpeningStatus status;
   final String? variation;
   final MoveEval? lastMoveEval;
+  final int? movesRemaining;
 
   const BoardState({
     required this.fen,
@@ -35,6 +36,7 @@ class BoardState {
     required this.status,
     this.variation,
     this.lastMoveEval,
+    this.movesRemaining,
   });
 
   static const initial = BoardState(
@@ -54,6 +56,8 @@ class BoardState {
     bool clearVariation = false,
     MoveEval? lastMoveEval,
     bool clearMoveEval = false,
+    int? movesRemaining,
+    bool clearMovesRemaining = false,
   }) {
     return BoardState(
       fen: fen ?? this.fen,
@@ -63,6 +67,7 @@ class BoardState {
       status: status ?? this.status,
       variation: clearVariation ? null : (variation ?? this.variation),
       lastMoveEval: clearMoveEval ? null : (lastMoveEval ?? this.lastMoveEval),
+      movesRemaining: clearMovesRemaining ? null : (movesRemaining ?? this.movesRemaining),
     );
   }
 }
