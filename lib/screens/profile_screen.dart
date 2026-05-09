@@ -197,7 +197,7 @@ class _ProfilePickerSheetState
               label: const Text('New profile'),
               onPressed: () => setState(() => _showCreate = true),
             )
-          else ..[
+          else ...[
             TextField(
               controller: _ctrl,
               autofocus: true,
