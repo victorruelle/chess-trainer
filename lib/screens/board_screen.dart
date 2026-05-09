@@ -25,7 +25,7 @@ const _kEvalBar = 18.0;
 const _kMinPanel = 200.0;
 const _kMaxPanel = 460.0;
 
-// ── Entry point ─────────────────────────────────────────────────────────────────────────────────
+// ── Entry point ───────────────────────────────────────────────────────────────────────────────────────────────
 
 class BoardScreen extends ConsumerStatefulWidget {
   const BoardScreen({super.key});
@@ -161,13 +161,12 @@ class _BoardScreenState extends ConsumerState<BoardScreen> {
       }
     });
 
-    // Save partial session whenever mode switches
+    // Save partial session whenever mode switches (counters keep accumulating)
     ref.listen(trainingModeProvider, (prev, isTraining) {
       if (prev == null || prev == isTraining) return;
       _saveSession(completed: false);
       _sessionStart = DateTime.now();
       _sessionSaved = false;
-      setState(() { _correctMoves = 0; _totalMoves = 0; });
     });
 
     final isDesktop = MediaQuery.of(context).size.width >= _kDesktop;
@@ -179,7 +178,7 @@ class _BoardScreenState extends ConsumerState<BoardScreen> {
   }
 }
 
-// ── AppBar title with inline status chip ──────────────────────────────────────────────
+// ── AppBar title with inline status chip ──────────────────────────────────────────────────────
 
 class _AppBarTitle extends StatelessWidget {
   final String name;
@@ -263,7 +262,7 @@ class _StatusChip extends StatelessWidget {
   }
 }
 
-// ── Shared helpers ─────────────────────────────────────────────────────────────────────────
+// ── Shared helpers ───────────────────────────────────────────────────────────────────────────────────────
 
 List<Arrow> _engineArrows(List<String> uciMoves, String fen) {
   const ranks = [ArrowRank.gold, ArrowRank.silver, ArrowRank.bronze];
@@ -280,7 +279,7 @@ List<Arrow> _engineArrows(List<String> uciMoves, String fen) {
   return arrows;
 }
 
-// ── Board area ────────────────────────────────────────────────────────────────────────
+// ── Board area ────────────────────────────────────────────────────────────────────────────────
 
 class _BoardArea extends ConsumerWidget {
   const _BoardArea();
@@ -329,7 +328,7 @@ class _BoardArea extends ConsumerWidget {
   }
 }
 
-// ── Analysis panel ────────────────────────────────────────────────────────────────────────────────
+// ── Analysis panel ──────────────────────────────────────────────────────────────────────────────────────────────────────
 
 class _AnalysisPanel extends ConsumerWidget {
   final int correctMoves;
@@ -420,7 +419,7 @@ class _AnalysisPanel extends ConsumerWidget {
   }
 }
 
-// ── Training progress bar ───────────────────────────────────────────────────────────────────────────────
+// ── Training progress bar ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 class _TrainingProgressBar extends StatelessWidget {
   final int correct;
@@ -471,7 +470,7 @@ class _TrainingProgressBar extends StatelessWidget {
   }
 }
 
-// ── Mode toggle ─────────────────────────────────────────────────────────────────────────
+// ── Mode toggle ───────────────────────────────────────────────────────────────────────────────────────
 
 class _ModeToggle extends ConsumerWidget {
   final bool training;
@@ -557,7 +556,7 @@ class _ModeChip extends StatelessWidget {
   }
 }
 
-// ── Training feedback ─────────────────────────────────────────────────────────────────────────────
+// ── Training feedback ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 class _TrainingFeedback extends StatelessWidget {
   final BoardState boardState;
@@ -580,18 +579,41 @@ class _TrainingFeedback extends StatelessWidget {
     };
   }
 
-  Widget _prompt(BuildContext context, String text) => Row(
+  Widget _movesRemainingHint(BuildContext context) {
+    final n = boardState.movesRemaining;
+    if (n == null || n == 0) return const SizedBox.shrink();
+    return Padding(
+      padding: const EdgeInsets.only(top: 8),
+      child: Row(
         children: [
-          Icon(Icons.help_outline,
-              size: 18, color: Colors.grey.shade400),
-          const SizedBox(width: 10),
-          Expanded(
-            child: Text(text,
-                style: TextStyle(
-                    color: Colors.grey.shade600,
-                    fontSize: 13,
-                    fontStyle: FontStyle.italic)),
+          Icon(Icons.flag_outlined, size: 13, color: Colors.grey.shade400),
+          const SizedBox(width: 5),
+          Text(
+            n == 1 ? '1 move left to complete this opening' : '$n moves left on main line',
+            style: TextStyle(fontSize: 12, color: Colors.grey.shade500),
           ),
+        ],
+      ),
+    );
+  }
+
+  Widget _prompt(BuildContext context, String text) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(Icons.help_outline, size: 18, color: Colors.grey.shade400),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Text(text,
+                    style: TextStyle(
+                        color: Colors.grey.shade600,
+                        fontSize: 13,
+                        fontStyle: FontStyle.italic)),
+              ),
+            ],
+          ),
+          _movesRemainingHint(context),
         ],
       );
 
@@ -613,6 +635,7 @@ class _TrainingFeedback extends StatelessWidget {
           Text("Exactly right. Keep going — what's next?",
               style:
                   TextStyle(fontSize: 13, color: Colors.grey.shade700)),
+          _movesRemainingHint(context),
         ],
       );
 
@@ -637,6 +660,7 @@ class _TrainingFeedback extends StatelessWidget {
             style:
                 TextStyle(fontSize: 13, color: Colors.grey.shade700),
           ),
+          _movesRemainingHint(context),
         ],
       );
 
@@ -677,7 +701,7 @@ class _TrainingFeedback extends StatelessWidget {
       );
 }
 
-// ── Analysis content ────────────────────────────────────────────────────────────────────────────
+// ── Analysis content ──────────────────────────────────────────────────────────────────────────────────────────────
 
 class _AnalysisContent extends StatelessWidget {
   final BoardState boardState;
@@ -726,7 +750,7 @@ class _AnalysisContent extends StatelessWidget {
       );
 }
 
-// ── Off-book commentary ─────────────────────────────────────────────────────────────────────────────
+// ── Off-book commentary ───────────────────────────────────────────────────────────────────────────────────────────────────────
 
 class _OffBookContent extends StatelessWidget {
   final EngineState engine;
@@ -821,7 +845,7 @@ class _OffBookContent extends StatelessWidget {
   }
 }
 
-// ── Engine top-3 lines ────────────────────────────────────────────────────────────────────────────
+// ── Engine top-3 lines ────────────────────────────────────────────────────────────────────────────────────────────────────
 
 class _EngineLines extends StatelessWidget {
   final List<String> topMovesUci;
@@ -905,7 +929,7 @@ class _EngineLines extends StatelessWidget {
   }
 }
 
-// ── In-book move row ──────────────────────────────────────────────────────────────────────────────
+// ── In-book move row ──────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 class _BookMoveRow extends StatelessWidget {
   final Arrow arrow;
@@ -965,7 +989,7 @@ class _BookMoveRow extends StatelessWidget {
   }
 }
 
-// ── Session summary sheet ───────────────────────────────────────────────────────────────────────────────
+// ── Session summary sheet ────────────────────────────────────────────────────────────────────────────────────────────────────────────
 
 class _SessionSummarySheet extends StatelessWidget {
   final String openingName;
@@ -1121,7 +1145,7 @@ class _SummaryRow extends StatelessWidget {
   }
 }
 
-// ── Star rating widget (also used in profile screen & opening cards) ────────────
+// ── Star rating widget (also used in profile screen & opening cards) ────────────────
 
 class StarRating extends StatelessWidget {
   final int stars;
@@ -1145,7 +1169,7 @@ class StarRating extends StatelessWidget {
   }
 }
 
-// ── Desktop layout ────────────────────────────────────────────────────────────────────────────
+// ── Desktop layout ──────────────────────────────────────────────────────────────────────────────────────────────
 
 class _DesktopLayout extends ConsumerWidget {
   final int correctMoves;
@@ -1270,7 +1294,7 @@ class _DesktopLayout extends ConsumerWidget {
   }
 }
 
-// ── Mobile layout ─────────────────────────────────────────────────────────────────────────────
+// ── Mobile layout ──────────────────────────────────────────────────────────────────────────────────────────────
 
 class _MobileLayout extends ConsumerStatefulWidget {
   final int correctMoves;
