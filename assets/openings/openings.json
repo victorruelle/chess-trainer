@@ -601,7 +601,7 @@
                             "san": "Bxc6",
                             "weight": 400,
                             "variation": "Exchange Variation",
-                            "explanation": "Gives up the bishop pair to double Black's c-pawns.",
+                            "explanation": "Gives up the bishop pair, aiming to damage Black's pawn structure.",
                             "children": [
                               {
                                 "san": "dxc6",
@@ -814,7 +814,7 @@
                                                                   {
                                                                     "san": "Qxd5",
                                                                     "weight": 900,
-                                                                    "explanation": "Wins a pawn.",
+                                                                    "explanation": "Wins back material in the center.",
                                                                     "children": []
                                                                   }
                                                                 ]
@@ -2386,7 +2386,7 @@
                                                                   {
                                                                     "san": "Nf4",
                                                                     "weight": 600,
-                                                                    "explanation": "Knight attacks e6 and eyes d5.",
+                                                                    "explanation": "Knight jumps in actively, eyeing the bishop and kingside squares.",
                                                                     "children": [
                                                                       {
                                                                         "san": "Nde6",
@@ -2794,7 +2794,7 @@
                                                                       {
                                                                         "san": "Bxg4",
                                                                         "weight": 1000,
-                                                                        "explanation": "Pins the queen; active play.",
+                                                                        "explanation": "Recaptures and attacks the queen on d1.",
                                                                         "children": []
                                                                       }
                                                                     ]
@@ -2870,7 +2870,7 @@
                                                       {
                                                         "san": "Nxh7",
                                                         "weight": 900,
-                                                        "explanation": "Wins the rook.",
+                                                        "explanation": "Forks the rook and threatens further damage.",
                                                         "children": []
                                                       }
                                                     ]
@@ -2974,7 +2974,7 @@
                                                       {
                                                         "san": "Nxh7",
                                                         "weight": 900,
-                                                        "explanation": "Wins rook; White has compensation.",
+                                                        "explanation": "Captures pawn and attacks the rook.",
                                                         "children": [
                                                           {
                                                             "san": "Rxh7",
@@ -3019,7 +3019,7 @@
                                               {
                                                 "san": "e5",
                                                 "weight": 1000,
-                                                "explanation": "Closes center; knight on e5.",
+                                                "explanation": "Closes the center and gains space.",
                                                 "children": [
                                                   {
                                                     "san": "Nfd7",
@@ -3910,7 +3910,7 @@
                                                   {
                                                     "san": "c4",
                                                     "weight": 700,
-                                                    "explanation": "Closes center.",
+                                                    "explanation": "Gains queenside space and shuts in the c-file.",
                                                     "children": [
                                                       {
                                                         "san": "Bd3",
@@ -5372,7 +5372,7 @@
                                                       {
                                                         "san": "h3",
                                                         "weight": 600,
-                                                        "explanation": "Asks bishop.",
+                                                        "explanation": "Challenges the g4 bishop.",
                                                         "children": []
                                                       }
                                                     ]
@@ -5435,7 +5435,7 @@
                                                       {
                                                         "san": "Bb3",
                                                         "weight": 700,
-                                                        "explanation": "Keeps bishop; avoids a6-b5.",
+                                                        "explanation": "Retreats bishop from b5; preserves it.",
                                                         "children": [
                                                           {
                                                             "san": "cxd4",
@@ -5581,7 +5581,7 @@
                                       {
                                         "san": "a4",
                                         "weight": 700,
-                                        "explanation": "Attacks.",
+                                        "explanation": "Challenges the b5 pawn chain.",
                                         "children": [
                                           {
                                             "san": "Bb7",
@@ -6258,7 +6258,7 @@
                                       {
                                         "san": "Nd5",
                                         "weight": 600,
-                                        "explanation": "Retreats.",
+                                        "explanation": "Sidesteps pin and attacks the b4 bishop.",
                                         "children": [
                                           {
                                             "san": "O-O",
@@ -6718,7 +6718,7 @@
                                                                   {
                                                                     "san": "Ne3",
                                                                     "weight": 600,
-                                                                    "explanation": "Repositions.",
+                                                                    "explanation": "Knight hops to e3, attacking f1 and pressuring White.",
                                                                     "children": [
                                                                       {
                                                                         "san": "c5",
@@ -6826,7 +6826,7 @@
                                                           {
                                                             "san": "Bc4",
                                                             "weight": 700,
-                                                            "explanation": "Pins or develops.",
+                                                            "explanation": "Develops bishop and eyes f7.",
                                                             "children": [
                                                               {
                                                                 "san": "Ne5",
@@ -7237,7 +7237,7 @@
                                                                       {
                                                                         "san": "Nh4",
                                                                         "weight": 600,
-                                                                        "explanation": "Attacks g6.",
+                                                                        "explanation": "Heads to f5; reroutes the knight to a strong square.",
                                                                         "children": []
                                                                       }
                                                                     ]
@@ -7663,7 +7663,7 @@
                                             "explanation": "Flexible knight placement, prepares castling and king safety"
                                           }
                                         ],
-                                        "explanation": "White unpins and continues development"
+                                        "explanation": "White develops the bishop and prepares castling."
                                       },
                                       {
                                         "san": "Nc3",
@@ -7849,10 +7849,10 @@
                                                                     "san": "Be7",
                                                                     "weight": 600,
                                                                     "children": [],
-                                                                    "explanation": "Black blocks the pin, develops the kingside bishop"
+                                                                    "explanation": "Black develops the bishop and prepares castling."
                                                                   }
                                                                 ],
-                                                                "explanation": "White pins the knight, creates pressure"
+                                                                "explanation": "White develops the bishop with pressure on e7."
                                                               },
                                                               {
                                                                 "san": "O-O",
@@ -7862,7 +7862,7 @@
                                                                     "san": "Be7",
                                                                     "weight": 600,
                                                                     "children": [],
-                                                                    "explanation": "Black blocks the pin, develops the kingside bishop"
+                                                                    "explanation": "Black develops the bishop and prepares castling."
                                                                   }
                                                                 ],
                                                                 "explanation": "Black kingside castling for safety"
@@ -8069,7 +8069,7 @@
                                                 "san": "Be2",
                                                 "weight": 700,
                                                 "children": [],
-                                                "explanation": "White unpins and continues development"
+                                                "explanation": "White develops the bishop and prepares castling."
                                               }
                                             ],
                                             "explanation": "Black opens the light-squared bishop, strengthens d5"
@@ -8201,7 +8201,7 @@
                                                     "explanation": "Black opens the light-squared bishop, strengthens d5"
                                                   }
                                                 ],
-                                                "explanation": "White unpins and continues development"
+                                                "explanation": "White develops the bishop and prepares castling."
                                               }
                                             ],
                                             "explanation": "Black pins the knight, applies pressure"
@@ -8221,7 +8221,7 @@
                                                     "explanation": "Simplifying the position, queens come off."
                                                   }
                                                 ],
-                                                "explanation": "White defends the d4 pawn and centralizes the queen."
+                                                "explanation": "White confronts Black's queen on the b-file and eyes b7."
                                               }
                                             ],
                                             "explanation": "Black attacks the d4 pawn immediately, creating threats."
@@ -8805,7 +8805,7 @@
                                                         "explanation": "Develops the light-squared bishop with attacking potential"
                                                       }
                                                     ],
-                                                    "explanation": "Black recaptures toward the centre."
+                                                    "explanation": "Black recaptures and opens the e-file."
                                                   }
                                                 ],
                                                 "explanation": "White exchanges immediately."
@@ -8848,7 +8848,7 @@
                                                             "san": "Be7",
                                                             "weight": 700,
                                                             "children": [],
-                                                            "explanation": "Black blocks the pin, develops the kingside bishop"
+                                                            "explanation": "Black blocks the check and develops the bishop."
                                                           }
                                                         ],
                                                         "explanation": "White's aggressive setup continues with a check."
@@ -9184,7 +9184,7 @@
                                                                 "explanation": "Flexible knight placement, prepares castling and king safety"
                                                               }
                                                             ],
-                                                            "explanation": "White unpins and continues development"
+                                                            "explanation": "White develops the bishop and prepares castling."
                                                           }
                                                         ],
                                                         "explanation": "Black opens the light-squared bishop, strengthens d5"
@@ -9221,7 +9221,7 @@
                                                             "explanation": "Flexible knight placement, prepares castling and king safety"
                                                           }
                                                         ],
-                                                        "explanation": "White unpins and continues development"
+                                                        "explanation": "White develops the bishop and prepares castling."
                                                       }
                                                     ],
                                                     "explanation": "Black opens the light-squared bishop, strengthens d5"
@@ -9482,7 +9482,7 @@
                                                 "san": "Bb5",
                                                 "weight": 700,
                                                 "children": [],
-                                                "explanation": "White develops with aggressive intent, threatens to pin"
+                                                "explanation": "White develops the bishop and pins the c6 knight against the king."
                                               }
                                             ],
                                             "explanation": "Black develops the queen's knight with centrality"
@@ -9566,7 +9566,7 @@
                                                     "explanation": "Black opens the light-squared bishop, strengthens d5"
                                                   }
                                                 ],
-                                                "explanation": "White unpins and continues development"
+                                                "explanation": "White develops the bishop and prepares castling."
                                               }
                                             ],
                                             "explanation": "Black pins the knight, applies pressure"
@@ -9703,7 +9703,7 @@
                                             "explanation": "Black develops the kingside knight"
                                           }
                                         ],
-                                        "explanation": "White develops with aggressive intent, threatens to pin"
+                                        "explanation": "White develops the bishop and pins the c6 knight against the king."
                                       }
                                     ],
                                     "explanation": "Black develops the queen's knight with centrality"
@@ -9950,7 +9950,7 @@
                               {
                                 "san": "e5",
                                 "weight": 800,
-                                "explanation": "Advances; gains space.",
+                                "explanation": "White gains space; Black plays for queenside breaks.",
                                 "children": [
                                   {
                                     "san": "Nfd7",
@@ -10993,7 +10993,7 @@
                                                                           {
                                                                             "san": "Nb6",
                                                                             "weight": 700,
-                                                                            "explanation": "Moves.",
+                                                                            "explanation": "Knight redeploys to b6, eyeing c4 and d5.",
                                                                             "children": [
                                                                               {
                                                                                 "san": "g5",
@@ -11177,7 +11177,7 @@
                                                                   {
                                                                     "san": "Qc7",
                                                                     "weight": 700,
-                                                                    "explanation": "Defends c7.",
+                                                                    "explanation": "Black connects rooks and prepares queenside play.",
                                                                     "children": [
                                                                       {
                                                                         "san": "O-O-O",
@@ -11223,7 +11223,7 @@
                                                                       {
                                                                         "san": "Bh4",
                                                                         "weight": 700,
-                                                                        "explanation": "Stays.",
+                                                                        "explanation": "Bishop maintains the pin on the f6 knight.",
                                                                         "children": [
                                                                           {
                                                                             "san": "g5",
@@ -11273,7 +11273,7 @@
                                                                   {
                                                                     "san": "Qc7",
                                                                     "weight": 700,
-                                                                    "explanation": "Defends c7.",
+                                                                    "explanation": "Black connects rooks and prepares queenside play.",
                                                                     "children": [
                                                                       {
                                                                         "san": "O-O-O",
@@ -11460,7 +11460,7 @@
           {
             "san": "c5",
             "weight": 1000,
-            "explanation": "Sicilian.",
+            "explanation": "Black contests the center asymmetrically with the Sicilian.",
             "children": [
               {
                 "san": "Nf3",
@@ -14016,7 +14016,7 @@
                                                                   {
                                                                     "san": "Qg6",
                                                                     "weight": 700,
-                                                                    "explanation": "Attacks g2.",
+                                                                    "explanation": "Activates queen toward kingside; supports e4 break.",
                                                                     "children": [
                                                                       {
                                                                         "san": "e4",
@@ -14587,7 +14587,7 @@
                                               {
                                                 "san": "Ne5",
                                                 "weight": 700,
-                                                "explanation": "Attacks bishop.",
+                                                "explanation": "Centralizes and threatens g4 to harass the bishop.",
                                                 "children": [
                                                   {
                                                     "san": "Bg6",
@@ -15491,7 +15491,7 @@
                       {
                         "san": "Bb5",
                         "weight": 1000,
-                        "explanation": "Ruy Lopez.",
+                        "explanation": "Pressures the c6 knight defending e5; Ruy Lopez.",
                         "children": [
                           {
                             "san": "Nf6",
