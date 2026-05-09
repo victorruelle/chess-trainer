@@ -21,6 +21,7 @@ const _kMinPanel = 200.0;
 const _kMaxPanel = 460.0;
 
 final _panelOpenProvider = StateProvider<bool>((ref) => false);
+final _boardFlippedProvider = StateProvider<bool>((ref) => false);
 
 // ── Entry point ───────────────────────────────────────────────────────────────
 
@@ -65,6 +66,7 @@ class _BoardArea extends ConsumerWidget {
     final engine = ref.watch(engineProvider);
     final status = ref.watch(boardProvider.select((s) => s.status));
     final fen = ref.watch(boardProvider.select((s) => s.fen));
+    final flipped = ref.watch(_boardFlippedProvider);
 
     final extraArrows =
         (status == OpeningStatus.offBook || status == OpeningStatus.complete)
@@ -88,7 +90,11 @@ class _BoardArea extends ConsumerWidget {
               child: EvalBar(eval: engine.eval, isReady: engine.isReady),
             ),
             const SizedBox(width: 4),
-            ChessBoardWidget(boardSize: boardSize, extraArrows: extraArrows),
+            ChessBoardWidget(
+              boardSize: boardSize,
+              extraArrows: extraArrows,
+              flipped: flipped,
+            ),
           ],
         ),
       );
@@ -494,6 +500,7 @@ class _DesktopLayout extends ConsumerWidget {
     final boardState = ref.watch(boardProvider);
     final opening = ref.watch(selectedOpeningProvider);
     final panelOpen = ref.watch(_panelOpenProvider);
+    final flipped = ref.watch(_boardFlippedProvider);
     final canUndo =
         ref.watch(boardProvider.select((s) => s.moveHistory.isNotEmpty));
 
@@ -534,6 +541,15 @@ class _DesktopLayout extends ConsumerWidget {
             icon: const Icon(Icons.refresh),
             tooltip: 'Reset',
             onPressed: () => ref.read(boardProvider.notifier).reset(),
+          ),
+          IconButton(
+            icon: Icon(
+              Icons.swap_vert,
+              color: flipped ? Theme.of(context).colorScheme.primary : null,
+            ),
+            tooltip: 'Flip board',
+            onPressed: () =>
+                ref.read(_boardFlippedProvider.notifier).state = !flipped,
           ),
           IconButton(
             icon: Icon(
@@ -608,6 +624,7 @@ class _MobileLayoutState extends ConsumerState<_MobileLayout> {
   Widget build(BuildContext context) {
     final boardState = ref.watch(boardProvider);
     final opening = ref.watch(selectedOpeningProvider);
+    final flipped = ref.watch(_boardFlippedProvider);
     final canUndo =
         ref.watch(boardProvider.select((s) => s.moveHistory.isNotEmpty));
 
@@ -713,6 +730,17 @@ class _MobileLayoutState extends ConsumerState<_MobileLayout> {
                 icon: const Icon(Icons.refresh),
                 tooltip: 'Reset',
                 onPressed: () => ref.read(boardProvider.notifier).reset(),
+              ),
+              IconButton(
+                icon: Icon(
+                  Icons.swap_vert,
+                  color: flipped
+                      ? Theme.of(context).colorScheme.primary
+                      : null,
+                ),
+                tooltip: 'Flip board',
+                onPressed: () =>
+                    ref.read(_boardFlippedProvider.notifier).state = !flipped,
               ),
               IconButton(
                 icon: Icon(
