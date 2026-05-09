@@ -5,8 +5,13 @@ import '../../models/arrow.dart';
 class ArrowsPainter extends CustomPainter {
   final List<Arrow> arrows;
   final double squareSize;
+  final bool flipped;
 
-  const ArrowsPainter({required this.arrows, required this.squareSize});
+  const ArrowsPainter({
+    required this.arrows,
+    required this.squareSize,
+    this.flipped = false,
+  });
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -66,8 +71,12 @@ class ArrowsPainter extends CustomPainter {
   }
 
   Offset _squareCenter(String sq) {
-    final col = sq.codeUnitAt(0) - 'a'.codeUnitAt(0);
-    final row = 8 - int.parse(sq[1]);
+    var col = sq.codeUnitAt(0) - 'a'.codeUnitAt(0);
+    var row = 8 - int.parse(sq[1]);
+    if (flipped) {
+      col = 7 - col;
+      row = 7 - row;
+    }
     return Offset(
       col * squareSize + squareSize / 2,
       row * squareSize + squareSize / 2,
@@ -76,5 +85,5 @@ class ArrowsPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(ArrowsPainter old) =>
-      old.arrows != arrows || old.squareSize != squareSize;
+      old.arrows != arrows || old.squareSize != squareSize || old.flipped != flipped;
 }

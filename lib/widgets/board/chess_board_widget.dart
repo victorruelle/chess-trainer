@@ -9,11 +9,13 @@ import 'arrows_painter.dart';
 class ChessBoardWidget extends ConsumerWidget {
   final double boardSize;
   final List<Arrow> extraArrows;
+  final bool flipped;
 
   const ChessBoardWidget({
     super.key,
     required this.boardSize,
     this.extraArrows = const [],
+    this.flipped = false,
   });
 
   @override
@@ -24,8 +26,12 @@ class ChessBoardWidget extends ConsumerWidget {
 
     return GestureDetector(
       onTapUp: (details) {
-        final col = (details.localPosition.dx / squareSize).floor().clamp(0, 7);
-        final row = (details.localPosition.dy / squareSize).floor().clamp(0, 7);
+        var col = (details.localPosition.dx / squareSize).floor().clamp(0, 7);
+        var row = (details.localPosition.dy / squareSize).floor().clamp(0, 7);
+        if (flipped) {
+          col = 7 - col;
+          row = 7 - row;
+        }
         ref.read(boardProvider.notifier).onSquareTapped(_toAlgebraic(col, row));
       },
       child: SizedBox(
@@ -43,10 +49,15 @@ class ChessBoardWidget extends ConsumerWidget {
               fen: boardState.fen,
               squareSize: squareSize,
               selectedSquare: boardState.selectedSquare,
+              flipped: flipped,
             ),
             CustomPaint(
               size: Size(boardSize, boardSize),
-              painter: ArrowsPainter(arrows: allArrows, squareSize: squareSize),
+              painter: ArrowsPainter(
+                arrows: allArrows,
+                squareSize: squareSize,
+                flipped: flipped,
+              ),
             ),
           ],
         ),

@@ -5,12 +5,14 @@ class PiecesLayer extends StatelessWidget {
   final String fen;
   final double squareSize;
   final String? selectedSquare;
+  final bool flipped;
 
   const PiecesLayer({
     super.key,
     required this.fen,
     required this.squareSize,
     this.selectedSquare,
+    this.flipped = false,
   });
 
   @override
@@ -19,9 +21,11 @@ class PiecesLayer extends StatelessWidget {
     return Stack(
       children: pieces.map((p) {
         final isSelected = _colRowToAlgebraic(p.col, p.row) == selectedSquare;
+        final displayCol = flipped ? 7 - p.col : p.col;
+        final displayRow = flipped ? 7 - p.row : p.row;
         return Positioned(
-          left: p.col * squareSize,
-          top: p.row * squareSize,
+          left: displayCol * squareSize,
+          top: displayRow * squareSize,
           width: squareSize,
           height: squareSize,
           child: Container(
