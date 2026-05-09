@@ -1,26 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../models/arrow.dart';
 import '../../providers/board_provider.dart';
 import 'board_painter.dart';
 import 'pieces_layer.dart';
 import 'arrows_painter.dart';
 
 class ChessBoardWidget extends ConsumerWidget {
-  const ChessBoardWidget({super.key});
+  final double boardSize;
+  final List<Arrow> extraArrows;
+
+  const ChessBoardWidget({
+    super.key,
+    required this.boardSize,
+    this.extraArrows = const [],
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final boardState = ref.watch(boardProvider);
-    final screenWidth = MediaQuery.of(context).size.shortestSide;
-    final boardSize = screenWidth;
     final squareSize = boardSize / 8;
+    final allArrows = [...boardState.arrows, ...extraArrows];
 
     return GestureDetector(
       onTapUp: (details) {
         final col = (details.localPosition.dx / squareSize).floor().clamp(0, 7);
         final row = (details.localPosition.dy / squareSize).floor().clamp(0, 7);
-        final square = _toAlgebraic(col, row);
-        ref.read(boardProvider.notifier).onSquareTapped(square);
+        ref.read(boardProvider.notifier).onSquareTapped(_toAlgebraic(col, row));
       },
       child: SizedBox(
         width: boardSize,
@@ -40,10 +46,7 @@ class ChessBoardWidget extends ConsumerWidget {
             ),
             CustomPaint(
               size: Size(boardSize, boardSize),
-              painter: ArrowsPainter(
-                arrows: boardState.arrows,
-                squareSize: squareSize,
-              ),
+              painter: ArrowsPainter(arrows: allArrows, squareSize: squareSize),
             ),
           ],
         ),
