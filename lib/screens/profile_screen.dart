@@ -35,7 +35,7 @@ class ProfileScreen extends ConsumerWidget {
   }
 }
 
-// ── Netflix-style profile picker ────────────────────────────────────────────
+// ── Netflix-style profile picker ────────────────────────────────────────────────────
 
 class _ProfilePickerView extends StatelessWidget {
   const _ProfilePickerView();
@@ -104,7 +104,7 @@ class _ProfileTile extends ConsumerWidget {
   }
 }
 
-// ── Main profile view ───────────────────────────────────────────────────────────────────────────────────────────
+// ── Main profile view ───────────────────────────────────────────────────────────────────────
 
 class _ProfileView extends ConsumerWidget {
   final UserProfile profile;
@@ -193,7 +193,7 @@ class _ProfileView extends ConsumerWidget {
   }
 }
 
-// ── Profile header ─────────────────────────────────────────────────────────────────────────────────────
+// ── Profile header ──────────────────────────────────────────────────────────────────────
 
 class _ProfileHeader extends ConsumerWidget {
   final UserProfile profile;
@@ -383,7 +383,7 @@ class _ProfileHeader extends ConsumerWidget {
   }
 }
 
-// ── Opening progress card ─────────────────────────────────────────────────────────────────────────────────────────────────────
+// ── Opening progress card ───────────────────────────────────────────────────────────────────────────────────
 
 class _OpeningProgressCard extends StatelessWidget {
   final String openingId;
