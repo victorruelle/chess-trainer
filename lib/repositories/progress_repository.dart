@@ -67,11 +67,11 @@ int computeVariationStars(
 int _starsFromSessions(List<TrainingSession> s) {
   if (s.isEmpty) return 0;
   final completions = s.where((x) => x.completed).length;
-  // Partial sessions with ≥3 moves count fractionally (accuracy × 0.5 each)
+  // Partial sessions with ≥1 clean move count fractionally (accuracy × 0.5 each)
   // so that practicing without finishing still shows 1 star of progress.
   final effectiveCompletions = completions +
       s
-          .where((x) => !x.completed && x.totalMoves >= 3)
+          .where((x) => !x.completed && x.correctMoves >= 1)
           .fold(0.0, (sum, x) => sum + x.accuracy * 0.5);
   if (effectiveCompletions == 0) return 0;
   final bestAccuracy = s.map((x) => x.accuracy).reduce(max);

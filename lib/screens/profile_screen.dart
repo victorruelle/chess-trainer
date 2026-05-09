@@ -35,7 +35,7 @@ class ProfileScreen extends ConsumerWidget {
   }
 }
 
-// ── Netflix-style profile picker ────────────────────────────────────────────────────
+// ── Netflix-style profile picker ────────────────────────────────────────────
 
 class _ProfilePickerView extends StatelessWidget {
   const _ProfilePickerView();
@@ -104,7 +104,7 @@ class _ProfileTile extends ConsumerWidget {
   }
 }
 
-// ── Main profile view ───────────────────────────────────────────────────────────────────────
+// ── Main profile view ───────────────────────────────────────────────────────────────────────────────────────────
 
 class _ProfileView extends ConsumerWidget {
   final UserProfile profile;
@@ -118,11 +118,13 @@ class _ProfileView extends ConsumerWidget {
     final totalSessions = sessions.length;
     final completedSessions = sessions.where((s) => s.completed).length;
 
-    final Map<String, List<TrainingSession>> byOpening = {};
+    // Group by (openingId, variation) — each variant is a separate entry
+    final Map<String, List<TrainingSession>> byVariantKey = {};
     for (final s in sessions) {
-      byOpening.putIfAbsent(s.openingId, () => []).add(s);
+      final key = '${s.openingId}\x00${s.variation ?? ''}';
+      byVariantKey.putIfAbsent(key, () => []).add(s);
     }
-    final practicedOpenings = byOpening.keys.toList();
+    final variantKeys = byVariantKey.keys.toList();
 
     return CustomScrollView(
       slivers: [
@@ -134,7 +136,7 @@ class _ProfileView extends ConsumerWidget {
             completedSessions: completedSessions,
           ),
         ),
-        if (practicedOpenings.isEmpty)
+        if (variantKeys.isEmpty)
           SliverFillRemaining(
             hasScrollBody: false,
             child: Center(
@@ -169,15 +171,20 @@ class _ProfileView extends ConsumerWidget {
             sliver: SliverList(
               delegate: SliverChildBuilderDelegate(
                 (ctx, i) {
-                  final openingId = practicedOpenings[i];
-                  final openingSessions = byOpening[openingId]!;
+                  final key = variantKeys[i];
+                  final variantSessions = byVariantKey[key]!;
+                  final parts = key.split('\x00');
+                  final openingId = parts[0];
+                  final variation = parts[1].isEmpty ? null : parts[1];
                   return _OpeningProgressCard(
                     openingId: openingId,
-                    openingName: openingSessions.first.openingName,
-                    sessions: openingSessions,
+                    openingName: variantSessions.first.openingName,
+                    variation: variation,
+                    sessions: variantSessions,
+                    allSessions: sessions,
                   );
                 },
-                childCount: practicedOpenings.length,
+                childCount: variantKeys.length,
               ),
             ),
           ),
@@ -186,7 +193,7 @@ class _ProfileView extends ConsumerWidget {
   }
 }
 
-// ── Profile header ──────────────────────────────────────────────────────────────────────
+// ── Profile header ─────────────────────────────────────────────────────────────────────────────────────
 
 class _ProfileHeader extends ConsumerWidget {
   final UserProfile profile;
@@ -376,136 +383,73 @@ class _ProfileHeader extends ConsumerWidget {
   }
 }
 
-// ── Opening progress card ───────────────────────────────────────────────────────────────────────────────────
+// ── Opening progress card ─────────────────────────────────────────────────────────────────────────────────────────────────────
 
-class _OpeningProgressCard extends StatefulWidget {
+class _OpeningProgressCard extends StatelessWidget {
   final String openingId;
   final String openingName;
+  final String? variation;
   final List<TrainingSession> sessions;
+  final List<TrainingSession> allSessions;
 
   const _OpeningProgressCard({
     required this.openingId,
     required this.openingName,
+    required this.variation,
     required this.sessions,
+    required this.allSessions,
   });
 
   @override
-  State<_OpeningProgressCard> createState() =>
-      _OpeningProgressCardState();
-}
-
-class _OpeningProgressCardState extends State<_OpeningProgressCard> {
-  bool _expanded = false;
-
-  @override
   Widget build(BuildContext context) {
-    final stars = computeStars(widget.sessions, widget.openingId);
-    final completions =
-        widget.sessions.where((s) => s.completed).length;
-    final lastSession = widget.sessions
+    final stars = computeVariationStars(allSessions, openingId, variation);
+    final completions = sessions.where((s) => s.completed).length;
+    final lastSession = sessions
         .map((s) => s.startedAt)
         .reduce((a, b) => a.isAfter(b) ? a : b);
-    final daysSince =
-        DateTime.now().difference(lastSession).inDays;
+    final daysSince = DateTime.now().difference(lastSession).inDays;
     final lastLabel = daysSince == 0
         ? 'Today'
         : daysSince == 1
             ? 'Yesterday'
             : '$daysSince days ago';
 
-    final Map<String?, List<TrainingSession>> byVariation = {};
-    for (final s in widget.sessions) {
-      byVariation.putIfAbsent(s.variation, () => []).add(s);
-    }
-
     return Card(
       margin: const EdgeInsets.only(bottom: 10),
-      child: Column(
-        children: [
-          InkWell(
-            borderRadius: BorderRadius.circular(12),
-            onTap: byVariation.length > 1
-                ? () => setState(() => _expanded = !_expanded)
-                : null,
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Row(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Row(
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(widget.openingName,
-                            style: const TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w600)),
-                        const SizedBox(height: 4),
-                        Row(
-                          children: [
-                            StarRating(stars: stars),
-                            const SizedBox(width: 10),
-                            Text(
-                              '$completions completion${completions == 1 ? "" : "s"} · $lastLabel',
-                              style: TextStyle(
-                                  fontSize: 11,
-                                  color: Colors.grey.shade600),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                  Text(openingName,
+                      style: const TextStyle(
+                          fontSize: 15, fontWeight: FontWeight.w600)),
+                  if (variation != null) ...[
+                    const SizedBox(height: 2),
+                    Text(variation!,
+                        style: TextStyle(
+                            fontSize: 12, color: Colors.grey.shade500)),
+                  ],
+                  const SizedBox(height: 6),
+                  Row(
+                    children: [
+                      StarRating(stars: stars),
+                      const SizedBox(width: 10),
+                      Text(
+                        '$completions completion${completions == 1 ? "" : "s"} · $lastLabel',
+                        style: TextStyle(
+                            fontSize: 11, color: Colors.grey.shade600),
+                      ),
+                    ],
                   ),
-                  if (byVariation.length > 1)
-                    Icon(
-                      _expanded
-                          ? Icons.expand_less
-                          : Icons.expand_more,
-                      color: Colors.grey.shade500,
-                    ),
                 ],
               ),
             ),
-          ),
-          if (_expanded && byVariation.length > 1) ...[
-            const Divider(height: 1),
-            ...byVariation.entries.map((e) {
-              final vStars = computeVariationStars(
-                  widget.sessions, widget.openingId, e.key);
-              final vCompletions =
-                  e.value.where((s) => s.completed).length;
-              return Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 16, vertical: 10),
-                child: Row(
-                  children: [
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            e.key ?? 'Main line',
-                            style: const TextStyle(
-                                fontSize: 13,
-                                fontWeight: FontWeight.w500),
-                          ),
-                          Text(
-                            '$vCompletions completion${vCompletions == 1 ? "" : "s"}',
-                            style: TextStyle(
-                                fontSize: 11,
-                                color: Colors.grey.shade500),
-                          ),
-                        ],
-                      ),
-                    ),
-                    StarRating(stars: vStars, size: 13),
-                  ],
-                ),
-              );
-            }),
-            const SizedBox(height: 4),
           ],
-        ],
+        ),
       ),
     );
   }
