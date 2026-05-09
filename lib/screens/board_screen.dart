@@ -11,7 +11,6 @@ import '../services/chess_service.dart';
 import '../services/explanation_service.dart';
 import '../services/stockfish_service.dart';
 import '../widgets/board/chess_board_widget.dart';
-import '../widgets/banner_overlay.dart';
 import '../widgets/eval_bar.dart';
 
 const _kDesktop = 700.0;
@@ -22,6 +21,7 @@ const _kMaxPanel = 460.0;
 
 final _panelOpenProvider = StateProvider<bool>((ref) => false);
 final _boardFlippedProvider = StateProvider<bool>((ref) => false);
+final _trainingModeProvider = StateProvider<bool>((ref) => false);
 
 // ── Entry point ───────────────────────────────────────────────────────────────
 
@@ -33,6 +33,96 @@ class BoardScreen extends ConsumerWidget {
     ref.watch(engineProvider.select((s) => s.isReady));
     final isDesktop = MediaQuery.of(context).size.width >= _kDesktop;
     return isDesktop ? const _DesktopLayout() : const _MobileLayout();
+  }
+}
+
+// ── AppBar title with inline status chip ─────────────────────────────────────
+
+class _AppBarTitle extends StatelessWidget {
+  final String name;
+  final String? variation;
+  final OpeningStatus status;
+
+  const _AppBarTitle({
+    required this.name,
+    required this.variation,
+    required this.status,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final chip = switch (status) {
+      OpeningStatus.offBook => _StatusChip(
+          label: 'Off book',
+          color: Colors.orange.shade700,
+          bg: Colors.orange.shade100,
+        ),
+      OpeningStatus.complete => _StatusChip(
+          label: 'Complete',
+          color: Colors.green.shade700,
+          bg: Colors.green.shade100,
+        ),
+      OpeningStatus.inBook => null,
+    };
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Flexible(
+              child: Text(
+                name,
+                style: const TextStyle(
+                    fontSize: 16, fontWeight: FontWeight.w600),
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+            if (chip != null) ...[const SizedBox(width: 8), chip],
+          ],
+        ),
+        if (variation != null)
+          Text(
+            variation!,
+            style: TextStyle(
+              fontSize: 11,
+              color: Theme.of(context)
+                  .colorScheme
+                  .onSurface
+                  .withValues(alpha: 0.55),
+              fontWeight: FontWeight.normal,
+            ),
+          ),
+      ],
+    );
+  }
+}
+
+class _StatusChip extends StatelessWidget {
+  final String label;
+  final Color color;
+  final Color bg;
+  const _StatusChip({required this.label, required this.color, required this.bg});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 2),
+      decoration: BoxDecoration(
+        color: bg,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Text(
+        label,
+        style: TextStyle(
+          fontSize: 11,
+          fontWeight: FontWeight.w600,
+          color: color,
+        ),
+      ),
+    );
   }
 }
 
@@ -67,11 +157,14 @@ class _BoardArea extends ConsumerWidget {
     final status = ref.watch(boardProvider.select((s) => s.status));
     final fen = ref.watch(boardProvider.select((s) => s.fen));
     final flipped = ref.watch(_boardFlippedProvider);
+    final training = ref.watch(_trainingModeProvider);
 
-    final extraArrows =
-        (status == OpeningStatus.offBook || status == OpeningStatus.complete)
-            ? _engineArrows(engine.topMovesUci, fen)
-            : <Arrow>[];
+    // In training mode: no arrows at all — player must find the best move
+    final extraArrows = (!training &&
+            (status == OpeningStatus.offBook ||
+                status == OpeningStatus.complete))
+        ? _engineArrows(engine.topMovesUci, fen)
+        : <Arrow>[];
 
     return LayoutBuilder(builder: (context, constraints) {
       final boardSize = min(
@@ -93,6 +186,7 @@ class _BoardArea extends ConsumerWidget {
             ChessBoardWidget(
               boardSize: boardSize,
               extraArrows: extraArrows,
+              hideBookArrows: training,
               flipped: flipped,
             ),
           ],
@@ -113,12 +207,15 @@ class _AnalysisPanel extends ConsumerWidget {
     final engine = ref.watch(engineProvider);
     final opening = ref.watch(selectedOpeningProvider);
     final moveList = ref.watch(moveListProvider);
+    final training = ref.watch(_trainingModeProvider);
 
     return DefaultTabController(
       length: 2,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          // ── Mode toggle ─────────────────────────────────────────────
+          _ModeToggle(training: training),
           TabBar(
             tabs: const [Tab(text: 'Analysis'), Tab(text: 'Moves')],
             indicatorColor: Theme.of(context).colorScheme.primary,
@@ -134,16 +231,23 @@ class _AnalysisPanel extends ConsumerWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _AnalysisContent(boardState: boardState, engine: engine),
-                      if (engine.isReady &&
-                          (boardState.status == OpeningStatus.offBook ||
-                              boardState.status == OpeningStatus.complete)) ...[
-                        const SizedBox(height: 16),
-                        _EngineLines(
-                          topMovesUci: engine.topMovesUci,
-                          fen: boardState.fen,
-                          eval: engine.eval,
+                      if (training) ...[
+                        _TrainingFeedback(
+                          boardState: boardState,
+                          engine: engine,
                         ),
+                      ] else ...[
+                        _AnalysisContent(boardState: boardState, engine: engine),
+                        if (engine.isReady &&
+                            (boardState.status == OpeningStatus.offBook ||
+                                boardState.status == OpeningStatus.complete)) ...[
+                          const SizedBox(height: 16),
+                          _EngineLines(
+                            topMovesUci: engine.topMovesUci,
+                            fen: boardState.fen,
+                            eval: engine.eval,
+                          ),
+                        ],
                       ],
                     ],
                   ),
@@ -178,6 +282,230 @@ class _AnalysisPanel extends ConsumerWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+// ── Mode toggle ───────────────────────────────────────────────────────────────
+
+class _ModeToggle extends ConsumerWidget {
+  final bool training;
+  const _ModeToggle({required this.training});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(12, 10, 12, 4),
+      child: Row(
+        children: [
+          Expanded(
+            child: _ModeChip(
+              label: 'Learning',
+              icon: Icons.visibility,
+              active: !training,
+              onTap: () => ref.read(_trainingModeProvider.notifier).state = false,
+            ),
+          ),
+          const SizedBox(width: 8),
+          Expanded(
+            child: _ModeChip(
+              label: 'Training',
+              icon: Icons.visibility_off,
+              active: training,
+              onTap: () => ref.read(_trainingModeProvider.notifier).state = true,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ModeChip extends StatelessWidget {
+  final String label;
+  final IconData icon;
+  final bool active;
+  final VoidCallback onTap;
+  const _ModeChip({
+    required this.label,
+    required this.icon,
+    required this.active,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final primary = Theme.of(context).colorScheme.primary;
+    return GestureDetector(
+      onTap: onTap,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 180),
+        padding: const EdgeInsets.symmetric(vertical: 7),
+        decoration: BoxDecoration(
+          color: active ? primary.withValues(alpha: 0.12) : Colors.transparent,
+          border: Border.all(
+            color: active ? primary : Colors.grey.shade300,
+            width: active ? 1.5 : 1,
+          ),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icon, size: 14, color: active ? primary : Colors.grey.shade500),
+            const SizedBox(width: 5),
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: active ? FontWeight.w700 : FontWeight.w500,
+                color: active ? primary : Colors.grey.shade600,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// ── Training feedback ─────────────────────────────────────────────────────────
+
+class _TrainingFeedback extends StatelessWidget {
+  final BoardState boardState;
+  final EngineState engine;
+  const _TrainingFeedback({required this.boardState, required this.engine});
+
+  @override
+  Widget build(BuildContext context) {
+    final eval = boardState.lastMoveEval;
+
+    if (eval == null) {
+      // No move played yet — prompt the player
+      final turn = ChessService.isWhiteTurn(boardState.fen) ? 'White' : 'Black';
+      return _prompt(context, 'Find the best move for $turn');
+    }
+
+    return switch (eval.quality) {
+      MoveQuality.correct => _correctCard(context, eval.playedSan),
+      MoveQuality.alternative => _alternativeCard(context, eval),
+      MoveQuality.offBook => _offBookCard(context, eval),
+    };
+  }
+
+  Widget _prompt(BuildContext context, String text) {
+    return Row(
+      children: [
+        Icon(Icons.help_outline, size: 18, color: Colors.grey.shade400),
+        const SizedBox(width: 10),
+        Expanded(
+          child: Text(
+            text,
+            style: TextStyle(
+              color: Colors.grey.shade600,
+              fontSize: 13,
+              fontStyle: FontStyle.italic,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _correctCard(BuildContext context, String san) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Icon(Icons.check_circle, size: 18, color: Colors.green.shade600),
+            const SizedBox(width: 8),
+            Text(
+              '$san — main line!',
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 14,
+                color: Colors.green.shade700,
+                fontFamily: 'monospace',
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 6),
+        Text(
+          'Exactly right. Keep going — what\'s next?',
+          style: TextStyle(fontSize: 13, color: Colors.grey.shade700),
+        ),
+      ],
+    );
+  }
+
+  Widget _alternativeCard(BuildContext context, MoveEval eval) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Icon(Icons.check_circle_outline, size: 18, color: Colors.amber.shade700),
+            const SizedBox(width: 8),
+            Text(
+              '${eval.playedSan} — good alternative',
+              style: TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 14,
+                color: Colors.amber.shade800,
+                fontFamily: 'monospace',
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 6),
+        Text(
+          'Valid move, but the main line is ${eval.bestSan}. '
+          'Try to find the top choice next time!',
+          style: TextStyle(fontSize: 13, color: Colors.grey.shade700),
+        ),
+      ],
+    );
+  }
+
+  Widget _offBookCard(BuildContext context, MoveEval eval) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Icon(Icons.cancel_outlined, size: 18, color: Colors.red.shade600),
+            const SizedBox(width: 8),
+            Expanded(
+              child: Text(
+                eval.bestSan != null
+                    ? '${eval.playedSan} — not the book move'
+                    : '${eval.playedSan} — off book territory',
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 14,
+                  color: Colors.red.shade700,
+                  fontFamily: 'monospace',
+                ),
+              ),
+            ),
+          ],
+        ),
+        if (eval.bestSan != null) ...[
+          const SizedBox(height: 6),
+          Text(
+            'The main line was ${eval.bestSan}. '
+            'Switch to Learning mode to see the arrows and study the position.',
+            style: TextStyle(fontSize: 13, color: Colors.grey.shade700),
+          ),
+        ],
+        // Also show engine analysis so the player understands how bad/good it was
+        if (engine.isReady) ...[
+          const SizedBox(height: 16),
+          _OffBookContent(engine: engine, fen: boardState.fen),
+        ],
+      ],
     );
   }
 }
@@ -501,6 +829,7 @@ class _DesktopLayout extends ConsumerWidget {
     final opening = ref.watch(selectedOpeningProvider);
     final panelOpen = ref.watch(_panelOpenProvider);
     final flipped = ref.watch(_boardFlippedProvider);
+    final training = ref.watch(_trainingModeProvider);
     final canUndo =
         ref.watch(boardProvider.select((s) => s.moveHistory.isNotEmpty));
 
@@ -510,23 +839,10 @@ class _DesktopLayout extends ConsumerWidget {
           icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(opening?.name ?? 'Opening Trainer',
-                style: const TextStyle(
-                    fontSize: 16, fontWeight: FontWeight.w600)),
-            if (boardState.variation != null)
-              Text(boardState.variation!,
-                  style: TextStyle(
-                      fontSize: 12,
-                      color: Theme.of(context)
-                          .colorScheme
-                          .onSurface
-                          .withValues(alpha: 0.6),
-                      fontWeight: FontWeight.normal)),
-          ],
+        title: _AppBarTitle(
+          name: opening?.name ?? 'Opening Trainer',
+          variation: boardState.variation,
+          status: boardState.status,
         ),
         centerTitle: false,
         actions: [
@@ -553,6 +869,15 @@ class _DesktopLayout extends ConsumerWidget {
           ),
           IconButton(
             icon: Icon(
+              training ? Icons.visibility_off : Icons.visibility,
+              color: training ? Theme.of(context).colorScheme.primary : null,
+            ),
+            tooltip: training ? 'Switch to Learning' : 'Switch to Training',
+            onPressed: () =>
+                ref.read(_trainingModeProvider.notifier).state = !training,
+          ),
+          IconButton(
+            icon: Icon(
               panelOpen ? Icons.analytics : Icons.analytics_outlined,
               color: panelOpen
                   ? Theme.of(context).colorScheme.primary
@@ -565,26 +890,17 @@ class _DesktopLayout extends ConsumerWidget {
           const SizedBox(width: 8),
         ],
       ),
-      body: Column(
+      body: Row(
         children: [
-          BannerOverlay(
-              status: boardState.status,
-              openingName: opening?.name ?? ''),
-          Expanded(
-            child: Row(
-              children: [
-                const Expanded(child: _BoardArea()),
-                if (panelOpen)
-                  Container(
-                    width: _kSidePanel,
-                    decoration: BoxDecoration(
-                        border: Border(
-                            left: BorderSide(color: Colors.grey.shade300))),
-                    child: const _AnalysisPanel(),
-                  ),
-              ],
+          const Expanded(child: _BoardArea()),
+          if (panelOpen)
+            Container(
+              width: _kSidePanel,
+              decoration: BoxDecoration(
+                  border: Border(
+                      left: BorderSide(color: Colors.grey.shade300))),
+              child: const _AnalysisPanel(),
             ),
-          ),
         ],
       ),
     );
@@ -625,6 +941,7 @@ class _MobileLayoutState extends ConsumerState<_MobileLayout> {
     final boardState = ref.watch(boardProvider);
     final opening = ref.watch(selectedOpeningProvider);
     final flipped = ref.watch(_boardFlippedProvider);
+    final training = ref.watch(_trainingModeProvider);
     final canUndo =
         ref.watch(boardProvider.select((s) => s.moveHistory.isNotEmpty));
 
@@ -634,31 +951,15 @@ class _MobileLayoutState extends ConsumerState<_MobileLayout> {
           icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(opening?.name ?? 'Opening Trainer',
-                style: const TextStyle(
-                    fontSize: 16, fontWeight: FontWeight.w600)),
-            if (boardState.variation != null)
-              Text(boardState.variation!,
-                  style: TextStyle(
-                      fontSize: 12,
-                      color: Theme.of(context)
-                          .colorScheme
-                          .onSurface
-                          .withValues(alpha: 0.6),
-                      fontWeight: FontWeight.normal)),
-          ],
+        title: _AppBarTitle(
+          name: opening?.name ?? 'Opening Trainer',
+          variation: boardState.variation,
+          status: boardState.status,
         ),
         centerTitle: false,
       ),
       body: Column(
         children: [
-          BannerOverlay(
-              status: boardState.status,
-              openingName: opening?.name ?? ''),
           // Board fills all space not taken by the panel
           const Expanded(child: _BoardArea()),
           // Inline panel — pushes board up, never overlaps it
@@ -741,6 +1042,17 @@ class _MobileLayoutState extends ConsumerState<_MobileLayout> {
                 tooltip: 'Flip board',
                 onPressed: () =>
                     ref.read(_boardFlippedProvider.notifier).state = !flipped,
+              ),
+              IconButton(
+                icon: Icon(
+                  training ? Icons.visibility_off : Icons.visibility,
+                  color: training
+                      ? Theme.of(context).colorScheme.primary
+                      : null,
+                ),
+                tooltip: training ? 'Switch to Learning' : 'Switch to Training',
+                onPressed: () =>
+                    ref.read(_trainingModeProvider.notifier).state = !training,
               ),
               IconButton(
                 icon: Icon(
