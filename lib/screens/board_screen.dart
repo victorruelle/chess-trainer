@@ -107,24 +107,38 @@ class _BoardScreenState extends ConsumerState<BoardScreen> {
   }
 
   @override
+  void dispose() {
+    _saveSession(completed: false); // save any in-progress session on navigate-away
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    // Track moves in training mode
+    // Track moves in both modes (learning: only in-book moves count)
     ref.listen(boardProvider.select((s) => s.lastMoveEval), (_, eval) {
-      if (!ref.read(trainingModeProvider)) return;
       if (eval == null) return;
-      setState(() {
-        _totalMoves++;
-        if (eval.quality == MoveQuality.correct ||
-            eval.quality == MoveQuality.alternative) {
+      final isTraining = ref.read(trainingModeProvider);
+      if (isTraining) {
+        setState(() {
+          _totalMoves++;
+          if (eval.quality == MoveQuality.correct ||
+              eval.quality == MoveQuality.alternative) {
+            _correctMoves++;
+          }
+          _sessionVariation ??= ref.read(boardProvider).variation;
+        });
+      } else if (eval.quality == MoveQuality.correct ||
+          eval.quality == MoveQuality.alternative) {
+        setState(() {
+          _totalMoves++;
           _correctMoves++;
-        }
-        _sessionVariation ??= ref.read(boardProvider).variation;
-      });
+          _sessionVariation ??= ref.read(boardProvider).variation;
+        });
+      }
     });
 
-    // Auto-save + summary when opening completes in training mode
+    // Auto-save + summary when opening completes in either mode
     ref.listen(boardProvider.select((s) => s.status), (prev, status) async {
-      if (!ref.read(trainingModeProvider)) return;
       if (status == OpeningStatus.complete &&
           prev != OpeningStatus.complete) {
         final opening = ref.read(selectedOpeningProvider);
@@ -141,19 +155,19 @@ class _BoardScreenState extends ConsumerState<BoardScreen> {
     // Detect board reset (history goes back to 0)
     ref.listen(boardProvider.select((s) => s.moveHistory.length),
         (prev, len) {
-      if (!ref.read(trainingModeProvider)) return;
-      if (prev != null && prev > 0 && len == 0) _resetSession();
+      if (prev != null && prev > 0 && len == 0) {
+        if (!ref.read(trainingModeProvider)) _saveSession(completed: false);
+        _resetSession();
+      }
     });
 
-    // Save partial session when training mode is switched off
+    // Save partial session whenever mode switches
     ref.listen(trainingModeProvider, (prev, isTraining) {
-      if (prev == true && !isTraining) {
-        _saveSession(completed: false);
-        setState(() {
-          _correctMoves = 0;
-          _totalMoves = 0;
-        });
-      }
+      if (prev == null || prev == isTraining) return;
+      _saveSession(completed: false);
+      _sessionStart = DateTime.now();
+      _sessionSaved = false;
+      setState(() { _correctMoves = 0; _totalMoves = 0; });
     });
 
     final isDesktop = MediaQuery.of(context).size.width >= _kDesktop;
@@ -1154,6 +1168,16 @@ class _DesktopLayout extends ConsumerWidget {
         const SingleActivator(LogicalKeyboardKey.arrowLeft): () {
           if (canUndo) ref.read(boardProvider.notifier).undo();
         },
+        const SingleActivator(LogicalKeyboardKey.keyS): () =>
+            ref.read(trainingModeProvider.notifier).state = !training,
+        const SingleActivator(LogicalKeyboardKey.keyR): () =>
+            ref.read(boardProvider.notifier).reset(),
+        const SingleActivator(LogicalKeyboardKey.keyF): () =>
+            ref.read(boardFlippedProvider.notifier).state = !flipped,
+        const SingleActivator(LogicalKeyboardKey.keyP): () =>
+            ref.read(analysisPanelOpenProvider.notifier).state = !panelOpen,
+        const SingleActivator(LogicalKeyboardKey.escape): () =>
+            Navigator.of(context).pop(),
       },
       child: Focus(
         autofocus: true,
