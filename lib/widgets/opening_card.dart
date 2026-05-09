@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/opening.dart';
+import '../providers/progress_provider.dart';
+import '../screens/board_screen.dart' show StarRating;
 
-class OpeningCard extends StatelessWidget {
+class OpeningCard extends ConsumerWidget {
   final Opening opening;
   final VoidCallback onTap;
 
   const OpeningCard({super.key, required this.opening, required this.onTap});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final stars = ref.watch(starsForOpeningProvider(opening.id));
     final isWhite = opening.color == 'white';
+
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
       child: InkWell(
@@ -25,7 +30,8 @@ class OpeningCard extends StatelessWidget {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: isWhite ? Colors.white : Colors.black87,
-                  border: Border.all(color: Colors.grey.shade400, width: 1.5),
+                  border:
+                      Border.all(color: Colors.grey.shade400, width: 1.5),
                 ),
                 child: Icon(
                   Icons.sports_esports_outlined,
@@ -41,17 +47,21 @@ class OpeningCard extends StatelessWidget {
                     Text(
                       opening.name,
                       style: const TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600,
-                      ),
+                          fontSize: 15, fontWeight: FontWeight.w600),
                     ),
                     const SizedBox(height: 2),
-                    Text(
-                      'ECO ${opening.eco} · ${isWhite ? 'White' : 'Black'}',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey.shade600,
-                      ),
+                    Row(
+                      children: [
+                        Text(
+                          'ECO \${opening.eco} · \${isWhite ? 'White' : 'Black'}',
+                          style: TextStyle(
+                              fontSize: 12, color: Colors.grey.shade600),
+                        ),
+                        if (stars > 0) ...[
+                          const SizedBox(width: 8),
+                          StarRating(stars: stars, size: 12),
+                        ],
+                      ],
                     ),
                   ],
                 ),
