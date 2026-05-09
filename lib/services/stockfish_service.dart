@@ -1,9 +1,8 @@
 import 'dart:async';
-import 'package:flutter/foundation.dart';
 
 // dart.library.html is only defined on web — on native, stockfish_native.dart
 // is chosen, which re-exports the real Stockfish (using dart:ffi).
-// On web, stockfish_stub.dart is chosen, which is a pure-Dart no-op.
+// On web, stockfish_stub.dart is chosen, which runs Stockfish.js in a Web Worker.
 import 'stockfish_native.dart' if (dart.library.html) 'stockfish_stub.dart';
 
 class EngineEval {
@@ -42,7 +41,6 @@ class StockfishService {
 
   Future<void> init() async {
     if (_ready) return;
-    if (kIsWeb) return; // stub on web — engine unavailable
     try {
       _engine = Stockfish();
       await _engine!.stdout
