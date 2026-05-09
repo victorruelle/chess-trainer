@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Dark rounded background -->
+  <rect width="32" height="32" rx="7" fill="#0f172a"/>
+  <!-- Crown spike orbs -->
+  <circle cx="7"  cy="15" r="2.5" fill="#e2e8f0"/>
+  <circle cx="16" cy="10" r="2.5" fill="#e2e8f0"/>
+  <circle cx="25" cy="15" r="2.5" fill="#e2e8f0"/>
+  <!-- Crown body (zigzag polygon connecting spikes and base) -->
+  <path d="M7,15 L7,23 L25,23 L25,15 L20,18 L16,10 L12,18 Z" fill="#e2e8f0"/>
+  <!-- Crown base band -->
+  <rect x="6" y="23" width="20" height="4" rx="1.5" fill="#e2e8f0"/>
+</svg>
