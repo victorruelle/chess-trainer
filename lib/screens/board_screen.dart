@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show LogicalKeyboardKey;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/arrow.dart';
 import '../models/board_state.dart';
@@ -138,7 +139,6 @@ List<Arrow> _engineArrows(List<String> uciMoves, String fen) {
     if (uci.length < 4) continue;
     final from = uci.substring(0, 2);
     final to = uci.substring(2, 4);
-    // Skip if this move is not legal in the current position (stale from prev pos)
     if (!ChessService.isLegalMove(fen, from, to)) continue;
     final san = ChessService.uciToSan(fen, uci) ?? uci;
     arrows.add(Arrow(fromSquare: from, toSquare: to, rank: ranks[i], san: san));
@@ -159,7 +159,6 @@ class _BoardArea extends ConsumerWidget {
     final flipped = ref.watch(_boardFlippedProvider);
     final training = ref.watch(_trainingModeProvider);
 
-    // In training mode: no arrows at all — player must find the best move
     final extraArrows = (!training &&
             (status == OpeningStatus.offBook ||
                 status == OpeningStatus.complete))
@@ -214,7 +213,6 @@ class _AnalysisPanel extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // ── Mode toggle ─────────────────────────────────────────────
           _ModeToggle(training: training),
           TabBar(
             tabs: const [Tab(text: 'Analysis'), Tab(text: 'Moves')],
@@ -225,7 +223,6 @@ class _AnalysisPanel extends ConsumerWidget {
           Expanded(
             child: TabBarView(
               children: [
-                // ── Analysis tab ────────────────────────────────────────
                 SingleChildScrollView(
                   padding: const EdgeInsets.all(16),
                   child: Column(
@@ -252,7 +249,6 @@ class _AnalysisPanel extends ConsumerWidget {
                     ],
                   ),
                 ),
-                // ── Moves tab ───────────────────────────────────────────
                 SingleChildScrollView(
                   padding: const EdgeInsets.fromLTRB(16, 16, 16, 32),
                   child: Column(
@@ -381,7 +377,6 @@ class _TrainingFeedback extends StatelessWidget {
     final eval = boardState.lastMoveEval;
 
     if (eval == null) {
-      // No move played yet — prompt the player
       final turn = ChessService.isWhiteTurn(boardState.fen) ? 'White' : 'Black';
       return _prompt(context, 'Find the best move for $turn');
     }
@@ -500,7 +495,6 @@ class _TrainingFeedback extends StatelessWidget {
             style: TextStyle(fontSize: 13, color: Colors.grey.shade700),
           ),
         ],
-        // Also show engine analysis so the player understands how bad/good it was
         if (engine.isReady) ...[
           const SizedBox(height: 16),
           _OffBookContent(engine: engine, fen: boardState.fen),
@@ -833,7 +827,15 @@ class _DesktopLayout extends ConsumerWidget {
     final canUndo =
         ref.watch(boardProvider.select((s) => s.moveHistory.isNotEmpty));
 
-    return Scaffold(
+    return CallbackShortcuts(
+      bindings: {
+        const SingleActivator(LogicalKeyboardKey.arrowLeft): () {
+          if (canUndo) ref.read(boardProvider.notifier).undo();
+        },
+      },
+      child: Focus(
+        autofocus: true,
+        child: Scaffold(
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
@@ -903,6 +905,8 @@ class _DesktopLayout extends ConsumerWidget {
             ),
         ],
       ),
+        ),
+      ),
     );
   }
 }
@@ -930,7 +934,6 @@ class _MobileLayoutState extends ConsumerState<_MobileLayout> {
   }
 
   void _onDragEnd(DragEndDetails d) {
-    // Snap closed if dragged down past minimum
     if (_panelHeight <= _kMinPanel + 20 && d.primaryVelocity != null && d.primaryVelocity! > 200) {
       setState(() => _panelOpen = false);
     }
@@ -960,9 +963,7 @@ class _MobileLayoutState extends ConsumerState<_MobileLayout> {
       ),
       body: Column(
         children: [
-          // Board fills all space not taken by the panel
           const Expanded(child: _BoardArea()),
-          // Inline panel — pushes board up, never overlaps it
           AnimatedSize(
             duration: const Duration(milliseconds: 220),
             curve: Curves.easeOut,
@@ -986,7 +987,6 @@ class _MobileLayoutState extends ConsumerState<_MobileLayout> {
                       ),
                       child: Column(
                         children: [
-                          // Drag handle
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8),
                             child: Center(
