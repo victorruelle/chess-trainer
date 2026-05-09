@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/opening_provider.dart';
 import '../providers/board_provider.dart';
-import '../providers/profile_provider.dart';
 import '../widgets/color_selector.dart';
 import '../widgets/opening_card.dart';
 import 'board_screen.dart';
@@ -13,8 +12,6 @@ class OpeningSelectionScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    _ensureProfileLoaded(ref);
-
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -37,20 +34,9 @@ class OpeningSelectionScreen extends ConsumerWidget {
       ),
     );
   }
-
-  void _ensureProfileLoaded(WidgetRef ref) {
-    final active = ref.read(activeProfileProvider);
-    if (active != null) return;
-    final profilesAsync = ref.read(profilesProvider);
-    profilesAsync.whenData((profiles) {
-      if (profiles.isNotEmpty && ref.read(activeProfileProvider) == null) {
-        ref.read(activeProfileProvider.notifier).state = profiles.first;
-      }
-    });
-  }
 }
 
-// ── Openings tab ───────────────────────────────────────────────────────────────
+// ── Openings tab ─────────────────────────────────────────────────────────────────────────────────
 
 class _OpeningsTab extends ConsumerWidget {
   const _OpeningsTab();

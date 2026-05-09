@@ -12,6 +12,20 @@ class UserProfile {
     required this.createdAt,
   });
 
+  static final victor = UserProfile(
+    id: 'victor',
+    name: 'Victor',
+    createdAt: DateTime(2024),
+  );
+
+  static final alexi = UserProfile(
+    id: 'alexi',
+    name: 'Alexi',
+    createdAt: DateTime(2024),
+  );
+
+  static List<UserProfile> get all => [victor, alexi];
+
   Map<String, dynamic> toMap() => {
         'id': id,
         'name': name,

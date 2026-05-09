@@ -10,9 +10,9 @@ final sessionsProvider =
 class _SessionsNotifier extends AsyncNotifier<List<TrainingSession>> {
   @override
   Future<List<TrainingSession>> build() async {
-    final profile = ref.watch(activeProfileProvider);
+    final profile = ref.watch(activeProfileProvider).valueOrNull;
     if (profile == null) return [];
-    return ProgressRepository.instance.getSessionsForProfile(profile.id);
+    return ProgressRepository.instance.getSessions(profile.id);
   }
 
   Future<void> save(TrainingSession session) async {

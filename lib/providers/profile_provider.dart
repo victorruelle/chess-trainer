@@ -2,35 +2,29 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/user_profile.dart';
 import '../repositories/progress_repository.dart';
 
-final profilesProvider =
-    AsyncNotifierProvider<_ProfilesNotifier, List<UserProfile>>(
-        _ProfilesNotifier.new);
+final activeProfileProvider =
+    AsyncNotifierProvider<_ActiveProfileNotifier, UserProfile?>(
+        _ActiveProfileNotifier.new);
 
-class _ProfilesNotifier extends AsyncNotifier<List<UserProfile>> {
+class _ActiveProfileNotifier extends AsyncNotifier<UserProfile?> {
   @override
-  Future<List<UserProfile>> build() =>
-      ProgressRepository.instance.getProfiles();
-
-  Future<UserProfile> createProfile(String name) async {
-    final p = UserProfile(
-      id: DateTime.now().millisecondsSinceEpoch.toString(),
-      name: name,
-      createdAt: DateTime.now(),
-    );
-    await ProgressRepository.instance.saveProfile(p);
-    ref.invalidateSelf();
-    await future;
-    return p;
+  Future<UserProfile?> build() async {
+    final id = await ProgressRepository.instance.getActiveProfileId();
+    if (id == null) return null;
+    try {
+      return UserProfile.all.firstWhere((p) => p.id == id);
+    } catch (_) {
+      return null;
+    }
   }
 
-  Future<void> deleteProfile(String id) async {
-    await ProgressRepository.instance.deleteProfile(id);
-    final active = ref.read(activeProfileProvider);
-    if (active?.id == id) {
-      ref.read(activeProfileProvider.notifier).state = null;
-    }
-    ref.invalidateSelf();
+  Future<void> select(UserProfile profile) async {
+    await ProgressRepository.instance.setActiveProfileId(profile.id);
+    state = AsyncData(profile);
+  }
+
+  Future<void> clear() async {
+    await ProgressRepository.instance.setActiveProfileId(null);
+    state = const AsyncData(null);
   }
 }
-
-final activeProfileProvider = StateProvider<UserProfile?>((ref) => null);

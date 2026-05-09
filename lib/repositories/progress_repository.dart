@@ -1,7 +1,6 @@
+import 'dart:convert';
 import 'dart:math';
-import 'package:path/path.dart';
-import 'package:sqflite/sqflite.dart';
-import '../models/user_profile.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../models/training_session.dart';
 
 class ProgressRepository {
@@ -10,90 +9,53 @@ class ProgressRepository {
       _instance ??= ProgressRepository._();
   ProgressRepository._();
 
-  Database? _db;
+  static const _activeKey = 'active_profile_id';
+  static const _sessionsPrefix = 'sessions_';
 
-  Future<Database> get _database async {
-    if (_db != null) return _db!;
-    final dbPath = await getDatabasesPath();
-    _db = await openDatabase(
-      join(dbPath, 'chess_trainer.db'),
-      version: 1,
-      onCreate: (db, _) async {
-        await db.execute('''
-          CREATE TABLE profiles (
-            id TEXT PRIMARY KEY,
-            name TEXT NOT NULL,
-            createdAt INTEGER NOT NULL
-          )
-        ''');
-        await db.execute('''
-          CREATE TABLE training_sessions (
-            id TEXT PRIMARY KEY,
-            profileId TEXT NOT NULL,
-            openingId TEXT NOT NULL,
-            openingName TEXT NOT NULL,
-            variation TEXT,
-            correctMoves INTEGER NOT NULL,
-            totalMoves INTEGER NOT NULL,
-            completed INTEGER NOT NULL,
-            startedAt INTEGER NOT NULL
-          )
-        ''');
-      },
+  Future<String?> getActiveProfileId() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString(_activeKey);
+  }
+
+  Future<void> setActiveProfileId(String? id) async {
+    final prefs = await SharedPreferences.getInstance();
+    if (id == null) {
+      await prefs.remove(_activeKey);
+    } else {
+      await prefs.setString(_activeKey, id);
+    }
+  }
+
+  Future<List<TrainingSession>> getSessions(String profileId) async {
+    final prefs = await SharedPreferences.getInstance();
+    final raw = prefs.getString('$_sessionsPrefix$profileId');
+    if (raw == null) return [];
+    final list = jsonDecode(raw) as List<dynamic>;
+    return list
+        .map((m) =>
+            TrainingSession.fromMap(Map<String, dynamic>.from(m as Map)))
+        .toList();
+  }
+
+  Future<void> saveSession(TrainingSession session) async {
+    final prefs = await SharedPreferences.getInstance();
+    final sessions = await getSessions(session.profileId);
+    sessions.removeWhere((s) => s.id == session.id);
+    sessions.add(session);
+    await prefs.setString(
+      '$_sessionsPrefix${session.profileId}',
+      jsonEncode(sessions.map((s) => s.toMap()).toList()),
     );
-    return _db!;
-  }
-
-  // ── Profiles ─────────────────────────────────────────────────────────────
-
-  Future<List<UserProfile>> getProfiles() async {
-    final db = await _database;
-    final rows = await db.query('profiles', orderBy: 'createdAt ASC');
-    return rows.map(UserProfile.fromMap).toList();
-  }
-
-  Future<void> saveProfile(UserProfile p) async {
-    final db = await _database;
-    await db.insert('profiles', p.toMap(),
-        conflictAlgorithm: ConflictAlgorithm.replace);
-  }
-
-  Future<void> deleteProfile(String id) async {
-    final db = await _database;
-    await db.delete('profiles', where: 'id = ?', whereArgs: [id]);
-    await db.delete('training_sessions',
-        where: 'profileId = ?', whereArgs: [id]);
-  }
-
-  // ── Sessions ─────────────────────────────────────────────────────────────
-
-  Future<void> saveSession(TrainingSession s) async {
-    final db = await _database;
-    await db.insert('training_sessions', s.toMap(),
-        conflictAlgorithm: ConflictAlgorithm.replace);
-  }
-
-  Future<List<TrainingSession>> getSessionsForProfile(String profileId) async {
-    final db = await _database;
-    final rows = await db.query(
-      'training_sessions',
-      where: 'profileId = ?',
-      whereArgs: [profileId],
-      orderBy: 'startedAt DESC',
-    );
-    return rows.map(TrainingSession.fromMap).toList();
   }
 }
 
-// ── Computed mastery ───────────────────────────────────────────────────────
+// ── Computed mastery ───────────────────────────────────────────────────────────────────────
 
-/// Returns 0–5 stars for an opening (aggregate across all its variations).
 int computeStars(List<TrainingSession> sessions, String openingId) {
   final s = sessions.where((x) => x.openingId == openingId).toList();
   return _starsFromSessions(s);
 }
 
-/// Returns 0–5 stars for a specific (opening, variation) pair.
 int computeVariationStars(
     List<TrainingSession> sessions, String openingId, String? variation) {
   final s = sessions
@@ -126,11 +88,11 @@ int _starsFromSessions(List<TrainingSession> s) {
   return stars;
 }
 
-/// Returns current daily streak (≥1 session per consecutive day).
 int computeStreak(List<TrainingSession> sessions) {
   if (sessions.isEmpty) return 0;
   final dates = sessions
-      .map((s) => DateTime(s.startedAt.year, s.startedAt.month, s.startedAt.day))
+      .map((s) =>
+          DateTime(s.startedAt.year, s.startedAt.month, s.startedAt.day))
       .toSet()
       .toList()
     ..sort((a, b) => b.compareTo(a));
@@ -141,7 +103,8 @@ int computeStreak(List<TrainingSession> sessions) {
 
   if (!dates.contains(todayNorm) && !dates.contains(yesterdayNorm)) return 0;
 
-  DateTime check = dates.contains(todayNorm) ? todayNorm : yesterdayNorm;
+  DateTime check =
+      dates.contains(todayNorm) ? todayNorm : yesterdayNorm;
   int streak = 0;
   for (final d in dates) {
     if (d == check) {

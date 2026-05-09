@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../models/user_profile.dart';
 import '../models/training_session.dart';
 import '../providers/profile_provider.dart';
 import '../providers/progress_provider.dart';
@@ -11,117 +12,50 @@ class ProfileScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final activeProfile = ref.watch(activeProfileProvider);
+    final profileAsync = ref.watch(activeProfileProvider);
 
-    if (activeProfile == null) {
-      return _NoProfileView(
-        onCreate: (name) => _createProfile(context, ref, name),
-      );
-    }
-
-    final sessionsAsync = ref.watch(sessionsProvider);
-
-    return sessionsAsync.when(
+    return profileAsync.when(
       loading: () => const Center(child: CircularProgressIndicator()),
       error: (e, _) => Center(child: Text('Error: $e')),
-      data: (sessions) => _ProfileView(
-        profileName: activeProfile.name,
-        sessions: sessions,
-        onSwitchProfile: () => _showProfilePicker(context, ref),
-      ),
-    );
-  }
-
-  Future<void> _createProfile(
-      BuildContext context, WidgetRef ref, String name) async {
-    final profile =
-        await ref.read(profilesProvider.notifier).createProfile(name);
-    ref.read(activeProfileProvider.notifier).state = profile;
-  }
-
-  void _showProfilePicker(BuildContext context, WidgetRef ref) {
-    showModalBottomSheet(
-      context: context,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (_) => _ProfilePickerSheet(
-        onCreateNew: (name) => _createProfile(context, ref, name),
-      ),
+      data: (activeProfile) {
+        if (activeProfile == null) {
+          return const _ProfilePickerView();
+        }
+        return ref.watch(sessionsProvider).when(
+              loading: () =>
+                  const Center(child: CircularProgressIndicator()),
+              error: (e, _) => Center(child: Text('Error: $e')),
+              data: (sessions) => _ProfileView(
+                profile: activeProfile,
+                sessions: sessions,
+              ),
+            );
+      },
     );
   }
 }
 
-// ── No profile yet ───────────────────────────────────────────────────────
+// ── Netflix-style profile picker ────────────────────────────────────────────────────
 
-class _NoProfileView extends StatefulWidget {
-  final Future<void> Function(String name) onCreate;
-  const _NoProfileView({required this.onCreate});
-
-  @override
-  State<_NoProfileView> createState() => _NoProfileViewState();
-}
-
-class _NoProfileViewState extends State<_NoProfileView> {
-  final _ctrl = TextEditingController();
-  bool _loading = false;
-
-  @override
-  void dispose() {
-    _ctrl.dispose();
-    super.dispose();
-  }
-
-  Future<void> _submit() async {
-    final name = _ctrl.text.trim();
-    if (name.isEmpty) return;
-    setState(() => _loading = true);
-    await widget.onCreate(name);
-    if (mounted) setState(() => _loading = false);
-  }
+class _ProfilePickerView extends StatelessWidget {
+  const _ProfilePickerView();
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(32),
+    return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(Icons.person_add_outlined,
-              size: 64, color: Colors.grey.shade400),
-          const SizedBox(height: 24),
-          const Text('Create your profile',
-              style:
-                  TextStyle(fontSize: 20, fontWeight: FontWeight.w700)),
-          const SizedBox(height: 8),
-          Text(
-            'Track your progress, mastery, and streaks across openings.',
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
+          const Text(
+            "Who's playing?",
+            style: TextStyle(fontSize: 26, fontWeight: FontWeight.w700),
           ),
-          const SizedBox(height: 32),
-          TextField(
-            controller: _ctrl,
-            textCapitalization: TextCapitalization.words,
-            decoration: const InputDecoration(
-              labelText: 'Your name',
-              border: OutlineInputBorder(),
-            ),
-            onSubmitted: (_) => _submit(),
-          ),
-          const SizedBox(height: 16),
-          SizedBox(
-            width: double.infinity,
-            child: FilledButton(
-              onPressed: _loading ? null : _submit,
-              child: _loading
-                  ? const SizedBox(
-                      width: 20,
-                      height: 20,
-                      child: CircularProgressIndicator(
-                          strokeWidth: 2, color: Colors.white))
-                  : const Text('Create profile'),
-            ),
+          const SizedBox(height: 48),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: UserProfile.all
+                .map((p) => _ProfileTile(profile: p))
+                .toList(),
           ),
         ],
       ),
@@ -129,126 +63,57 @@ class _NoProfileViewState extends State<_NoProfileView> {
   }
 }
 
-// ── Profile picker sheet ─────────────────────────────────────────────────────
-
-class _ProfilePickerSheet extends ConsumerStatefulWidget {
-  final Future<void> Function(String name) onCreateNew;
-  const _ProfilePickerSheet({required this.onCreateNew});
+class _ProfileTile extends ConsumerWidget {
+  final UserProfile profile;
+  const _ProfileTile({required this.profile});
 
   @override
-  ConsumerState<_ProfilePickerSheet> createState() =>
-      _ProfilePickerSheetState();
-}
-
-class _ProfilePickerSheetState
-    extends ConsumerState<_ProfilePickerSheet> {
-  final _ctrl = TextEditingController();
-  bool _showCreate = false;
-
-  @override
-  void dispose() {
-    _ctrl.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final profiles = ref.watch(profilesProvider).valueOrNull ?? [];
-    final active = ref.watch(activeProfileProvider);
-
-    return Padding(
-      padding: EdgeInsets.fromLTRB(
-          24, 16, 24, MediaQuery.of(context).viewInsets.bottom + 24),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Center(
-            child: Container(
-              width: 40,
-              height: 4,
-              margin: const EdgeInsets.only(bottom: 16),
-              decoration: BoxDecoration(
-                  color: Colors.grey.shade300,
-                  borderRadius: BorderRadius.circular(2)),
-            ),
-          ),
-          const Text('Switch profile',
-              style:
-                  TextStyle(fontSize: 17, fontWeight: FontWeight.w700)),
-          const SizedBox(height: 12),
-          ...profiles.map((p) => ListTile(
-                contentPadding: EdgeInsets.zero,
-                leading: CircleAvatar(child: Text(p.name[0].toUpperCase())),
-                title: Text(p.name),
-                trailing: p.id == active?.id
-                    ? Icon(Icons.check,
-                        color: Theme.of(context).colorScheme.primary)
-                    : null,
-                onTap: () {
-                  ref.read(activeProfileProvider.notifier).state = p;
-                  Navigator.pop(context);
-                },
-              )),
-          const Divider(),
-          if (!_showCreate)
-            TextButton.icon(
-              icon: const Icon(Icons.add),
-              label: const Text('New profile'),
-              onPressed: () => setState(() => _showCreate = true),
-            )
-          else ...[
-            TextField(
-              controller: _ctrl,
-              autofocus: true,
-              textCapitalization: TextCapitalization.words,
-              decoration: const InputDecoration(
-                labelText: 'Name',
-                border: OutlineInputBorder(),
-                isDense: true,
+  Widget build(BuildContext context, WidgetRef ref) {
+    final color = Theme.of(context).colorScheme.primary;
+    return GestureDetector(
+      onTap: () =>
+          ref.read(activeProfileProvider.notifier).select(profile),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Column(
+          children: [
+            CircleAvatar(
+              radius: 52,
+              backgroundColor: color.withValues(alpha: 0.12),
+              child: Text(
+                profile.name[0],
+                style: TextStyle(
+                  fontSize: 40,
+                  fontWeight: FontWeight.w700,
+                  color: color,
+                ),
               ),
             ),
-            const SizedBox(height: 10),
-            Row(
-              children: [
-                TextButton(
-                  onPressed: () => setState(() => _showCreate = false),
-                  child: const Text('Cancel'),
-                ),
-                const Spacer(),
-                FilledButton(
-                  onPressed: () async {
-                    final name = _ctrl.text.trim();
-                    if (name.isEmpty) return;
-                    await widget.onCreateNew(name);
-                    if (context.mounted) Navigator.pop(context);
-                  },
-                  child: const Text('Create'),
-                ),
-              ],
+            const SizedBox(height: 14),
+            Text(
+              profile.name,
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+              ),
             ),
           ],
-        ],
+        ),
       ),
     );
   }
 }
 
-// ── Main profile view ─────────────────────────────────────────────────────
+// ── Main profile view ───────────────────────────────────────────────────────────────────────
 
-class _ProfileView extends StatelessWidget {
-  final String profileName;
+class _ProfileView extends ConsumerWidget {
+  final UserProfile profile;
   final List<TrainingSession> sessions;
-  final VoidCallback onSwitchProfile;
 
-  const _ProfileView({
-    required this.profileName,
-    required this.sessions,
-    required this.onSwitchProfile,
-  });
+  const _ProfileView({required this.profile, required this.sessions});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final streak = computeStreak(sessions);
     final totalSessions = sessions.length;
     final completedSessions = sessions.where((s) => s.completed).length;
@@ -263,11 +128,10 @@ class _ProfileView extends StatelessWidget {
       slivers: [
         SliverToBoxAdapter(
           child: _ProfileHeader(
-            name: profileName,
+            profile: profile,
             streak: streak,
             totalSessions: totalSessions,
             completedSessions: completedSessions,
-            onSwitchProfile: onSwitchProfile,
           ),
         ),
         if (practicedOpenings.isEmpty)
@@ -282,9 +146,11 @@ class _ProfileView extends StatelessWidget {
                     Icon(Icons.school_outlined,
                         size: 56, color: Colors.grey.shade300),
                     const SizedBox(height: 16),
-                    Text('No training sessions yet',
-                        style: TextStyle(
-                            fontSize: 16, color: Colors.grey.shade500)),
+                    Text(
+                      'No training sessions yet',
+                      style: TextStyle(
+                          fontSize: 16, color: Colors.grey.shade500),
+                    ),
                     const SizedBox(height: 8),
                     Text(
                       'Pick an opening and train in Training mode\nto start tracking progress.',
@@ -320,25 +186,117 @@ class _ProfileView extends StatelessWidget {
   }
 }
 
-// ── Profile header ────────────────────────────────────────────────────────────
+// ── Profile header ──────────────────────────────────────────────────────────────────────
 
-class _ProfileHeader extends StatelessWidget {
-  final String name;
+class _ProfileHeader extends ConsumerWidget {
+  final UserProfile profile;
   final int streak;
   final int totalSessions;
   final int completedSessions;
-  final VoidCallback onSwitchProfile;
 
   const _ProfileHeader({
-    required this.name,
+    required this.profile,
     required this.streak,
     required this.totalSessions,
     required this.completedSessions,
-    required this.onSwitchProfile,
   });
 
+  void _showSwitcher(BuildContext context, WidgetRef ref) {
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (_) => Padding(
+        padding: const EdgeInsets.fromLTRB(24, 20, 24, 40),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: 40,
+              height: 4,
+              margin: const EdgeInsets.only(bottom: 20),
+              decoration: BoxDecoration(
+                color: Colors.grey.shade300,
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+            const Text(
+              "Switch profile",
+              style:
+                  TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+            ),
+            const SizedBox(height: 24),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: UserProfile.all.map((p) {
+                final isActive = p.id == profile.id;
+                final color =
+                    Theme.of(context).colorScheme.primary;
+                return GestureDetector(
+                  onTap: () {
+                    ref
+                        .read(activeProfileProvider.notifier)
+                        .select(p);
+                    Navigator.pop(context);
+                  },
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 20),
+                    child: Column(
+                      children: [
+                        Stack(
+                          alignment: Alignment.bottomRight,
+                          children: [
+                            CircleAvatar(
+                              radius: 40,
+                              backgroundColor: isActive
+                                  ? color.withValues(alpha: 0.2)
+                                  : Colors.grey.shade100,
+                              child: Text(
+                                p.name[0],
+                                style: TextStyle(
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.w700,
+                                  color: isActive
+                                      ? color
+                                      : Colors.grey.shade500,
+                                ),
+                              ),
+                            ),
+                            if (isActive)
+                              CircleAvatar(
+                                radius: 10,
+                                backgroundColor: color,
+                                child: const Icon(Icons.check,
+                                    size: 13, color: Colors.white),
+                              ),
+                          ],
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          p.name,
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: isActive
+                                ? FontWeight.w700
+                                : FontWeight.w400,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              }).toList(),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final primary = Theme.of(context).colorScheme.primary;
     return Container(
       margin: const EdgeInsets.all(16),
@@ -356,7 +314,7 @@ class _ProfileHeader extends StatelessWidget {
                 radius: 24,
                 backgroundColor: primary.withValues(alpha: 0.15),
                 child: Text(
-                  name[0].toUpperCase(),
+                  profile.name[0].toUpperCase(),
                   style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w700,
@@ -368,18 +326,19 @@ class _ProfileHeader extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(name,
+                    Text(profile.name,
                         style: const TextStyle(
                             fontSize: 18, fontWeight: FontWeight.w700)),
                     Text(
-                        '$totalSessions sessions · $completedSessions completions',
-                        style: TextStyle(
-                            fontSize: 12, color: Colors.grey.shade600)),
+                      '$totalSessions sessions · $completedSessions completions',
+                      style: TextStyle(
+                          fontSize: 12, color: Colors.grey.shade600),
+                    ),
                   ],
                 ),
               ),
               TextButton(
-                onPressed: onSwitchProfile,
+                onPressed: () => _showSwitcher(context, ref),
                 child: const Text('Switch'),
               ),
             ],
@@ -417,7 +376,7 @@ class _ProfileHeader extends StatelessWidget {
   }
 }
 
-// ── Opening progress card ────────────────────────────────────────────────────
+// ── Opening progress card ───────────────────────────────────────────────────────────────────────────────────
 
 class _OpeningProgressCard extends StatefulWidget {
   final String openingId;
@@ -441,11 +400,13 @@ class _OpeningProgressCardState extends State<_OpeningProgressCard> {
   @override
   Widget build(BuildContext context) {
     final stars = computeStars(widget.sessions, widget.openingId);
-    final completions = widget.sessions.where((s) => s.completed).length;
+    final completions =
+        widget.sessions.where((s) => s.completed).length;
     final lastSession = widget.sessions
         .map((s) => s.startedAt)
         .reduce((a, b) => a.isAfter(b) ? a : b);
-    final daysSince = DateTime.now().difference(lastSession).inDays;
+    final daysSince =
+        DateTime.now().difference(lastSession).inDays;
     final lastLabel = daysSince == 0
         ? 'Today'
         : daysSince == 1
@@ -496,7 +457,9 @@ class _OpeningProgressCardState extends State<_OpeningProgressCard> {
                   ),
                   if (byVariation.length > 1)
                     Icon(
-                      _expanded ? Icons.expand_less : Icons.expand_more,
+                      _expanded
+                          ? Icons.expand_less
+                          : Icons.expand_more,
                       color: Colors.grey.shade500,
                     ),
                 ],
@@ -508,7 +471,8 @@ class _OpeningProgressCardState extends State<_OpeningProgressCard> {
             ...byVariation.entries.map((e) {
               final vStars = computeVariationStars(
                   widget.sessions, widget.openingId, e.key);
-              final vCompletions = e.value.where((s) => s.completed).length;
+              final vCompletions =
+                  e.value.where((s) => s.completed).length;
               return Padding(
                 padding: const EdgeInsets.symmetric(
                     horizontal: 16, vertical: 10),
