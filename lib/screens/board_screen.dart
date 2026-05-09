@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/arrow.dart';
+import '../models/board_state.dart';
 import '../models/opening_status.dart';
 import '../providers/board_provider.dart';
 import '../providers/opening_provider.dart';
@@ -10,14 +11,14 @@ import '../services/chess_service.dart';
 import '../services/explanation_service.dart';
 import '../services/stockfish_service.dart';
 import '../widgets/board/chess_board_widget.dart';
-import '../models/board_state.dart';
 import '../widgets/banner_overlay.dart';
 import '../widgets/eval_bar.dart';
 
-// Desktop breakpoint — matches Chess.com's mobile/desktop split
 const _kDesktop = 700.0;
 const _kSidePanel = 320.0;
 const _kEvalBar = 18.0;
+const _kMinPanel = 200.0;
+const _kMaxPanel = 460.0;
 
 final _panelOpenProvider = StateProvider<bool>((ref) => false);
 
@@ -36,25 +37,26 @@ class BoardScreen extends ConsumerWidget {
 
 // ── Shared helpers ────────────────────────────────────────────────────────────
 
-/// Build engine arrows from top UCI moves when off-book.
+/// Build engine arrows, validating each move against the CURRENT fen so stale
+/// arrows from a previous position are never shown after a move is played.
 List<Arrow> _engineArrows(List<String> uciMoves, String fen) {
   const ranks = [ArrowRank.gold, ArrowRank.silver, ArrowRank.bronze];
   final arrows = <Arrow>[];
   for (int i = 0; i < uciMoves.length && i < 3; i++) {
     final uci = uciMoves[i];
     if (uci.length < 4) continue;
+    final from = uci.substring(0, 2);
+    final to = uci.substring(2, 4);
+    // Skip if this move is not legal in the current position (stale from prev pos)
+    if (!ChessService.isLegalMove(fen, from, to)) continue;
     final san = ChessService.uciToSan(fen, uci) ?? uci;
-    arrows.add(Arrow(
-      fromSquare: uci.substring(0, 2),
-      toSquare: uci.substring(2, 4),
-      rank: ranks[i],
-      san: san,
-    ));
+    arrows.add(Arrow(fromSquare: from, toSquare: to, rank: ranks[i], san: san));
   }
   return arrows;
 }
 
-/// The board + eval bar, sized to fill whatever space is given.
+// ── Board area (shared) ───────────────────────────────────────────────────────
+
 class _BoardArea extends ConsumerWidget {
   const _BoardArea();
 
@@ -64,10 +66,10 @@ class _BoardArea extends ConsumerWidget {
     final status = ref.watch(boardProvider.select((s) => s.status));
     final fen = ref.watch(boardProvider.select((s) => s.fen));
 
-    // Show engine arrows whenever the book has no arrows (off-book or complete)
-    final extraArrows = (status == OpeningStatus.offBook || status == OpeningStatus.complete)
-        ? _engineArrows(engine.topMovesUci, fen)
-        : <Arrow>[];
+    final extraArrows =
+        (status == OpeningStatus.offBook || status == OpeningStatus.complete)
+            ? _engineArrows(engine.topMovesUci, fen)
+            : <Arrow>[];
 
     return LayoutBuilder(builder: (context, constraints) {
       final boardSize = min(
@@ -94,10 +96,10 @@ class _BoardArea extends ConsumerWidget {
   }
 }
 
-// ── Analysis panel content ────────────────────────────────────────────────────
+// ── Analysis panel content (used in both desktop side panel and mobile sheet) ─
 
 class _AnalysisPanel extends ConsumerWidget {
-  const _AnalysisPanel();
+  const _AnalysisPanel({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -109,17 +111,18 @@ class _AnalysisPanel extends ConsumerWidget {
     return DefaultTabController(
       length: 2,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const TabBar(
-            tabs: [
-              Tab(text: 'Analysis'),
-              Tab(text: 'Moves'),
-            ],
+          TabBar(
+            tabs: const [Tab(text: 'Analysis'), Tab(text: 'Moves')],
+            indicatorColor: Theme.of(context).colorScheme.primary,
+            labelColor: Theme.of(context).colorScheme.primary,
+            unselectedLabelColor: Colors.grey.shade600,
           ),
           Expanded(
             child: TabBarView(
               children: [
-                // ── Analysis tab ──────────────────────────────────────────
+                // ── Analysis tab ────────────────────────────────────────
                 SingleChildScrollView(
                   padding: const EdgeInsets.all(16),
                   child: Column(
@@ -137,7 +140,7 @@ class _AnalysisPanel extends ConsumerWidget {
                     ],
                   ),
                 ),
-                // ── Moves tab ─────────────────────────────────────────────
+                // ── Moves tab ───────────────────────────────────────────
                 SingleChildScrollView(
                   padding: const EdgeInsets.fromLTRB(16, 16, 16, 32),
                   child: Column(
@@ -146,25 +149,19 @@ class _AnalysisPanel extends ConsumerWidget {
                       Text(
                         opening?.name ?? 'Move List',
                         style: const TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                        ),
+                            fontSize: 15, fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(height: 12),
-                      if (moveList.isEmpty)
-                        Text(
-                          'No moves played yet.',
-                          style: TextStyle(color: Colors.grey.shade600),
-                        )
-                      else
-                        Text(
-                          moveList,
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontFamily: 'monospace',
-                            height: 1.7,
-                          ),
-                        ),
+                      moveList.isEmpty
+                          ? Text('No moves played yet.',
+                              style: TextStyle(color: Colors.grey.shade600))
+                          : Text(
+                              moveList,
+                              style: const TextStyle(
+                                  fontSize: 14,
+                                  fontFamily: 'monospace',
+                                  height: 1.7),
+                            ),
                     ],
                   ),
                 ),
@@ -177,12 +174,11 @@ class _AnalysisPanel extends ConsumerWidget {
   }
 }
 
-// ── Analysis content (in-book or off-book) ────────────────────────────────────
+// ── Analysis content ──────────────────────────────────────────────────────────
 
 class _AnalysisContent extends StatelessWidget {
   final BoardState boardState;
   final EngineState engine;
-
   const _AnalysisContent({required this.boardState, required this.engine});
 
   @override
@@ -192,23 +188,26 @@ class _AnalysisContent extends StatelessWidget {
           Icons.check_circle_outline,
           'Opening complete — engine analysis continues below.',
         ),
-      OpeningStatus.offBook => _OffBookContent(engine: engine, fen: boardState.fen),
+      OpeningStatus.offBook =>
+        _OffBookContent(engine: engine, fen: boardState.fen),
       OpeningStatus.inBook => boardState.arrows.isEmpty
-          ? _emptyState(Icons.hourglass_empty, 'No suggestions for this position.')
+          ? _emptyState(
+              Icons.hourglass_empty, 'No suggestions for this position.')
           : Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Book moves',
+                  'BOOK MOVES',
                   style: TextStyle(
-                    fontSize: 12,
+                    fontSize: 11,
                     fontWeight: FontWeight.w600,
                     color: Colors.grey.shade500,
                     letterSpacing: 0.8,
                   ),
                 ),
                 const SizedBox(height: 8),
-                ...boardState.arrows.map<Widget>((a) => _BookMoveRow(arrow: a)),
+                ...boardState.arrows
+                    .map<Widget>((a) => _BookMoveRow(arrow: a)),
               ],
             ),
     };
@@ -219,7 +218,9 @@ class _AnalysisContent extends StatelessWidget {
           Icon(icon, color: Colors.grey.shade400, size: 18),
           const SizedBox(width: 10),
           Expanded(
-            child: Text(msg, style: TextStyle(color: Colors.grey.shade600, fontSize: 13)),
+            child: Text(msg,
+                style:
+                    TextStyle(color: Colors.grey.shade600, fontSize: 13)),
           ),
         ],
       );
@@ -230,7 +231,6 @@ class _AnalysisContent extends StatelessWidget {
 class _OffBookContent extends StatelessWidget {
   final EngineState engine;
   final String fen;
-
   const _OffBookContent({required this.engine, required this.fen});
 
   @override
@@ -267,18 +267,16 @@ class _OffBookContent extends StatelessWidget {
             Icon(severityIcon, size: 18, color: severityColor),
             const SizedBox(width: 8),
             Expanded(
-              child: Text(
-                explanation.verdict,
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 14,
-                  color: severityColor,
-                ),
-              ),
+              child: Text(explanation.verdict,
+                  style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 14,
+                      color: severityColor)),
             ),
             if (explanation.evalDisplay != null)
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                 decoration: BoxDecoration(
                   color: severityColor.withValues(alpha: 0.12),
                   borderRadius: BorderRadius.circular(4),
@@ -286,26 +284,22 @@ class _OffBookContent extends StatelessWidget {
                 child: Text(
                   explanation.evalDisplay!,
                   style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
-                    color: severityColor,
-                    fontFamily: 'monospace',
-                  ),
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                      color: severityColor,
+                      fontFamily: 'monospace'),
                 ),
               ),
           ],
         ),
         const SizedBox(height: 8),
-        Text(
-          explanation.detail,
-          style: TextStyle(fontSize: 13, color: Colors.grey.shade800, height: 1.5),
-        ),
+        Text(explanation.detail,
+            style: TextStyle(
+                fontSize: 13, color: Colors.grey.shade800, height: 1.5)),
         if (explanation.depth != null) ...[
           const SizedBox(height: 6),
-          Text(
-            'Engine depth: ${explanation.depth}',
-            style: TextStyle(fontSize: 11, color: Colors.grey.shade500),
-          ),
+          Text('Engine depth: ${explanation.depth}',
+              style: TextStyle(fontSize: 11, color: Colors.grey.shade500)),
         ],
       ],
     );
@@ -318,25 +312,21 @@ class _EngineLines extends StatelessWidget {
   final List<String> topMovesUci;
   final String fen;
   final EngineEval? eval;
-
-  const _EngineLines({
-    required this.topMovesUci,
-    required this.fen,
-    required this.eval,
-  });
+  const _EngineLines(
+      {required this.topMovesUci, required this.fen, required this.eval});
 
   @override
   Widget build(BuildContext context) {
     const ranks = [ArrowRank.gold, ArrowRank.silver, ArrowRank.bronze];
-    final labels = ['Best', 'Good', 'Alternative'];
+    const labels = ['Best', 'Good', 'Alternative'];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Engine lines${eval != null ? ' · depth ${eval!.depth}' : ''}',
+          'ENGINE LINES${eval != null ? ' · depth ${eval!.depth}' : ''}',
           style: TextStyle(
-            fontSize: 12,
+            fontSize: 11,
             fontWeight: FontWeight.w600,
             color: Colors.grey.shade500,
             letterSpacing: 0.8,
@@ -344,7 +334,8 @@ class _EngineLines extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         ...List.generate(min(topMovesUci.length, 3), (i) {
-          final san = ChessService.uciToSan(fen, topMovesUci[i]) ?? topMovesUci[i];
+          final san =
+              ChessService.uciToSan(fen, topMovesUci[i]) ?? topMovesUci[i];
           return Padding(
             padding: const EdgeInsets.only(bottom: 6),
             child: Row(
@@ -354,27 +345,19 @@ class _EngineLines extends StatelessWidget {
                   height: 8,
                   margin: const EdgeInsets.only(right: 8, top: 1),
                   decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: ranks[i].color,
-                  ),
+                      shape: BoxShape.circle, color: ranks[i].color),
                 ),
-                Text(
-                  san,
-                  style: const TextStyle(
-                    fontFamily: 'monospace',
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
-                  ),
-                ),
+                Text(san,
+                    style: const TextStyle(
+                        fontFamily: 'monospace',
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14)),
                 const SizedBox(width: 6),
-                Text(
-                  labels[i],
-                  style: TextStyle(
-                    fontSize: 11,
-                    color: ranks[i].color,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
+                Text(labels[i],
+                    style: TextStyle(
+                        fontSize: 11,
+                        color: ranks[i].color,
+                        fontWeight: FontWeight.w600)),
               ],
             ),
           );
@@ -407,39 +390,33 @@ class _BookMoveRow extends StatelessWidget {
             width: 8,
             height: 8,
             margin: const EdgeInsets.only(top: 4, right: 10),
-            decoration: BoxDecoration(shape: BoxShape.circle, color: arrow.rank.color),
+            decoration:
+                BoxDecoration(shape: BoxShape.circle, color: arrow.rank.color),
           ),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  children: [
-                    Text(
-                      arrow.san,
+                Row(children: [
+                  Text(arrow.san,
                       style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14,
-                        fontFamily: 'monospace',
-                      ),
-                    ),
-                    const SizedBox(width: 6),
-                    Text(
-                      rankLabel,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                          fontFamily: 'monospace')),
+                  const SizedBox(width: 6),
+                  Text(rankLabel,
                       style: TextStyle(
-                        fontSize: 11,
-                        color: arrow.rank.color,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ],
-                ),
+                          fontSize: 11,
+                          color: arrow.rank.color,
+                          fontWeight: FontWeight.w600)),
+                ]),
                 if (arrow.explanation != null) ...[
                   const SizedBox(height: 3),
-                  Text(
-                    arrow.explanation!,
-                    style: TextStyle(fontSize: 13, color: Colors.grey.shade700, height: 1.4),
-                  ),
+                  Text(arrow.explanation!,
+                      style: TextStyle(
+                          fontSize: 13,
+                          color: Colors.grey.shade700,
+                          height: 1.4)),
                 ],
               ],
             ),
@@ -460,6 +437,8 @@ class _DesktopLayout extends ConsumerWidget {
     final boardState = ref.watch(boardProvider);
     final opening = ref.watch(selectedOpeningProvider);
     final panelOpen = ref.watch(_panelOpenProvider);
+    final canUndo =
+        ref.watch(boardProvider.select((s) => s.moveHistory.isNotEmpty));
 
     return Scaffold(
       appBar: AppBar(
@@ -471,19 +450,18 @@ class _DesktopLayout extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
-              opening?.name ?? 'Opening Trainer',
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-            ),
+            Text(opening?.name ?? 'Opening Trainer',
+                style: const TextStyle(
+                    fontSize: 16, fontWeight: FontWeight.w600)),
             if (boardState.variation != null)
-              Text(
-                boardState.variation!,
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
-                  fontWeight: FontWeight.normal,
-                ),
-              ),
+              Text(boardState.variation!,
+                  style: TextStyle(
+                      fontSize: 12,
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onSurface
+                          .withValues(alpha: 0.6),
+                      fontWeight: FontWeight.normal)),
           ],
         ),
         centerTitle: false,
@@ -491,7 +469,7 @@ class _DesktopLayout extends ConsumerWidget {
           IconButton(
             icon: const Icon(Icons.undo),
             tooltip: 'Undo',
-            onPressed: ref.watch(boardProvider.select((s) => s.moveHistory.isNotEmpty))
+            onPressed: canUndo
                 ? () => ref.read(boardProvider.notifier).undo()
                 : null,
           ),
@@ -503,7 +481,9 @@ class _DesktopLayout extends ConsumerWidget {
           IconButton(
             icon: Icon(
               panelOpen ? Icons.analytics : Icons.analytics_outlined,
-              color: panelOpen ? Theme.of(context).colorScheme.primary : null,
+              color: panelOpen
+                  ? Theme.of(context).colorScheme.primary
+                  : null,
             ),
             tooltip: panelOpen ? 'Hide panel' : 'Show analysis & moves',
             onPressed: () =>
@@ -515,9 +495,8 @@ class _DesktopLayout extends ConsumerWidget {
       body: Column(
         children: [
           BannerOverlay(
-            status: boardState.status,
-            openingName: opening?.name ?? '',
-          ),
+              status: boardState.status,
+              openingName: opening?.name ?? ''),
           Expanded(
             child: Row(
               children: [
@@ -526,10 +505,8 @@ class _DesktopLayout extends ConsumerWidget {
                   Container(
                     width: _kSidePanel,
                     decoration: BoxDecoration(
-                      border: Border(
-                        left: BorderSide(color: Colors.grey.shade300),
-                      ),
-                    ),
+                        border: Border(
+                            left: BorderSide(color: Colors.grey.shade300))),
                     child: const _AnalysisPanel(),
                   ),
               ],
@@ -543,14 +520,39 @@ class _DesktopLayout extends ConsumerWidget {
 
 // ── Mobile layout ─────────────────────────────────────────────────────────────
 
-class _MobileLayout extends ConsumerWidget {
+class _MobileLayout extends ConsumerStatefulWidget {
   const _MobileLayout();
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<_MobileLayout> createState() => _MobileLayoutState();
+}
+
+class _MobileLayoutState extends ConsumerState<_MobileLayout> {
+  bool _panelOpen = false;
+  double _panelHeight = _kMinPanel;
+
+  void _togglePanel() => setState(() => _panelOpen = !_panelOpen);
+
+  void _onDrag(DragUpdateDetails d) {
+    setState(() {
+      _panelHeight =
+          (_panelHeight - d.delta.dy).clamp(_kMinPanel, _kMaxPanel);
+    });
+  }
+
+  void _onDragEnd(DragEndDetails d) {
+    // Snap closed if dragged down past minimum
+    if (_panelHeight <= _kMinPanel + 20 && d.primaryVelocity != null && d.primaryVelocity! > 200) {
+      setState(() => _panelOpen = false);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final boardState = ref.watch(boardProvider);
     final opening = ref.watch(selectedOpeningProvider);
-    final canUndo = ref.watch(boardProvider.select((s) => s.moveHistory.isNotEmpty));
+    final canUndo =
+        ref.watch(boardProvider.select((s) => s.moveHistory.isNotEmpty));
 
     return Scaffold(
       appBar: AppBar(
@@ -562,19 +564,18 @@ class _MobileLayout extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
-              opening?.name ?? 'Opening Trainer',
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-            ),
+            Text(opening?.name ?? 'Opening Trainer',
+                style: const TextStyle(
+                    fontSize: 16, fontWeight: FontWeight.w600)),
             if (boardState.variation != null)
-              Text(
-                boardState.variation!,
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
-                  fontWeight: FontWeight.normal,
-                ),
-              ),
+              Text(boardState.variation!,
+                  style: TextStyle(
+                      fontSize: 12,
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onSurface
+                          .withValues(alpha: 0.6),
+                      fontWeight: FontWeight.normal)),
           ],
         ),
         centerTitle: false,
@@ -582,10 +583,55 @@ class _MobileLayout extends ConsumerWidget {
       body: Column(
         children: [
           BannerOverlay(
-            status: boardState.status,
-            openingName: opening?.name ?? '',
-          ),
+              status: boardState.status,
+              openingName: opening?.name ?? ''),
+          // Board fills all space not taken by the panel
           const Expanded(child: _BoardArea()),
+          // Inline panel — pushes board up, never overlaps it
+          AnimatedSize(
+            duration: const Duration(milliseconds: 220),
+            curve: Curves.easeOut,
+            child: _panelOpen
+                ? GestureDetector(
+                    onVerticalDragUpdate: _onDrag,
+                    onVerticalDragEnd: _onDragEnd,
+                    child: Container(
+                      height: _panelHeight,
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.surface,
+                        border: Border(
+                            top: BorderSide(color: Colors.grey.shade300)),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withValues(alpha: 0.08),
+                            blurRadius: 8,
+                            offset: const Offset(0, -2),
+                          ),
+                        ],
+                      ),
+                      child: Column(
+                        children: [
+                          // Drag handle
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8),
+                            child: Center(
+                              child: Container(
+                                width: 40,
+                                height: 4,
+                                decoration: BoxDecoration(
+                                  color: Colors.grey.shade400,
+                                  borderRadius: BorderRadius.circular(2),
+                                ),
+                              ),
+                            ),
+                          ),
+                          const Expanded(child: _AnalysisPanel()),
+                        ],
+                      ),
+                    ),
+                  )
+                : const SizedBox.shrink(),
+          ),
         ],
       ),
       bottomNavigationBar: SafeArea(
@@ -593,7 +639,8 @@ class _MobileLayout extends ConsumerWidget {
           height: 52,
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.surface,
-            border: Border(top: BorderSide(color: Colors.grey.shade300)),
+            border:
+                Border(top: BorderSide(color: Colors.grey.shade300)),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -611,32 +658,19 @@ class _MobileLayout extends ConsumerWidget {
                 onPressed: () => ref.read(boardProvider.notifier).reset(),
               ),
               IconButton(
-                icon: const Icon(Icons.analytics_outlined),
-                tooltip: 'Analysis & moves',
-                onPressed: () => _showPanel(context, ref),
+                icon: Icon(
+                  _panelOpen
+                      ? Icons.analytics
+                      : Icons.analytics_outlined,
+                  color: _panelOpen
+                      ? Theme.of(context).colorScheme.primary
+                      : null,
+                ),
+                tooltip: _panelOpen ? 'Hide analysis' : 'Show analysis',
+                onPressed: _togglePanel,
               ),
             ],
           ),
-        ),
-      ),
-    );
-  }
-
-  void _showPanel(BuildContext context, WidgetRef ref) {
-    showModalBottomSheet<void>(
-      context: context,
-      isScrollControlled: true,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-      ),
-      builder: (ctx) => UncontrolledProviderScope(
-        container: ProviderScope.containerOf(context),
-        child: DraggableScrollableSheet(
-          expand: false,
-          initialChildSize: 0.55,
-          minChildSize: 0.3,
-          maxChildSize: 0.9,
-          builder: (_, scrollController) => const _AnalysisPanel(),
         ),
       ),
     );
