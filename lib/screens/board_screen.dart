@@ -139,6 +139,7 @@ List<Arrow> _engineArrows(List<String> uciMoves, String fen) {
     if (uci.length < 4) continue;
     final from = uci.substring(0, 2);
     final to = uci.substring(2, 4);
+    // Skip if this move is not legal in the current position (stale from prev pos)
     if (!ChessService.isLegalMove(fen, from, to)) continue;
     final san = ChessService.uciToSan(fen, uci) ?? uci;
     arrows.add(Arrow(fromSquare: from, toSquare: to, rank: ranks[i], san: san));
@@ -159,6 +160,7 @@ class _BoardArea extends ConsumerWidget {
     final flipped = ref.watch(_boardFlippedProvider);
     final training = ref.watch(_trainingModeProvider);
 
+    // In training mode: no arrows at all — player must find the best move
     final extraArrows = (!training &&
             (status == OpeningStatus.offBook ||
                 status == OpeningStatus.complete))
@@ -213,6 +215,7 @@ class _AnalysisPanel extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          // ── Mode toggle ─────────────────────────────────────────────
           _ModeToggle(training: training),
           TabBar(
             tabs: const [Tab(text: 'Analysis'), Tab(text: 'Moves')],
@@ -223,6 +226,7 @@ class _AnalysisPanel extends ConsumerWidget {
           Expanded(
             child: TabBarView(
               children: [
+                // ── Analysis tab ────────────────────────────────────────
                 SingleChildScrollView(
                   padding: const EdgeInsets.all(16),
                   child: Column(
@@ -249,6 +253,7 @@ class _AnalysisPanel extends ConsumerWidget {
                     ],
                   ),
                 ),
+                // ── Moves tab ───────────────────────────────────────────
                 SingleChildScrollView(
                   padding: const EdgeInsets.fromLTRB(16, 16, 16, 32),
                   child: Column(
@@ -377,6 +382,7 @@ class _TrainingFeedback extends StatelessWidget {
     final eval = boardState.lastMoveEval;
 
     if (eval == null) {
+      // No move played yet — prompt the player
       final turn = ChessService.isWhiteTurn(boardState.fen) ? 'White' : 'Black';
       return _prompt(context, 'Find the best move for $turn');
     }
@@ -441,14 +447,14 @@ class _TrainingFeedback extends StatelessWidget {
       children: [
         Row(
           children: [
-            Icon(Icons.check_circle_outline, size: 18, color: Colors.amber.shade700),
+            Icon(Icons.fork_right, size: 18, color: Colors.teal.shade600),
             const SizedBox(width: 8),
             Text(
-              '${eval.playedSan} — good alternative',
+              '${eval.playedSan} — you entered a variant!',
               style: TextStyle(
                 fontWeight: FontWeight.w700,
                 fontSize: 14,
-                color: Colors.amber.shade800,
+                color: Colors.teal.shade700,
                 fontFamily: 'monospace',
               ),
             ),
@@ -456,8 +462,8 @@ class _TrainingFeedback extends StatelessWidget {
         ),
         const SizedBox(height: 6),
         Text(
-          'Valid move, but the main line is ${eval.bestSan}. '
-          'Try to find the top choice next time!',
+          'This is a fully valid path through the opening. '
+          'The main line goes ${eval.bestSan} — exploring variants is how you really learn!',
           style: TextStyle(fontSize: 13, color: Colors.grey.shade700),
         ),
       ],
@@ -495,6 +501,7 @@ class _TrainingFeedback extends StatelessWidget {
             style: TextStyle(fontSize: 13, color: Colors.grey.shade700),
           ),
         ],
+        // Also show engine analysis so the player understands how bad/good it was
         if (engine.isReady) ...[
           const SizedBox(height: 16),
           _OffBookContent(engine: engine, fen: boardState.fen),
@@ -934,6 +941,7 @@ class _MobileLayoutState extends ConsumerState<_MobileLayout> {
   }
 
   void _onDragEnd(DragEndDetails d) {
+    // Snap closed if dragged down past minimum
     if (_panelHeight <= _kMinPanel + 20 && d.primaryVelocity != null && d.primaryVelocity! > 200) {
       setState(() => _panelOpen = false);
     }
@@ -963,7 +971,9 @@ class _MobileLayoutState extends ConsumerState<_MobileLayout> {
       ),
       body: Column(
         children: [
+          // Board fills all space not taken by the panel
           const Expanded(child: _BoardArea()),
+          // Inline panel — pushes board up, never overlaps it
           AnimatedSize(
             duration: const Duration(milliseconds: 220),
             curve: Curves.easeOut,
@@ -987,6 +997,7 @@ class _MobileLayoutState extends ConsumerState<_MobileLayout> {
                       ),
                       child: Column(
                         children: [
+                          // Drag handle
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8),
                             child: Center(
