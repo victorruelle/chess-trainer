@@ -23,7 +23,7 @@ class ProfileScreen extends ConsumerWidget {
 
     return sessionsAsync.when(
       loading: () => const Center(child: CircularProgressIndicator()),
-      error: (e, _) => Center(child: Text('Error: \$e')),
+      error: (e, _) => Center(child: Text('Error: $e')),
       data: (sessions) => _ProfileView(
         profileName: activeProfile.name,
         sessions: sessions,
@@ -197,7 +197,7 @@ class _ProfilePickerSheetState
               label: const Text('New profile'),
               onPressed: () => setState(() => _showCreate = true),
             )
-          else ...[
+          else ..[
             TextField(
               controller: _ctrl,
               autofocus: true,
@@ -372,7 +372,7 @@ class _ProfileHeader extends StatelessWidget {
                         style: const TextStyle(
                             fontSize: 18, fontWeight: FontWeight.w700)),
                     Text(
-                        '\$totalSessions sessions · \$completedSessions completions',
+                        '$totalSessions sessions · $completedSessions completions',
                         style: TextStyle(
                             fontSize: 12, color: Colors.grey.shade600)),
                   ],
@@ -400,7 +400,7 @@ class _ProfileHeader extends StatelessWidget {
                   const Text('🔥', style: TextStyle(fontSize: 22)),
                   const SizedBox(width: 8),
                   Text(
-                    '\$streak-day streak',
+                    '$streak-day streak',
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w700,
@@ -450,7 +450,7 @@ class _OpeningProgressCardState extends State<_OpeningProgressCard> {
         ? 'Today'
         : daysSince == 1
             ? 'Yesterday'
-            : '\$daysSince days ago';
+            : '$daysSince days ago';
 
     final Map<String?, List<TrainingSession>> byVariation = {};
     for (final s in widget.sessions) {
@@ -484,7 +484,7 @@ class _OpeningProgressCardState extends State<_OpeningProgressCard> {
                             StarRating(stars: stars),
                             const SizedBox(width: 10),
                             Text(
-                              '\$completions completion\${completions == 1 ? '' : 's'} · \$lastLabel',
+                              '$completions completion${completions == 1 ? "" : "s"} · $lastLabel',
                               style: TextStyle(
                                   fontSize: 11,
                                   color: Colors.grey.shade600),
@@ -526,7 +526,7 @@ class _OpeningProgressCardState extends State<_OpeningProgressCard> {
                                 fontWeight: FontWeight.w500),
                           ),
                           Text(
-                            '\$vCompletions completion\${vCompletions == 1 ? '' : 's'}',
+                            '$vCompletions completion${vCompletions == 1 ? "" : "s"}',
                             style: TextStyle(
                                 fontSize: 11,
                                 color: Colors.grey.shade500),

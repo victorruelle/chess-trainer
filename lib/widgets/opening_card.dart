@@ -53,7 +53,7 @@ class OpeningCard extends ConsumerWidget {
                     Row(
                       children: [
                         Text(
-                          'ECO \${opening.eco} · \${isWhite ? 'White' : 'Black'}',
+                          'ECO ${opening.eco} · ${isWhite ? "White" : "Black"}',
                           style: TextStyle(
                               fontSize: 12, color: Colors.grey.shade600),
                         ),
