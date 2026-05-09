@@ -99,7 +99,7 @@ class _BoardArea extends ConsumerWidget {
 // ── Analysis panel content (used in both desktop side panel and mobile sheet) ─
 
 class _AnalysisPanel extends ConsumerWidget {
-  const _AnalysisPanel({super.key});
+  const _AnalysisPanel();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -129,7 +129,9 @@ class _AnalysisPanel extends ConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       _AnalysisContent(boardState: boardState, engine: engine),
-                      if (engine.isReady && engine.topMovesUci.isNotEmpty) ...[
+                      if (engine.isReady &&
+                          (boardState.status == OpeningStatus.offBook ||
+                              boardState.status == OpeningStatus.complete)) ...[
                         const SizedBox(height: 16),
                         _EngineLines(
                           topMovesUci: engine.topMovesUci,
@@ -235,7 +237,27 @@ class _OffBookContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bestMoveSan = engine.eval?.bestMove != null
+    if (engine.eval == null) {
+      return Row(
+        children: [
+          SizedBox(
+            width: 16,
+            height: 16,
+            child: CircularProgressIndicator(
+              strokeWidth: 2,
+              color: Colors.grey.shade500,
+            ),
+          ),
+          const SizedBox(width: 10),
+          Text(
+            'Analysing position…',
+            style: TextStyle(color: Colors.grey.shade600, fontSize: 13),
+          ),
+        ],
+      );
+    }
+
+    final bestMoveSan = engine.eval!.bestMove != null
         ? ChessService.uciToSan(fen, engine.eval!.bestMove!)
         : null;
     final playerWasWhite = !ChessService.isWhiteTurn(fen);
@@ -319,6 +341,41 @@ class _EngineLines extends StatelessWidget {
   Widget build(BuildContext context) {
     const ranks = [ArrowRank.gold, ArrowRank.silver, ArrowRank.bronze];
     const labels = ['Best', 'Good', 'Alternative'];
+
+    if (topMovesUci.isEmpty) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'ENGINE LINES',
+            style: TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.w600,
+              color: Colors.grey.shade500,
+              letterSpacing: 0.8,
+            ),
+          ),
+          const SizedBox(height: 12),
+          Row(
+            children: [
+              SizedBox(
+                width: 16,
+                height: 16,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  color: Colors.grey.shade500,
+                ),
+              ),
+              const SizedBox(width: 10),
+              Text(
+                'Calculating…',
+                style: TextStyle(color: Colors.grey.shade600, fontSize: 13),
+              ),
+            ],
+          ),
+        ],
+      );
+    }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

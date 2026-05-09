@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../services/stockfish_service.dart';
 import 'board_provider.dart';
@@ -21,8 +22,9 @@ class EngineState {
     List<String>? topMovesUci,
     bool? isReady,
     bool clearPrev = false,
+    bool clearEval = false,
   }) => EngineState(
-    eval: eval ?? this.eval,
+    eval: clearEval ? null : (eval ?? this.eval),
     prevEval: clearPrev ? null : (prevEval ?? this.prevEval),
     topMovesUci: topMovesUci ?? this.topMovesUci,
     isReady: isReady ?? this.isReady,
@@ -48,7 +50,7 @@ class EngineNotifier extends Notifier<EngineState> {
 
     ref.listen(boardProvider.select((s) => s.fen), (prev, next) {
       if (prev != next) {
-        state = state.copyWith(prevEval: state.eval, topMovesUci: []);
+        state = state.copyWith(prevEval: state.eval, topMovesUci: [], clearEval: true);
         _evaluate(next);
       }
     });
@@ -59,7 +61,7 @@ class EngineNotifier extends Notifier<EngineState> {
   void _evaluate(String fen) {
     _service.evaluate(
       fen,
-      depth: 20,
+      depth: kIsWeb ? 10 : 15,
       onUpdate: (eval) => state = state.copyWith(eval: eval),
       onTopMoves: (moves) => state = state.copyWith(topMovesUci: moves),
     );
