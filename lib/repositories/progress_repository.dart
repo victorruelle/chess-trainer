@@ -67,14 +67,21 @@ int computeVariationStars(
 int _starsFromSessions(List<TrainingSession> s) {
   if (s.isEmpty) return 0;
   final completions = s.where((x) => x.completed).length;
-  if (completions == 0) return 0;
+  // Partial sessions with ≥3 moves count fractionally (accuracy × 0.5 each)
+  // so that practicing without finishing still shows 1 star of progress.
+  final effectiveCompletions = completions +
+      s
+          .where((x) => !x.completed && x.totalMoves >= 3)
+          .fold(0.0, (sum, x) => sum + x.accuracy * 0.5);
+  if (effectiveCompletions == 0) return 0;
   final bestAccuracy = s.map((x) => x.accuracy).reduce(max);
   final lastPracticed =
       s.map((x) => x.startedAt).reduce((a, b) => a.isAfter(b) ? a : b);
   final daysSince = DateTime.now().difference(lastPracticed).inDays;
 
+  // Stars 2+ require at least one full completion.
   int stars = 1;
-  if (completions >= 3 || bestAccuracy >= 0.7) stars = max(stars, 2);
+  if (completions >= 1 && (completions >= 3 || bestAccuracy >= 0.7)) stars = max(stars, 2);
   if (completions >= 5 && bestAccuracy >= 0.8) stars = max(stars, 3);
   if (completions >= 8 && bestAccuracy >= 0.9) stars = max(stars, 4);
   if (completions >= 12 && bestAccuracy >= 0.95) stars = max(stars, 5);
